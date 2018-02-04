@@ -1,4 +1,4 @@
-package com.stvjuliengmail.smartmeds;
+package com.stvjuliengmail.smartmeds.model;
 
 /**
  * Created by Steven on 2/3/2018.
