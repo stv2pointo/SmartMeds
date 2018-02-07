@@ -13,3 +13,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
     }
 }
+/** load a frag
+ *
+ *             getSupportFragmentManager().beginTransaction()
+ .replace(R.id.container2,new FragmentA(),"FA2")
+ .addToBackStack(null)
+ .commit();
+ */
