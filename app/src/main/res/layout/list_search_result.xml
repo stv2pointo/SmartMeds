@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/repo_item_layout"
+    android:id="@+id/search_result_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -13,18 +13,21 @@
 
         <ImageView
             android:id="@+id/ivPillImage"
-            android:layout_width="133dp"
-            android:layout_height="167dp"
+            android:layout_width="0dp"
+            android:layout_height="175dp"
             android:layout_weight="1"
-            android:src="@drawable/noImgAvail" />
+            android:scaleType="fitXY"
+            android:src="@drawable/no_img_avail" />
+
         <TextView
             android:id="@+id/tvPillName"
-            android:textStyle="bold"
-            android:textColor="@color/green"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Pill name here"/>
+            android:layout_weight="1"
+            android:text="Pill name here"
+            android:textColor="@color/green"
+            android:textSize="25sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>
