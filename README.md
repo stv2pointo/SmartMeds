@@ -1,5 +1,5 @@
 # SmartMeds
-# smart_meds
+
 A tool for identifying prescription medicines
 
 - [Work Flows](#work-flows)
