@@ -96,7 +96,7 @@ public class SearchActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params){
             try{
-                URL url = new URL("https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=dp&rLimit=2");
+                URL url = new URL("https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=dp&rLimit=12");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
