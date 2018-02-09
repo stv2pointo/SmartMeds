@@ -1,6 +1,9 @@
 package com.stvjuliengmail.smartmeds.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,11 @@ import android.widget.TextView;
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 
@@ -25,13 +33,15 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
     private int rowLayout;
     private Context context;
 
-    public ResultsAdapter(List<RxImagesResult.NlmRxImage> results, int rowLayout, Context context){
+    public ResultsAdapter(List<RxImagesResult.NlmRxImage> results, int rowLayout, Context context) {
         this.results = results;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
-    public List<RxImagesResult.NlmRxImage> getResults() { return results;}
+    public List<RxImagesResult.NlmRxImage> getResults() {
+        return results;
+    }
 
     public void setResults(List<RxImagesResult.NlmRxImage> results) {
         this.results = results;
@@ -68,7 +78,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
 
     @Override
     public ResultsAdapter.ResultsViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+                                                               int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new ResultsViewHolder(view);
     }
@@ -76,11 +86,38 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
 
     @Override
     public void onBindViewHolder(ResultsViewHolder holder, final int position) {
-//        holder.ivPillImage.setImageBitmap(???).setText(repos.get(position).getName());
+        ImageDownloader task = new ImageDownloader();
+        try {
+            Bitmap myBitmap = task.execute(results.get(position).getImageUrl()).get();
+            holder.ivPillImage.setImageBitmap(myBitmap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         holder.tvPillName.setText(results.get(position).getName());
     }
 
     @Override
-    public int getItemCount() { return results.size();}
+    public int getItemCount() {
+        return results.size();
+    }
+
+    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            try {
+                URL url = new URL(urls[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
+                return myBitmap;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 
 }

@@ -172,11 +172,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void showData(RxImagesResult rxImagesResult){
-        /** load up the adapter I think...
-         *  myDataSource.clear();
-         myDataSource.addAll(response.body());
-         myAdapter.notifyDataSetChanged();
-         */
+
         if (rxImagesResult != null){
             imageList.clear();
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
