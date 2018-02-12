@@ -67,22 +67,9 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadMyAct();
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.listContainer,new RxInfo(),"RxInfo")
-//                        .addToBackStack(null)
-//                        .commit();
             }
         });
 
-    }
-
-    public void loadTestList(){
-
-        /** load up the adapter I think...
-         *  myDataSource.clear();
-         myDataSource.addAll(response.body());
-         myAdapter.notifyDataSetChanged();
-         */
     }
 
     public void loadMyAct(){

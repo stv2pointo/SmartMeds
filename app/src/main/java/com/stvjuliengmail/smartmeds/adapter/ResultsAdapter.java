@@ -67,6 +67,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
         LinearLayout resultsLayout;
         ImageView ivPillImage;
         TextView tvPillName;
+        int rxcui;
 
         public ResultsViewHolder(View v) {
             super(v);
@@ -94,6 +95,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
             e.printStackTrace();
         }
         holder.tvPillName.setText(results.get(position).getName());
+        holder.rxcui = results.get(position).getRxcui();
     }
 
     @Override
