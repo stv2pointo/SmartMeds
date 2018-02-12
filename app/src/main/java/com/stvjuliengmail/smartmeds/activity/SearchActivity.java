@@ -150,59 +150,13 @@ public class SearchActivity extends AppCompatActivity {
 
     } // end getImageList task
 
-    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            try {
-                URL url  = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
-                return myBitmap;
-            }
-            catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
     public void showData(RxImagesResult rxImagesResult){
 
         if (rxImagesResult != null){
             imageList.clear();
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
             adapter.notifyDataSetChanged();
-
-//            ImageDownloader task = new ImageDownloader();
-//            try{
-//                myImage = task.execute(rxImagesResult.getNlmRxImages()[0].getImageUrl()).get();
-//                ivPillImage.setImageBitmap(myImage);
-//                ivPillImage.getLayoutParams().height = 440;
-//                ivPillImage.getLayoutParams().width = 480;
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
         }
     }
-
-
-//    public void loadFrag(){
-//                        getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.listContainer,new RxInfo(),"RxInfo")
-//                        .addToBackStack(null)
-//                        .commit();
-//    }
 }
-/** load a frag
- *
- *             getSupportFragmentManager().beginTransaction()
- .replace(R.id.container2,new FragmentA(),"FA2")
- .addToBackStack(null)
- .commit();
- */
+
