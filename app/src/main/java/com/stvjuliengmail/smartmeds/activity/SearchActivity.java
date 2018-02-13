@@ -65,7 +65,8 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, "item clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
+                loadRxInfoActivity(imageList.get(position).getRxcui());
             }
 
             @Override
@@ -90,6 +91,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void loadRxInfoActivity(int rxcui){
+        Intent intent = new Intent(this, RxInfo.class);
+        intent.putExtra("rxcui",rxcui);
+        startActivity(intent);
     }
 
     public void loadMyAct(){
