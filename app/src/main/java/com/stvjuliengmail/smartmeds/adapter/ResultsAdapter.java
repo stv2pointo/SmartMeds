@@ -32,6 +32,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
     private List<RxImagesResult.NlmRxImage> results;
     private int rowLayout;
     private Context context;
+    private RecyclerViewItemClickListener recyclerViewItemClickListener;
 
     public ResultsAdapter(List<RxImagesResult.NlmRxImage> results, int rowLayout, Context context) {
         this.results = results;
@@ -63,17 +64,37 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
         this.context = context;
     }
 
-    public static class ResultsViewHolder extends RecyclerView.ViewHolder {
+    public class ResultsViewHolder extends RecyclerView.ViewHolder {
         LinearLayout resultsLayout;
         ImageView ivPillImage;
         TextView tvPillName;
+        int rxcui = 0;
+        int position = 0;
 
         public ResultsViewHolder(View v) {
             super(v);
+            v.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    recyclerViewItemClickListener.onItemClick(v,position);
+                }
+            });
+            v.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    //When item view is clicked long, trigger the itemclicklistener
+                    //Because that itemclicklistener is indicated in MainActivity
+                    recyclerViewItemClickListener.onItemLongClick(v,position);
+                    return true;
+                }
+            });
             resultsLayout = (LinearLayout) v.findViewById(R.id.search_result_item_layout);
             ivPillImage = (ImageView) v.findViewById(R.id.ivPillImage);
             tvPillName = (TextView) v.findViewById(R.id.tvPillName);
         }
+    }
+    public void setOnItemClickListener(RecyclerViewItemClickListener recyclerViewItemClickListener) {
+        this.recyclerViewItemClickListener = recyclerViewItemClickListener;
     }
 
     @Override
@@ -94,7 +115,11 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsV
             e.printStackTrace();
         }
         holder.tvPillName.setText(results.get(position).getName());
+        holder.rxcui = results.get(position).getRxcui();
+        holder.position = position;
     }
+
+
 
     @Override
     public int getItemCount() {

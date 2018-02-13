@@ -1,5 +1,6 @@
 package com.stvjuliengmail.smartmeds.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import com.google.gson.Gson;
@@ -35,7 +38,8 @@ public class SearchActivity extends AppCompatActivity {
     Button btnRxInfo;
     Button btnLoadList;
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    //RecyclerView.Adapter adapter;
+    ResultsAdapter adapter;
     List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
 
     @Override
@@ -54,6 +58,23 @@ public class SearchActivity extends AppCompatActivity {
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
 
+        //Create custom interface object and send it to adapter
+        //Adapter trigger it when any item view is clicked
+        //adapter.setOnItemClickListener()
+        final Context context = this;
+        adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
+                loadRxInfoActivity(imageList.get(position).getRxcui());
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                //Toast.makeText(MainActivity.this, getResources().getString(R.string.long_clicked_item, albumList.get(position).getAlbumName()), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         recyclerView.setAdapter(adapter);
 
         btnLoadList.setOnClickListener(new View.OnClickListener() {
@@ -67,22 +88,15 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadMyAct();
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.listContainer,new RxInfo(),"RxInfo")
-//                        .addToBackStack(null)
-//                        .commit();
             }
         });
 
     }
 
-    public void loadTestList(){
-
-        /** load up the adapter I think...
-         *  myDataSource.clear();
-         myDataSource.addAll(response.body());
-         myAdapter.notifyDataSetChanged();
-         */
+    public void loadRxInfoActivity(int rxcui){
+        Intent intent = new Intent(this, RxInfo.class);
+        intent.putExtra("rxcui",rxcui);
+        startActivity(intent);
     }
 
     public void loadMyAct(){
@@ -150,59 +164,13 @@ public class SearchActivity extends AppCompatActivity {
 
     } // end getImageList task
 
-    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            try {
-                URL url  = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
-                return myBitmap;
-            }
-            catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
     public void showData(RxImagesResult rxImagesResult){
 
         if (rxImagesResult != null){
             imageList.clear();
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
             adapter.notifyDataSetChanged();
-
-//            ImageDownloader task = new ImageDownloader();
-//            try{
-//                myImage = task.execute(rxImagesResult.getNlmRxImages()[0].getImageUrl()).get();
-//                ivPillImage.setImageBitmap(myImage);
-//                ivPillImage.getLayoutParams().height = 440;
-//                ivPillImage.getLayoutParams().width = 480;
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
         }
     }
-
-
-//    public void loadFrag(){
-//                        getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.listContainer,new RxInfo(),"RxInfo")
-//                        .addToBackStack(null)
-//                        .commit();
-//    }
 }
-/** load a frag
- *
- *             getSupportFragmentManager().beginTransaction()
- .replace(R.id.container2,new FragmentA(),"FA2")
- .addToBackStack(null)
- .commit();
- */
+
