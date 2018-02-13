@@ -1,5 +1,6 @@
 package com.stvjuliengmail.smartmeds.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import com.google.gson.Gson;
@@ -35,7 +38,8 @@ public class SearchActivity extends AppCompatActivity {
     Button btnRxInfo;
     Button btnLoadList;
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    //RecyclerView.Adapter adapter;
+    ResultsAdapter adapter;
     List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
 
     @Override
@@ -53,6 +57,22 @@ public class SearchActivity extends AppCompatActivity {
 
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
+
+        //Create custom interface object and send it to adapter
+        //Adapter trigger it when any item view is clicked
+        //adapter.setOnItemClickListener()
+        final Context context = this;
+        adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(context, "item clicked", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                //Toast.makeText(MainActivity.this, getResources().getString(R.string.long_clicked_item, albumList.get(position).getAlbumName()), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerView.setAdapter(adapter);
 
