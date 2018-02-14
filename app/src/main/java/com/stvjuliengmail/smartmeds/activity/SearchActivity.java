@@ -2,8 +2,6 @@ package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,11 +19,8 @@ import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,10 +30,8 @@ public class SearchActivity extends AppCompatActivity {
 
     // TODO: replace hard coded imprint with search parms later
     String imprint;
-    Button btnRxInfo;
     Button btnLoadList;
     RecyclerView recyclerView;
-    //RecyclerView.Adapter adapter;
     ResultsAdapter adapter;
     List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
 
@@ -51,7 +44,6 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView)findViewById(R.id.recVwResultList);
         btnLoadList = (Button)findViewById(R.id.btnLoadList);
-        btnRxInfo = (Button) findViewById(R.id.btnRxInfo);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -60,7 +52,6 @@ public class SearchActivity extends AppCompatActivity {
 
         //Create custom interface object and send it to adapter
         //Adapter trigger it when any item view is clicked
-        //adapter.setOnItemClickListener()
         final Context context = this;
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
@@ -80,14 +71,7 @@ public class SearchActivity extends AppCompatActivity {
         btnLoadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new getImageListData().execute("");
-            }
-        });
-
-        btnRxInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadMyAct();
+                new getImageListJSON().execute("");
             }
         });
 
@@ -99,12 +83,7 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loadMyAct(){
-        Intent intent = new Intent(this, RxInfo.class);
-        startActivity(intent);
-    }
-
-    public class getImageListData extends AsyncTask<String, Integer, String> {
+    public class getImageListJSON extends AsyncTask<String, Integer, String> {
         String rawJson = "";
 
         @Override
@@ -138,7 +117,7 @@ public class SearchActivity extends AppCompatActivity {
             super.onPostExecute(result);
             try{
                 RxImagesResult rxImagesResult = jsonParse(result);
-                showData(rxImagesResult);
+                populateRecyclerView(rxImagesResult);
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -164,7 +143,7 @@ public class SearchActivity extends AppCompatActivity {
 
     } // end getImageList task
 
-    public void showData(RxImagesResult rxImagesResult){
+    public void populateRecyclerView(RxImagesResult rxImagesResult){
 
         if (rxImagesResult != null){
             imageList.clear();
