@@ -57,7 +57,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
-                loadRxInfoActivity(imageList.get(position).getRxcui());
+                startRxInfoActivity(imageList.get(position).getRxcui());
             }
 
             @Override
@@ -77,8 +77,8 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-    public void loadRxInfoActivity(int rxcui){
-        Intent intent = new Intent(this, RxInfo.class);
+    public void startRxInfoActivity(int rxcui){
+        Intent intent = new Intent(this, RxInfoActivity.class);
         intent.putExtra("rxcui",rxcui);
         startActivity(intent);
     }

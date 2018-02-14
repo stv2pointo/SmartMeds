@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
 
-public class RxInfo extends AppCompatActivity {
+public class RxInfoActivity extends AppCompatActivity {
 
     TextView tvTest;
     int rxcui = -1;
