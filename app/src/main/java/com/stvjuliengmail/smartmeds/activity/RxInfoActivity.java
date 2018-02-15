@@ -42,7 +42,7 @@ public class RxInfoActivity extends AppCompatActivity {
         tvTest.setText(Integer.toString(rxcui));
 
         mayTreats = getMayTreats();
-        populateMayTreat();
+        populateMayTreat(mayTreats);
 
         new getMayTreatsJSON().execute("");
 
@@ -56,10 +56,10 @@ public class RxInfoActivity extends AppCompatActivity {
         return symptoms;
     }
 
-    public void populateMayTreat() {
+    public void populateMayTreat(ArrayList<String> diseases) {
         String result = "May Treat:\n";
-        if (mayTreats != null && mayTreats.size() > 0) {
-            for (String str : mayTreats) {
+        if (diseases != null && diseases.size() > 0) {
+            for (String str : diseases) {
                 result += str + "\n";
             }
         }
@@ -101,6 +101,7 @@ public class RxInfoActivity extends AppCompatActivity {
 //                RxImagesResult rxImagesResult = jsonParse(result);
 //                populateRecyclerView(rxImagesResult);
                 mayTreats = jsonParse(result);
+                populateMayTreat(mayTreats);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -109,8 +110,7 @@ public class RxInfoActivity extends AppCompatActivity {
         private ArrayList<String> jsonParse(String rawJson) {
 //            GsonBuilder gsonB = new GsonBuilder();
 //            Gson gson = gsonB.create();
-//
-//            RxImagesResult rxImagesResult = null;
+
             ArrayList<String> mayTreatsFromJson = new ArrayList<>();
 
             try {
@@ -125,31 +125,22 @@ public class RxInfoActivity extends AppCompatActivity {
                     JsonArray rxclassDrugInfos = rxclassDrugInfoList.getAsJsonArray("rxclassDrugInfo");
 //                    Log.d("test", "This list should have six and the count is " + Integer.toString(rxclassDrugInfos.size()));
                     for(JsonElement listElement: rxclassDrugInfos){
-                        //JsonObject disease = listElement.getAsJsonObject("rxclassMinConceptItem");
                         JsonParser nestedParser = new JsonParser();
-                        line = 130;
                         JsonElement nestedElement = nestedParser.parse(listElement.toString());
-                        line = 132;
                         JsonObject unNamedListItem = nestedElement.getAsJsonObject();
-                        line = 134;
                         JsonObject thingThatIactuallyWant = unNamedListItem.getAsJsonObject("rxclassMinConceptItem");
-                        line = 136;
                         JsonElement elementIwant = thingThatIactuallyWant.get("className");
-                        line = 138;
-                        String outputString = elementIwant.getAsString();
-                        line = 140;
-                        Log.d("test", "Test Element: " + outputString);//thingThatIactuallyWant.get("className").getAsString());
+//                        String outputString = elementIwant.getAsString();
+//                        Log.d("test", "Test Element: " + outputString);
+                        mayTreatsFromJson.add(elementIwant.getAsString());
                     }
 
                 }
-//                rxImagesResult = gson.fromJson(rawJson, RxImagesResult.class);
-//                Log.d("test", "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
-//                Log.d("test", "the first imageUrl in the array is " + rxImagesResult.getNlmRxImages()[0].getImageUrl());
+
             } catch (Exception e) {
-                Log.d("test", "EXCEPTION OCCURRED at line " + Integer.toString(line) + "   " + e.getMessage());
+                Log.d("test", "EXCEPTION OCCURRED: " + e.getMessage());
             }
-//            return rxImagesResult;
-            return new ArrayList<>();
+            return mayTreatsFromJson;
         } // end parse
 
     } // end getImageList task
