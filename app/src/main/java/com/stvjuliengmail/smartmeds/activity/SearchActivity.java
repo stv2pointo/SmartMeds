@@ -18,6 +18,7 @@ import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -39,11 +40,11 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
+        final Context context = this;
         imprint = "dp";
 
-        recyclerView = (RecyclerView)findViewById(R.id.recVwResultList);
-        btnLoadList = (Button)findViewById(R.id.btnLoadList);
+        recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
+        btnLoadList = (Button) findViewById(R.id.btnLoadList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -52,7 +53,6 @@ public class SearchActivity extends AppCompatActivity {
 
         //Create custom interface object and send it to adapter
         //Adapter trigger it when any item view is clicked
-        final Context context = this;
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -74,12 +74,11 @@ public class SearchActivity extends AppCompatActivity {
                 new getImageListJSON().execute("");
             }
         });
-
     }
 
-    public void startRxInfoActivity(int rxcui){
+    public void startRxInfoActivity(int rxcui) {
         Intent intent = new Intent(this, RxInfoActivity.class);
-        intent.putExtra("rxcui",rxcui);
+        intent.putExtra("rxcui", rxcui);
         startActivity(intent);
     }
 
@@ -87,8 +86,8 @@ public class SearchActivity extends AppCompatActivity {
         String rawJson = "";
 
         @Override
-        protected String doInBackground(String... params){
-            try{
+        protected String doInBackground(String... params) {
+            try {
                 URL url = new URL("https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=dp&rLimit=12");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -101,11 +100,10 @@ public class SearchActivity extends AppCompatActivity {
                                 new BufferedReader(new InputStreamReader(connection.getInputStream()));
                         rawJson = br.readLine();
                         //Log.d("test", "raw json string length = " + rawJson.length());
-                        Log.d("test", "raw first 256 chars = " + rawJson.substring(0,256));
+                        Log.d("test", "raw first 256 chars = " + rawJson.substring(0, 256));
                         //Log.d("test", "ra json last 256 = " + rawJson.substring(rawJson.length()-256,rawJson.length()));
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return rawJson;
@@ -113,13 +111,12 @@ public class SearchActivity extends AppCompatActivity {
 
 
         @Override
-        protected void onPostExecute(String result){
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            try{
+            try {
                 RxImagesResult rxImagesResult = jsonParse(result);
                 populateRecyclerView(rxImagesResult);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -134,8 +131,7 @@ public class SearchActivity extends AppCompatActivity {
                 rxImagesResult = gson.fromJson(rawJson, RxImagesResult.class);
                 Log.d("test", "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
                 Log.d("test", "the first imageUrl in the array is " + rxImagesResult.getNlmRxImages()[0].getImageUrl());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Log.d("test", e.getMessage());
             }
             return rxImagesResult;
@@ -143,9 +139,8 @@ public class SearchActivity extends AppCompatActivity {
 
     } // end getImageList task
 
-    public void populateRecyclerView(RxImagesResult rxImagesResult){
-
-        if (rxImagesResult != null){
+    public void populateRecyclerView(RxImagesResult rxImagesResult) {
+        if (rxImagesResult != null) {
             imageList.clear();
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
             adapter.notifyDataSetChanged();
