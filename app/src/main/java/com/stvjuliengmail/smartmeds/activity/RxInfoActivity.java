@@ -41,19 +41,10 @@ public class RxInfoActivity extends AppCompatActivity {
         rxcui = extras.getInt("rxcui");
         tvTest.setText(Integer.toString(rxcui));
 
-        mayTreats = getMayTreats();
-        populateMayTreat(mayTreats);
+        mayTreats = new ArrayList<String>();
 
         new getMayTreatsJSON().execute("");
 
-    }
-
-    public ArrayList<String> getMayTreats() {
-        ArrayList<String> symptoms = new ArrayList<>();
-        symptoms.add("one");
-        symptoms.add("two");
-        symptoms.add("three");
-        return symptoms;
     }
 
     public void populateMayTreat(ArrayList<String> diseases) {
@@ -72,7 +63,10 @@ public class RxInfoActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                URL url = new URL("https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui=966200&relaSource=NDFRT&relas=may_treat");
+                String request = "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui="
+                        + Integer.toString(rxcui)+ "&relaSource=NDFRT&relas=may_treat";
+//                URL url = new URL("https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui=966200&relaSource=NDFRT&relas=may_treat");
+                URL url = new URL(request);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
@@ -83,9 +77,7 @@ public class RxInfoActivity extends AppCompatActivity {
                         BufferedReader br =
                                 new BufferedReader(new InputStreamReader(connection.getInputStream()));
                         rawJson = br.readLine();
-                        //Log.d("test", "raw json string length = " + rawJson.length());
                         Log.d("test", "raw first 256 chars = " + rawJson.substring(0, 256));
-                        //Log.d("test", "ra json last 256 = " + rawJson.substring(rawJson.length()-256,rawJson.length()));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -98,8 +90,6 @@ public class RxInfoActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             try {
-//                RxImagesResult rxImagesResult = jsonParse(result);
-//                populateRecyclerView(rxImagesResult);
                 mayTreats = jsonParse(result);
                 populateMayTreat(mayTreats);
             } catch (Exception e) {
@@ -130,18 +120,14 @@ public class RxInfoActivity extends AppCompatActivity {
                         JsonObject unNamedListItem = nestedElement.getAsJsonObject();
                         JsonObject thingThatIactuallyWant = unNamedListItem.getAsJsonObject("rxclassMinConceptItem");
                         JsonElement elementIwant = thingThatIactuallyWant.get("className");
-//                        String outputString = elementIwant.getAsString();
-//                        Log.d("test", "Test Element: " + outputString);
                         mayTreatsFromJson.add(elementIwant.getAsString());
                     }
-
                 }
-
             } catch (Exception e) {
                 Log.d("test", "EXCEPTION OCCURRED: " + e.getMessage());
             }
             return mayTreatsFromJson;
         } // end parse
 
-    } // end getImageList task
+    } // end getMayTreats task
 }
