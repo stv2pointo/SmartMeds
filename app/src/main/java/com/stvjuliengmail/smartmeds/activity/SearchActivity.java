@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    // TODO: replace hard coded imprint with search parms later
+    // TODO: replace hard coded imprint, name, color, shape and limit with UI components
     String imprint;
     String name;
     String color;
@@ -78,9 +78,14 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(){
+        new ImageListTask(this, getFilter()).execute("");
+    }
+
+    public ImageListTask.ImageFilter getFilter(){
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
+        // TODO: Make this filter based on the stuff in the UI
         filter.imp = imprint;
-        new ImageListTask(this, filter).execute("");
+        return filter;
     }
 
     public void populateRecyclerView(RxImagesResult rxImagesResult) {

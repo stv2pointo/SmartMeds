@@ -1,5 +1,6 @@
 package com.stvjuliengmail.smartmeds.api;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -31,6 +32,15 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         this.imageFilter = imageFilter;
     }
 
+    ProgressDialog pd;
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pd = new ProgressDialog(searchActivity);
+        pd.setMessage("Loading...");
+        pd.show();
+    }
+
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -58,11 +68,16 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
+
         try {
             rxImagesResult = jsonParse(result);
             setResultsInUI();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (pd != null)
+        {
+            pd.dismiss();
         }
     }
 
