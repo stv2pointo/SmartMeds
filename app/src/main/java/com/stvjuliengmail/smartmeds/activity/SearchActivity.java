@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
+import com.stvjuliengmail.smartmeds.api.ImageListTask;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,6 +61,7 @@ public class SearchActivity extends AppCompatActivity {
                 startRxInfoActivity(imageList.get(position).getRxcui());
             }
 
+            // TODO: Use long click to open option to save to myMeds
             @Override
             public void onItemLongClick(View view, int position) {
                 //Toast.makeText(MainActivity.this, getResources().getString(R.string.long_clicked_item, albumList.get(position).getAlbumName()), Toast.LENGTH_SHORT).show();
@@ -71,75 +73,12 @@ public class SearchActivity extends AppCompatActivity {
         btnLoadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new getImageListJSON().execute("");
+                new ImageListTask((SearchActivity)context).execute("");
             }
         });
 
         Log.d(TAG, "ONCREATE()");
     }
-
-    public void startRxInfoActivity(int rxcui) {
-        Intent intent = new Intent(this, RxInfoActivity.class);
-        intent.putExtra("rxcui", rxcui);
-        startActivity(intent);
-    }
-
-    public class getImageListJSON extends AsyncTask<String, Integer, String> {
-        String rawJson = "";
-
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL("https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=dp&rLimit=12");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.connect();
-                int status = connection.getResponseCode();
-                switch (status) {
-                    case 200:
-                    case 201:
-                        BufferedReader br =
-                                new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        rawJson = br.readLine();
-                        //Log.d("test", "raw json string length = " + rawJson.length());
-                        Log.d("test", "raw first 256 chars = " + rawJson.substring(0, 256));
-                        //Log.d("test", "ra json last 256 = " + rawJson.substring(rawJson.length()-256,rawJson.length()));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return rawJson;
-        } // end doInBackg...
-
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            try {
-                RxImagesResult rxImagesResult = jsonParse(result);
-                populateRecyclerView(rxImagesResult);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        private RxImagesResult jsonParse(String rawJson) {
-            GsonBuilder gsonB = new GsonBuilder();
-            Gson gson = gsonB.create();
-
-            RxImagesResult rxImagesResult = null;
-
-            try {
-                rxImagesResult = gson.fromJson(rawJson, RxImagesResult.class);
-                Log.d("test", "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
-                Log.d("test", "the first imageUrl in the array is " + rxImagesResult.getNlmRxImages()[0].getImageUrl());
-            } catch (Exception e) {
-                Log.d("test", e.getMessage());
-            }
-            return rxImagesResult;
-        } // end parse
-
-    } // end getImageList task
 
     public void populateRecyclerView(RxImagesResult rxImagesResult) {
         if (rxImagesResult != null) {
@@ -147,6 +86,12 @@ public class SearchActivity extends AppCompatActivity {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
             adapter.notifyDataSetChanged();
         }
+    }
+
+    public void startRxInfoActivity(int rxcui) {
+        Intent intent = new Intent(this, RxInfoActivity.class);
+        intent.putExtra("rxcui", rxcui);
+        startActivity(intent);
     }
 }
 

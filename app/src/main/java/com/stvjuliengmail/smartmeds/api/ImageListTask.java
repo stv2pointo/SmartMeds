@@ -40,9 +40,7 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                     BufferedReader br =
                             new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     rawJson = br.readLine();
-                    //Log.d("test", "raw json string length = " + rawJson.length());
                     Log.d("test", "raw first 256 chars = " + rawJson.substring(0, 256));
-                    //Log.d("test", "ra json last 256 = " + rawJson.substring(rawJson.length()-256,rawJson.length()));
             }
         } catch (Exception e) {
             e.printStackTrace();
