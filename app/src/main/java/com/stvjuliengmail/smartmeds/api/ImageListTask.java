@@ -18,21 +18,24 @@ import java.net.URL;
  */
 
 public class ImageListTask extends AsyncTask<String, Integer, String> {
-    String rawJson = "";
-    RxImagesResult rxImagesResult;
-    SearchActivity searchActivity;
-    String imprint;
+    private String rawJson = "";
+    private RxImagesResult rxImagesResult;
+    private SearchActivity searchActivity;
+    private String baseRequest = "https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600";
+//    private String imprint;
+    private ImageFilter imageFilter;
 
-    public ImageListTask(SearchActivity searchActivity, String imprint) {
+    public ImageListTask(SearchActivity searchActivity, ImageFilter imageFilter) {
         this.searchActivity = searchActivity;
-        this.imprint = imprint;
+        //this.imprint = imprint;
+        this.imageFilter = imageFilter;
     }
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            String request = "https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=" + imprint + "&rLimit=12";
-            URL url = new URL(request);
+            //&imprint=" + imprint + "&rLimit=12";
+            URL url = new URL(buildRequest());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
@@ -49,7 +52,7 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
         }
         return rawJson;
-    } // end doInBackg...
+    }
 
 
     @Override
@@ -77,10 +80,34 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
             Log.d("test", e.getMessage());
         }
         return rxImagesResult;
-    } // end parse
+    }
 
+    public String buildRequest(){
+        //&imprint=" + imprint + "&rLimit=12";
+        String request = baseRequest;
+        request += (imageFilter.imp != null && !imageFilter.imp.isEmpty()) ?
+                "&imprint=" + imageFilter.imp : "";
+        request += (imageFilter.nam != null && !imageFilter.nam.isEmpty()) ?
+                "&name=" + imageFilter.nam : "";
+        request += (imageFilter.col != null && !imageFilter.col.isEmpty()) ?
+                "&color=" + imageFilter.col : "";
+        request += (imageFilter.shap != null && !imageFilter.shap.isEmpty()) ?
+                "&shape=" + imageFilter.shap : "";
+        request += (imageFilter.limit != 0) ?
+                ("&rLimit=" + Integer.toString(imageFilter.limit)) : "";
+        return request;
+    }
 
     public void setResultsInUI(){
         searchActivity.populateRecyclerView(rxImagesResult);
     }
-} // end getImageList task
+
+    public static class ImageFilter{
+        public String imp;
+        public String nam;
+        public String col;
+        public String shap;
+        public int limit;
+    }
+
+}

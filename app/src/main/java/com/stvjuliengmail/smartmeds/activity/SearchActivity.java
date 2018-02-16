@@ -25,6 +25,11 @@ public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     // TODO: replace hard coded imprint with search parms later
     String imprint;
+    String name;
+    String color;
+    String shape;
+    int limit;
+
     Button btnLoadList;
     RecyclerView recyclerView;
     ResultsAdapter adapter;
@@ -73,7 +78,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search(){
-        new ImageListTask(this, imprint).execute("");
+        ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
+        filter.imp = imprint;
+        new ImageListTask(this, filter).execute("");
     }
 
     public void populateRecyclerView(RxImagesResult rxImagesResult) {
