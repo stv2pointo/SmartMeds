@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
-
+    private final String TAG = getClass().getSimpleName();
     // TODO: replace hard coded imprint with search parms later
     String imprint;
     Button btnLoadList;
@@ -74,6 +74,8 @@ public class SearchActivity extends AppCompatActivity {
                 new getImageListJSON().execute("");
             }
         });
+
+        Log.d(TAG, "ONCREATE()");
     }
 
     public void startRxInfoActivity(int rxcui) {
