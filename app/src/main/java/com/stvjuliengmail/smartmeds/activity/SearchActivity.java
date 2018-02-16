@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
@@ -33,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        //final Context context = this;
         imprint = "dp";
 
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
@@ -77,11 +77,14 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void populateRecyclerView(RxImagesResult rxImagesResult) {
-        if (rxImagesResult != null) {
-            imageList.clear();
+        imageList.clear();
+        if (rxImagesResult != null && rxImagesResult.getNlmRxImages() != null && rxImagesResult.getNlmRxImages().length > 0) {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
-            adapter.notifyDataSetChanged();
         }
+        else {
+            Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public void startRxInfoActivity(int rxcui) {
