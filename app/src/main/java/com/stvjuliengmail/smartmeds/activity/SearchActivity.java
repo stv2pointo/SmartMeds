@@ -1,8 +1,6 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,23 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
 import com.stvjuliengmail.smartmeds.api.ImageListTask;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -41,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        final Context context = this;
+        //final Context context = this;
         imprint = "dp";
 
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
@@ -53,11 +45,11 @@ public class SearchActivity extends AppCompatActivity {
                 getApplicationContext());
 
         //Create custom interface object and send it to adapter
-        //Adapter trigger it when any item view is clicked
+        //Adapter triggers it when any item view is clicked
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
                 startRxInfoActivity(imageList.get(position).getRxcui());
             }
 
@@ -73,11 +65,15 @@ public class SearchActivity extends AppCompatActivity {
         btnLoadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new ImageListTask((SearchActivity)context).execute("");
+                search();
             }
         });
 
         Log.d(TAG, "ONCREATE()");
+    }
+
+    public void search(){
+        new ImageListTask(this, imprint).execute("");
     }
 
     public void populateRecyclerView(RxImagesResult rxImagesResult) {

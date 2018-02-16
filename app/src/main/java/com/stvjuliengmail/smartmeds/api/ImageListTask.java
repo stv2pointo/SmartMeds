@@ -21,15 +21,18 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
     String rawJson = "";
     RxImagesResult rxImagesResult;
     SearchActivity searchActivity;
+    String imprint;
 
-    public ImageListTask(SearchActivity searchActivity) {
+    public ImageListTask(SearchActivity searchActivity, String imprint) {
         this.searchActivity = searchActivity;
+        this.imprint = imprint;
     }
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            URL url = new URL("https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=dp&rLimit=12");
+            String request = "https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=" + imprint + "&rLimit=12";
+            URL url = new URL(request);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.connect();
