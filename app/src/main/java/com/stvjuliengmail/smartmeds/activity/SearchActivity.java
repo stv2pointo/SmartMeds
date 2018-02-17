@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
@@ -31,6 +33,8 @@ public class SearchActivity extends AppCompatActivity {
     int limit;
 
     Button btnLoadList;
+    Spinner colorSpinner, shapeSpinner;
+    EditText etName, etImprint;
     RecyclerView recyclerView;
     ResultsAdapter adapter;
     List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
@@ -45,6 +49,26 @@ public class SearchActivity extends AppCompatActivity {
         btnLoadList = (Button) findViewById(R.id.btnLoadList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        etName = (EditText) findViewById(R.id.etName);
+        etImprint = (EditText) findViewById(R.id.etImprint);
+
+        colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
+//        ArrayAdapter<String> adapter_PillColor = new ArrayAdapter<String>(getActivity(),
+//                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillColors));
+//        adapter_PillColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner_PillColor.setAdapter(adapter_PillColor);
+//        set default position for hint
+        colorSpinner.setSelection(0);
+
+        shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+
+//        ArrayAdapter<String> adapter_PillShape = new ArrayAdapter<String>(getActivity(),
+//              android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillShapes));
+//        adapter_PillShape.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner_PillShape.setAdapter(adapter_PillShape);
+//        set default position for hint
+        shapeSpinner.setSelection(0);
 
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
@@ -83,8 +107,15 @@ public class SearchActivity extends AppCompatActivity {
 
     public ImageListTask.ImageFilter getFilter(){
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
-        // TODO: Make this filter based on the stuff in the UI
-        filter.imp = imprint;
+
+        filter.imp = etImprint.getText().toString();
+        filter.nam = etName.getText().toString();
+        // TODO: Figure out how to get rid of hardcoded values to avoid problems in query
+            // where color = "Choose color" etc
+        String selectedColor = colorSpinner.getSelectedItem().toString();
+        filter.col = (selectedColor.equals("Color")) ? "" : selectedColor;
+        String selectedShape = shapeSpinner.getSelectedItem().toString();
+        filter.shap = (selectedShape.equals("Shape")) ? "" : selectedShape;
         return filter;
     }
 
