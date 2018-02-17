@@ -7,5 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="FiltersStyle">
+        <item name="android:textColor">@color/black_70</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
 
 </resources>

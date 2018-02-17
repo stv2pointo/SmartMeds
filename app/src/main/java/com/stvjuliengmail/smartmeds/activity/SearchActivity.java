@@ -48,12 +48,11 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (Button) findViewById(R.id.btnLoadList);
-        btnRxInfo = (Button) findViewById(R.id.btnRxInfo);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        editText_PillName = (EditText) findViewById(R.id.edit_Name);
-        editText_PillInscription = (EditText) findViewById(R.id.edit_inscription);
+//        editText_PillName = (EditText) findViewById(R.id.edit_Name);
+//        editText_PillInscription = (EditText) findViewById(R.id.edit_inscription);
 
         spinner_PillColor = (Spinner) findViewById(R.id.colorSpinner);
 //        ArrayAdapter<String> adapter_PillColor = new ArrayAdapter<String>(getActivity(),
