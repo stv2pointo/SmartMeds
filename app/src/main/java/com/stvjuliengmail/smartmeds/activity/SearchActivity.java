@@ -33,9 +33,8 @@ public class SearchActivity extends AppCompatActivity {
     int limit;
 
     Button btnLoadList;
-    Button btnRxInfo;
-    Spinner spinner_PillColor, spinner_PillShape;
-    EditText editText_PillName, editText_PillInscription;
+    Spinner colorSpinner, shapeSpinner;
+    EditText etName, etImprint;
     RecyclerView recyclerView;
     ResultsAdapter adapter;
     List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
@@ -51,25 +50,25 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        editText_PillName = (EditText) findViewById(R.id.edit_Name);
-//        editText_PillInscription = (EditText) findViewById(R.id.edit_inscription);
+        etName = (EditText) findViewById(R.id.etName);
+        etImprint = (EditText) findViewById(R.id.etImprint);
 
-        spinner_PillColor = (Spinner) findViewById(R.id.colorSpinner);
+        colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
 //        ArrayAdapter<String> adapter_PillColor = new ArrayAdapter<String>(getActivity(),
 //                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillColors));
 //        adapter_PillColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        spinner_PillColor.setAdapter(adapter_PillColor);
 //        set default position for hint
-        spinner_PillColor.setSelection(0);
+        colorSpinner.setSelection(0);
 
-        spinner_PillShape = (Spinner) findViewById(R.id.shapeSpinner);
+        shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
 
 //        ArrayAdapter<String> adapter_PillShape = new ArrayAdapter<String>(getActivity(),
 //              android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillShapes));
 //        adapter_PillShape.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 //        spinner_PillShape.setAdapter(adapter_PillShape);
 //        set default position for hint
-        spinner_PillShape.setSelection(0);
+        shapeSpinner.setSelection(0);
 
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
@@ -108,8 +107,15 @@ public class SearchActivity extends AppCompatActivity {
 
     public ImageListTask.ImageFilter getFilter(){
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
-        // TODO: Make this filter based on the stuff in the UI
-        filter.imp = imprint;
+
+        filter.imp = etImprint.getText().toString();
+        filter.nam = etName.getText().toString();
+        // TODO: Figure out how to get rid of hardcoded values to avoid problems in query
+            // where color = "Choose color" etc
+        String selectedColor = colorSpinner.getSelectedItem().toString();
+        filter.col = (selectedColor.equals("Color")) ? "" : selectedColor;
+        String selectedShape = shapeSpinner.getSelectedItem().toString();
+        filter.shap = (selectedShape.equals("Shape")) ? "" : selectedShape;
         return filter;
     }
 

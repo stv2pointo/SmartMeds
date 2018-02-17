@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.activity.SearchActivity;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
@@ -106,7 +107,7 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                 "&name=" + imageFilter.nam : "";
         request += (imageFilter.col != null && !imageFilter.col.isEmpty()) ?
                 "&color=" + imageFilter.col : "";
-        request += (imageFilter.shap != null && !imageFilter.shap.isEmpty()) ?
+        request += (imageFilter.shap != null & !imageFilter.shap.isEmpty()) ? //R.string.empty_shape_field)) ?
                 "&shape=" + imageFilter.shap : "";
         request += (imageFilter.limit != 0) ?
                 ("&rLimit=" + Integer.toString(imageFilter.limit)) : "";
