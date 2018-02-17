@@ -3,4 +3,58 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="text_MedicationID">Medication Identifier</string>
+    <string name="text_PillName">Pill Name</string>
+    <string name="text_PillInscription">Pill Inscription</string>
+    <string name="checkbox_PillInscription">Check if no/unknown inscription</string>
+    <string name="text_PillColor">Pill Color</string>
+    <string name="text_PillShape">Pill Shape</string>
+    <string name="button_Search">Search</string>
+
+    <string-array name="array_PillColors">
+        <item>Pill Color</item>
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Turquoise</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="array_PillShapes">
+        <item>Pill Shape</item>
+        <item>Bullet</item>
+        <item>Capsule</item>
+        <item>Clover</item>
+        <item>Diamond</item>
+        <item>Double Circle</item>
+        <item>Ellipsoid</item>
+        <item>Freeform</item>
+        <item>Hexagon</item>
+        <item>Octogon</item>
+        <item>Oval</item>
+        <item>Pentagon</item>
+        <item>Rectangle</item>
+        <item>Round</item>
+        <item>Semi-Circle</item>
+        <item>Square</item>
+        <item>Tear</item>
+        <item>Trapezoid</item>
+        <item>Triangle</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
+    <string name="button_SearchAll">Search All</string>
+    <string name="name">Name:</string>
+    <string name="inscription">Inscription:</string>
+    <string name="shape">Shape:</string>
+    <string name="color">Color:</string>
 </resources>

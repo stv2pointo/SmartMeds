@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
@@ -31,6 +33,9 @@ public class SearchActivity extends AppCompatActivity {
     int limit;
 
     Button btnLoadList;
+    Button btnRxInfo;
+    Spinner spinner_PillColor, spinner_PillShape;
+    EditText editText_PillName, editText_PillInscription;
     RecyclerView recyclerView;
     ResultsAdapter adapter;
     List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
@@ -43,8 +48,29 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (Button) findViewById(R.id.btnLoadList);
+        btnRxInfo = (Button) findViewById(R.id.btnRxInfo);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        editText_PillName = (EditText) findViewById(R.id.edit_Name);
+        editText_PillInscription = (EditText) findViewById(R.id.edit_inscription);
+
+        spinner_PillColor = (Spinner) findViewById(R.id.colorSpinner);
+//        ArrayAdapter<String> adapter_PillColor = new ArrayAdapter<String>(getActivity(),
+//                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillColors));
+//        adapter_PillColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner_PillColor.setAdapter(adapter_PillColor);
+//        set default position for hint
+        spinner_PillColor.setSelection(0);
+
+        spinner_PillShape = (Spinner) findViewById(R.id.shapeSpinner);
+
+//        ArrayAdapter<String> adapter_PillShape = new ArrayAdapter<String>(getActivity(),
+//              android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillShapes));
+//        adapter_PillShape.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner_PillShape.setAdapter(adapter_PillShape);
+//        set default position for hint
+        spinner_PillShape.setSelection(0);
 
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
