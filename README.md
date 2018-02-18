@@ -2,7 +2,7 @@
 
 A tool for identifying prescription medicines
 
-- [Work Flows](#work-flows)
+- [Work Flows](https://github.com/stv2pointo/SmartMeds/tree/master/docs/workFlow.md)
 
 - [Project start up instructions](https://github.com/stv2pointo/SmartMeds/tree/master/docs/startUp.md)
 
@@ -10,11 +10,4 @@ A tool for identifying prescription medicines
 
 - [APIs](https://github.com/stv2pointo/SmartMeds/tree/master/docs/APIs.md)
 
-## Work Flows
 
-### Search flow
-![Search Flow](https://raw.githubusercontent.com/stv2pointo/SmartMeds/master/docImages/search.png)
-### myMeds flow
-![myMeds Flow](https://raw.githubusercontent.com/stv2pointo/SmartMeds/master/docImages/myMeds.png)
-### crudMyMeds flow
-![crudMyMeds Flow](https://raw.githubusercontent.com/stv2pointo/SmartMeds/master/docImages/crudMyMeds.png)
