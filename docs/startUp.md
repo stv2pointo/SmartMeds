@@ -1,8 +1,7 @@
-# SmartMeds
+# Start up instructions
+For CS4450 group project students
 
-A tool for identifying prescription medicines
-
-- [Work Flows](#work-flows)
+- [back to README](https://github.com/stv2pointo/SmartMeds/tree/master/README.md)
 
 ## Project start up instructions
 IDE
@@ -51,11 +50,5 @@ Editing Code
 * Make Feature Branch and it’s Pull Request on same day, no lingering branches
 * No “Me” branches, where you go off on your own, don’t merge, and don’t let collaborators in. 
 
-## Work Flows
 
-### Search flow
-![Search Flow](https://raw.githubusercontent.com/stv2pointo/SmartMeds/master/docImages/search.png)
-### myMeds flow
-![myMeds Flow](https://raw.githubusercontent.com/stv2pointo/SmartMeds/master/docImages/myMeds.png)
-### crudMyMeds flow
-![crudMyMeds Flow](https://raw.githubusercontent.com/stv2pointo/SmartMeds/master/docImages/crudMyMeds.png)
+- [back to README](https://github.com/stv2pointo/SmartMeds/tree/master/README.md)
