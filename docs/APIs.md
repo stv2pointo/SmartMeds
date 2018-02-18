@@ -1,15 +1,10 @@
 # SmartMeds
 
 A tool for identifying prescription medicines
+- [back to README](https://github.com/stv2pointo/SmartMeds/tree/master/README.md)
 
-- [Work Flows](#work-flows)
-
-- [Project start up instructions](https://github.com/stv2pointo/SmartMeds/tree/master/docs/startUp.md)
-
-- [Jira Board](http://instructorted.com:8080/projects/CS3750G4/summary)
-
-- [APIs](https://github.com/stv2pointo/SmartMeds/tree/master/docs/APIs.md)
-
+## RxImage
+- [Images](p)<a href="https://rximage.nlm.nih.gov/docs/doku.ph" target="_blank">RxImage</a>
 ## Work Flows
 
 ### Search flow
