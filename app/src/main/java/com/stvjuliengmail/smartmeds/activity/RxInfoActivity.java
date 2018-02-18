@@ -6,27 +6,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stvjuliengmail.smartmeds.R;
-import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RxInfoActivity extends AppCompatActivity {
-
+    private final String TAG = getClass().getSimpleName();
     TextView tvTest, tvMayTreat;
     int rxcui = -1; // the id of the selected pill
-    ArrayList<String> mayTreats; // list of disease names that might be treated by this pill
+    ArrayList<String> mayTreatDiseaseNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,28 +42,25 @@ public class RxInfoActivity extends AppCompatActivity {
         tvTest.setText(Integer.toString(rxcui));
 
         // instantiate an empty list to put disease names in
-        mayTreats = new ArrayList<String>();
+        mayTreatDiseaseNames = new ArrayList<String>();
 
         // Create a new asynchronous task that will go get the "May Treat" disease names from rxNav
         new getMayTreatsJSON().execute("");
 
     }
 
-    /**
-     * Concatenates disease names from the resulting list
-     * of the api call for "May treat:" diseaseNames...
-     * AND
-     * sets the text in the UI
-     * @param diseases
-     */
     public void populateMayTreat(ArrayList<String> diseases) {
+        tvMayTreat.setText(concatenateMayTreatDiseaseNames(diseases));
+    }
+
+    public String concatenateMayTreatDiseaseNames(ArrayList<String> diseaseNames){
         String result = "May Treat:\n";
-        if (diseases != null && diseases.size() > 0) {
-            for (String str : diseases) {
+        if (diseaseNames != null && diseaseNames.size() > 0) {
+            for (String str : diseaseNames) {
                 result += str + "\n";
             }
         }
-        tvMayTreat.setText(result);
+        return result;
     }
 
     /**
@@ -83,12 +76,6 @@ public class RxInfoActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                /* TODO: Maybe ??
-                 this request only changes based on the rxcui
-                 perhaps in the future it should have a limit or maybe we could set
-                 the limit by truncating the list at the desired max length
-                 before populating in the ui...?
-                */
                 String request = "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui="
                         + Integer.toString(rxcui)+ "&relaSource=NDFRT&relas=may_treat";
                 URL url = new URL(request);
@@ -115,8 +102,8 @@ public class RxInfoActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             try {
-                mayTreats = jsonParse(result);
-                populateMayTreat(mayTreats);
+                mayTreatDiseaseNames = jsonParse(result);
+                populateMayTreat(mayTreatDiseaseNames);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -163,7 +150,7 @@ public class RxInfoActivity extends AppCompatActivity {
                     }
                 }
             } catch (Exception e) {
-                Log.d("test", "EXCEPTION OCCURRED: " + e.getMessage());
+                Log.d(TAG, "jsonParse(): " + e.getMessage());
             }
             return mayTreatsFromJson;
         } // end parse
