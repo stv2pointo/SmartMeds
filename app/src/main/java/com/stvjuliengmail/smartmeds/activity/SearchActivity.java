@@ -108,14 +108,14 @@ public class SearchActivity extends AppCompatActivity {
     public ImageListTask.ImageFilter getFilter(){
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
 
-        filter.imp = etImprint.getText().toString();
-        filter.nam = etName.getText().toString();
+        filter.imprint = etImprint.getText().toString();
+        filter.name = etName.getText().toString();
         // TODO: Figure out how to get rid of hardcoded values to avoid problems in query
             // where color = "Choose color" etc
         String selectedColor = colorSpinner.getSelectedItem().toString();
-        filter.col = (selectedColor.equals("Color")) ? "" : selectedColor;
+        filter.color = (selectedColor.equals("Color")) ? "" : selectedColor;
         String selectedShape = shapeSpinner.getSelectedItem().toString();
-        filter.shap = (selectedShape.equals("Shape")) ? "" : selectedShape;
+        filter.shape = (selectedShape.equals("Shape")) ? "" : selectedShape;
         return filter;
     }
 

@@ -3,6 +3,7 @@ package com.stvjuliengmail.smartmeds.api;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +20,7 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
     private String rawJson = "";
     private RxImagesResult rxImagesResult;
     private SearchActivity searchActivity;
-    private String baseRequest = "https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600";
+    //private String baseRequest = "https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600";
     private ImageFilter imageFilter;
     private ProgressDialog progressDialog;
 
@@ -67,7 +68,8 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
             rxImagesResult = jsonParse(result);
             setResultsInUI();
         } catch (Exception e) {
-            e.printStackTrace();
+            Toast.makeText(searchActivity, "Problems retrieving data",Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onPostExecute: " + e.getMessage());
         }
         if (progressDialog != null) {
             progressDialog.dismiss();
@@ -85,21 +87,21 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
             Log.d(TAG, "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
             Log.d(TAG, "the first imageUrl in the array is " + rxImagesResult.getNlmRxImages()[0].getImageUrl());
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            Log.d(TAG, "jsonParse() : " + e.getMessage());
         }
         return rxImagesResult;
     }
 
     public String buildRequest() {
-        String request = baseRequest;
-        request += (imageFilter.imp != null && !imageFilter.imp.isEmpty()) ?
-                "&imprint=" + imageFilter.imp : "";
-        request += (imageFilter.nam != null && !imageFilter.nam.isEmpty()) ?
-                "&name=" + imageFilter.nam : "";
-        request += (imageFilter.col != null && !imageFilter.col.isEmpty()) ?
-                "&color=" + imageFilter.col : "";
-        request += (imageFilter.shap != null & !imageFilter.shap.isEmpty()) ?
-                "&shape=" + imageFilter.shap : "";
+        String request = REQUEST_BASE.IMAGE;
+        request += (imageFilter.imprint != null && !imageFilter.imprint.isEmpty()) ?
+                "&imprint=" + imageFilter.imprint : "";
+        request += (imageFilter.name != null && !imageFilter.name.isEmpty()) ?
+                "&name=" + imageFilter.name : "";
+        request += (imageFilter.color != null && !imageFilter.color.isEmpty()) ?
+                "&color=" + imageFilter.color : "";
+        request += (imageFilter.shape != null & !imageFilter.shape.isEmpty()) ?
+                "&shape=" + imageFilter.shape : "";
         request += (imageFilter.limit != 0) ?
                 ("&rLimit=" + Integer.toString(imageFilter.limit)) : "";
         return request;
@@ -110,10 +112,10 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
     }
 
     public static class ImageFilter {
-        public String imp;
-        public String nam;
-        public String col;
-        public String shap;
+        public String imprint;
+        public String name;
+        public String color;
+        public String shape;
         public int limit;
     }
 
