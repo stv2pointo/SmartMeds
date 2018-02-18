@@ -2,15 +2,17 @@
 
 An Android application that helps to identify pills (prescription and non-prescription) making use of RESTful APIs provided by The National Institute of Health. 
 
-## Platform
+### Platform
 Android
 
-## Dependencies
+### Dependencies
 gson
 RecyclerView
 
-## IDE
+### IDE
 Android Studio
+
+### Useful Pages
 
 - [Work Flows](https://github.com/stv2pointo/SmartMeds/tree/master/docs/workFlows.md)
 
