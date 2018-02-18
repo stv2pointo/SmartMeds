@@ -24,13 +24,6 @@ import java.util.List;
 
 
 public class SearchActivity extends AppCompatActivity {
-    private final String TAG = getClass().getSimpleName();
-    // TODO: replace hard coded imprint, name, color, shape and limit with UI components
-    String imprint;
-    String name;
-    String color;
-    String shape;
-    int limit;
 
     Button btnLoadList;
     Spinner colorSpinner, shapeSpinner;
@@ -43,7 +36,6 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        imprint = "dp";
 
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (Button) findViewById(R.id.btnLoadList);
@@ -78,14 +70,12 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
                 startRxInfoActivity(imageList.get(position).getRxcui());
             }
 
-            // TODO: Use long click to open option to save to myMeds
             @Override
             public void onItemLongClick(View view, int position) {
-                //Toast.makeText(MainActivity.this, getResources().getString(R.string.long_clicked_item, albumList.get(position).getAlbumName()), Toast.LENGTH_SHORT).show();
+                // TODO: Use long click to open option to save to myMeds
             }
         });
 
@@ -97,8 +87,6 @@ public class SearchActivity extends AppCompatActivity {
                 search();
             }
         });
-
-        Log.d(TAG, "ONCREATE()");
     }
 
     public void search(){
