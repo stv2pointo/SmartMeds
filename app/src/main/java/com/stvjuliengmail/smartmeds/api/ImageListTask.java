@@ -20,7 +20,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
     private String rawJson = "";
     private RxImagesResult rxImagesResult;
     private SearchActivity searchActivity;
-    //private String baseRequest = "https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600";
     private ImageFilter imageFilter;
     private ProgressDialog progressDialog;
 
@@ -54,7 +53,8 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                     Log.d(TAG, "raw first 256 chars = " + rawJson.substring(0, 256));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Toast.makeText(searchActivity, "Problems retrieving data",Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "doInBackground() : " + e.getMessage());
         }
         return rawJson;
     }
