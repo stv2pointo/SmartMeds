@@ -1,6 +1,5 @@
-# SmartMeds
+# API Usage
 
-A tool for identifying prescription medicines
 - [back to README](https://github.com/stv2pointo/SmartMeds/tree/master/README.md)
 
 ## RxImage
@@ -31,4 +30,6 @@ General information about the kind of drug a given pill is. For example: https:/
 
 ## Note: 
 Many examples are given in the XML format. SmartMeds primarily makes use of JSON. Simply insert ".json" into the get request prior to the query string (the question mark). Example:  https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui?rxcui=7052&relaSource=NDFRT&relas=may_treat is the xml version of the above query.
+
+- [back to README](https://github.com/stv2pointo/SmartMeds/tree/master/README.md)
 
