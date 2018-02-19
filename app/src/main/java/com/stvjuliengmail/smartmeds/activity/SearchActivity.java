@@ -82,7 +82,14 @@ public class SearchActivity extends AppCompatActivity {
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
 
         filter.imprint = etImprint.getText().toString();
-        filter.name = etName.getText().toString();
+        String nameInput = etName.getText().toString();
+        if(nameInput != null && nameInput.length() > 0 && nameInput.length() < 3){
+            Toast.makeText(this, "Names must be more than 2 letters",Toast.LENGTH_SHORT).show();
+            nameInput = "";
+            etName.setText("");
+        }
+        filter.name = nameInput;
+
         /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
                 where color = "Choose color" etc **/
         String selectedColor = colorSpinner.getSelectedItem().toString();
