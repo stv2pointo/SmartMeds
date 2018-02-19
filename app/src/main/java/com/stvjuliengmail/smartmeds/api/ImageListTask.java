@@ -12,26 +12,28 @@ import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 
 public class ImageListTask extends AsyncTask<String, Integer, String> {
     private final String TAG = getClass().getSimpleName();
     private String rawJson = "";
     private RxImagesResult rxImagesResult;
-    private SearchActivity searchActivity;
+    private final WeakReference<SearchActivity> weakActivity;
     private ImageFilter imageFilter;
     private ProgressDialog progressDialog;
 
     public ImageListTask(SearchActivity searchActivity, ImageFilter imageFilter) {
-        this.searchActivity = searchActivity;
+        this.weakActivity = new WeakReference<SearchActivity>(searchActivity);
         this.imageFilter = imageFilter;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = new ProgressDialog(searchActivity);
+        progressDialog = new ProgressDialog(weakActivity.get());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
     }
@@ -53,7 +55,8 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                     Log.d(TAG, "raw first 256 chars = " + rawJson.substring(0, 256));
             }
         } catch (Exception e) {
-            Toast.makeText(searchActivity, "Problems retrieving data",Toast.LENGTH_SHORT).show();
+            Toast.makeText(weakActivity.get(), "Problems retrieving data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(weakActivity.get(), "Problems retrieving data", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "doInBackground() : " + e.getMessage());
         }
         return rawJson;
@@ -68,7 +71,7 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
             rxImagesResult = jsonParse(result);
             setResultsInUI();
         } catch (Exception e) {
-            Toast.makeText(searchActivity, "Problems retrieving data",Toast.LENGTH_SHORT).show();
+            Toast.makeText(weakActivity.get(), "Problems retrieving data", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "onPostExecute: " + e.getMessage());
         }
         if (progressDialog != null) {
@@ -81,7 +84,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         Gson gson = gsonB.create();
 
         RxImagesResult rxImagesResult = null;
-
         try {
             rxImagesResult = gson.fromJson(rawJson, RxImagesResult.class);
             Log.d(TAG, "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
@@ -92,7 +94,7 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         return rxImagesResult;
     }
 
-    public String buildRequest() {
+    private String buildRequest() {
         String request = REQUEST_BASE.IMAGE;
         request += (imageFilter.imprint != null && !imageFilter.imprint.isEmpty()) ?
                 "&imprint=" + imageFilter.imprint : "";
@@ -100,16 +102,20 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                 "&name=" + imageFilter.name : "";
         request += (imageFilter.color != null && !imageFilter.color.isEmpty()) ?
                 "&color=" + imageFilter.color : "";
-        request += (imageFilter.shape != null & !imageFilter.shape.isEmpty()) ?
+        request += (imageFilter.shape != null && !imageFilter.shape.isEmpty()) ?
                 "&shape=" + imageFilter.shape : "";
         request += (imageFilter.limit != 0) ?
-                ("&rLimit=" + Integer.toString(imageFilter.limit)) : "";
+                "&rLimit=" + Integer.toString(imageFilter.limit) : "";
         return request;
     }
 
     public void setResultsInUI() {
-        searchActivity.populateRecyclerView(rxImagesResult);
+        SearchActivity activity = weakActivity.get();
+        if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+            activity.populateRecyclerView(rxImagesResult);
+        }
     }
+
 
     public static class ImageFilter {
         public String imprint;

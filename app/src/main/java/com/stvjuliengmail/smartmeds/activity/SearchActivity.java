@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +19,6 @@ import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -30,7 +27,7 @@ public class SearchActivity extends AppCompatActivity {
     EditText etName, etImprint;
     RecyclerView recyclerView;
     ResultsAdapter adapter;
-    List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
+    ArrayList<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +43,15 @@ public class SearchActivity extends AppCompatActivity {
         etImprint = (EditText) findViewById(R.id.etImprint);
 
         colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
-//        ArrayAdapter<String> adapter_PillColor = new ArrayAdapter<String>(getActivity(),
-//                android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillColors));
-//        adapter_PillColor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner_PillColor.setAdapter(adapter_PillColor);
-//        set default position for hint
         colorSpinner.setSelection(0);
 
         shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
-
-//        ArrayAdapter<String> adapter_PillShape = new ArrayAdapter<String>(getActivity(),
-//              android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.array_PillShapes));
-//        adapter_PillShape.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner_PillShape.setAdapter(adapter_PillShape);
-//        set default position for hint
         shapeSpinner.setSelection(0);
 
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
 
-        //Create custom interface object and send it to adapter
-        //Adapter triggers it when any item view is clicked
+        //Create custom interface object and send it to adapter for clickable list items
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -89,21 +74,21 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    public void search(){
+        public void search(){
         new ImageListTask(this, getFilter()).execute("");
     }
 
-    public ImageListTask.ImageFilter getFilter(){
+    public ImageListTask.ImageFilter getFilter() {
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
 
         filter.imprint = etImprint.getText().toString();
         filter.name = etName.getText().toString();
-        // TODO: Figure out how to get rid of hardcoded values to avoid problems in query
-            // where color = "Choose color" etc
+        /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
+                where color = "Choose color" etc **/
         String selectedColor = colorSpinner.getSelectedItem().toString();
-        filter.color = (selectedColor.equals("Color")) ? "" : selectedColor;
+        filter.color = (selectedColor.equals("Color")) ? null : selectedColor;
         String selectedShape = shapeSpinner.getSelectedItem().toString();
-        filter.shape = (selectedShape.equals("Shape")) ? "" : selectedShape;
+        filter.shape = (selectedShape.equals("Shape")) ? null : selectedShape;
         return filter;
     }
 
@@ -111,8 +96,7 @@ public class SearchActivity extends AppCompatActivity {
         imageList.clear();
         if (rxImagesResult != null && rxImagesResult.getNlmRxImages() != null && rxImagesResult.getNlmRxImages().length > 0) {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
-        }
-        else {
+        } else {
             Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
         }
         adapter.notifyDataSetChanged();
