@@ -16,7 +16,6 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 public class ImageListTask extends AsyncTask<String, Integer, String> {
     private final String TAG = getClass().getSimpleName();
     private String rawJson = "";
@@ -62,7 +61,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         }
         return rawJson;
     }
-
 
     @Override
     protected void onPostExecute(String result) {
@@ -112,7 +110,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         Log.d(TAG, request);
         return request;
     }
-
 
     public void setResultsInUI() {
         if(rxImagesResult != null){
