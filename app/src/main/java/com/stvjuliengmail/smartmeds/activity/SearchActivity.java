@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
@@ -29,12 +30,17 @@ public class SearchActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ResultsAdapter adapter;
     ArrayList<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
+    boolean isInitialDisplayColor;
+    boolean isInitialDisplayShape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initializeUiComponents();
+    }
 
+    private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (Button) findViewById(R.id.btnLoadList);
 
@@ -43,12 +49,59 @@ public class SearchActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
 
+        wireUpColorSpinner();
+
+        wireUpShapeSpinner();
+
+        wireAdapterToRecyclerView();
+
+        wireUpSearchButton();
+    }
+
+
+    private void wireUpColorSpinner() {
         colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
         colorSpinner.setSelection(0);
+        isInitialDisplayColor = true;
+        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isInitialDisplayColor) {
+                    isInitialDisplayColor = false;
+                } else {
+                    search();
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // obligatory override
+            }
+        });
+    }
+
+    private void wireUpShapeSpinner() {
         shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
         shapeSpinner.setSelection(0);
+        isInitialDisplayShape = true;
+        shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isInitialDisplayShape) {
+                    isInitialDisplayShape = false;
+                } else {
+                    search();
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // obligatory override
+            }
+        });
+    }
+
+    private void wireAdapterToRecyclerView() {
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
 
@@ -66,7 +119,9 @@ public class SearchActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(adapter);
+    }
 
+    private void wireUpSearchButton() {
         btnLoadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +135,7 @@ public class SearchActivity extends AppCompatActivity {
         new ImageListTask(this, getFilter()).execute("");
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(this.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
