@@ -12,32 +12,35 @@ import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 
 public class ImageListTask extends AsyncTask<String, Integer, String> {
     private final String TAG = getClass().getSimpleName();
     private String rawJson = "";
     private RxImagesResult rxImagesResult;
-    private SearchActivity searchActivity;
+    private final WeakReference<SearchActivity> weakActivity;
     private ImageFilter imageFilter;
     private ProgressDialog progressDialog;
 
     public ImageListTask(SearchActivity searchActivity, ImageFilter imageFilter) {
-        this.searchActivity = searchActivity;
+        this.weakActivity = new WeakReference<SearchActivity>(searchActivity);
         this.imageFilter = imageFilter;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = new ProgressDialog(searchActivity);
+        progressDialog = new ProgressDialog(weakActivity.get());
         progressDialog.setMessage("Loading...");
         progressDialog.show();
     }
 
     @Override
     protected String doInBackground(String... params) {
+        Log.d(TAG, "beginning of doInBackground");
         try {
             URL url = new URL(buildRequest());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -50,11 +53,14 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                     BufferedReader br =
                             new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     rawJson = br.readLine();
-                    Log.d(TAG, "raw first 256 chars = " + rawJson.substring(0, 256));
+                    Log.d(TAG, "raw first 10 chars = " + rawJson.substring(0, 10));
+                    break;
+                default:
+                    Toast.makeText(weakActivity.get(), "Server Error", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(searchActivity, "Problems retrieving data",Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "doInBackground() : " + e.getMessage());
+
+            Log.d(TAG, "doInBackground() Exception !!: " + e.getMessage());
         }
         return rawJson;
     }
@@ -66,10 +72,14 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
 
         try {
             rxImagesResult = jsonParse(result);
-            setResultsInUI();
+            if(rxImagesResult != null && rxImagesResult.getNlmRxImages() != null){
+                setResultsInUI();
+            }
+            else {
+                Toast.makeText(weakActivity.get(), "No Results", Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e) {
-            Toast.makeText(searchActivity, "Problems retrieving data",Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onPostExecute: " + e.getMessage());
+            Log.d(TAG, "onPostExecute: Exception !!!" + e.getMessage());
         }
         if (progressDialog != null) {
             progressDialog.dismiss();
@@ -81,34 +91,38 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         Gson gson = gsonB.create();
 
         RxImagesResult rxImagesResult = null;
-
         try {
             rxImagesResult = gson.fromJson(rawJson, RxImagesResult.class);
-            Log.d(TAG, "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
-            Log.d(TAG, "the first imageUrl in the array is " + rxImagesResult.getNlmRxImages()[0].getImageUrl());
         } catch (Exception e) {
-            Log.d(TAG, "jsonParse() : " + e.getMessage());
+            Log.d(TAG, "jsonParse() Exception !!!: " + e.getMessage());
         }
         return rxImagesResult;
     }
 
-    public String buildRequest() {
+    private String buildRequest() {
         String request = REQUEST_BASE.IMAGE;
         request += (imageFilter.imprint != null && !imageFilter.imprint.isEmpty()) ?
                 "&imprint=" + imageFilter.imprint : "";
-        request += (imageFilter.name != null && !imageFilter.name.isEmpty()) ?
-                "&name=" + imageFilter.name : "";
         request += (imageFilter.color != null && !imageFilter.color.isEmpty()) ?
                 "&color=" + imageFilter.color : "";
-        request += (imageFilter.shape != null & !imageFilter.shape.isEmpty()) ?
+        request += (imageFilter.shape != null && !imageFilter.shape.isEmpty()) ?
                 "&shape=" + imageFilter.shape : "";
         request += (imageFilter.limit != 0) ?
-                ("&rLimit=" + Integer.toString(imageFilter.limit)) : "";
+                "&rLimit=" + Integer.toString(imageFilter.limit) : "";
+        request += (imageFilter.name != null && imageFilter.name.length() >= 3) ?
+                "&name=" + imageFilter.name : "";
+        Log.d(TAG, request);
         return request;
     }
 
+
     public void setResultsInUI() {
-        searchActivity.populateRecyclerView(rxImagesResult);
+        if(rxImagesResult != null){
+            SearchActivity activity = weakActivity.get();
+            if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+                activity.populateRecyclerView(rxImagesResult);
+            }
+        }
     }
 
     public static class ImageFilter {

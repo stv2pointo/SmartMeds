@@ -13,10 +13,6 @@ public class RxImagesResult {
         this.nlmRxImages = nlmRxImages;
     }
 
-    public ReplyStatus getReplyStatus() {
-        return replyStatus;
-    }
-
     public NlmRxImage[] getNlmRxImages() {
         return nlmRxImages;
     }
@@ -89,4 +85,5 @@ public class RxImagesResult {
         }
 
     }
+
 }
