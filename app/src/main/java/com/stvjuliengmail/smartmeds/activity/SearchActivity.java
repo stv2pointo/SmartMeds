@@ -17,6 +17,7 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
 import com.stvjuliengmail.smartmeds.api.ImageListTask;
+import com.stvjuliengmail.smartmeds.model.NlmRxImage;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     EditText etName, etImprint;
     RecyclerView recyclerView;
     ResultsAdapter adapter;
-    ArrayList<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
+    ArrayList<NlmRxImage> imageList = new ArrayList<>();
     boolean isInitialDisplayColor;
     boolean isInitialDisplayShape;
 
