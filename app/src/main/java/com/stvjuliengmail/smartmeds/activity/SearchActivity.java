@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
@@ -74,8 +75,16 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-        public void search(){
+    public void search() {
+        hideKeyboard();
         new ImageListTask(this, getFilter()).execute("");
+    }
+
+    public void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(this.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     public ImageListTask.ImageFilter getFilter() {
@@ -83,14 +92,14 @@ public class SearchActivity extends AppCompatActivity {
 
         filter.imprint = etImprint.getText().toString();
         String nameInput = etName.getText().toString();
-        if(nameInput != null && nameInput.length() > 0 && nameInput.length() < 3){
-            Toast.makeText(this, "Names must be more than 2 letters",Toast.LENGTH_SHORT).show();
+        if (nameInput != null && nameInput.length() > 0 && nameInput.length() < 3) {
+            Toast.makeText(this, "Names must be more than 2 letters", Toast.LENGTH_SHORT).show();
             nameInput = "";
             etName.setText("");
         }
         filter.name = nameInput;
         /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
-                where color = "Choose color" etc **/
+         where color = "Choose color" etc **/
         String selectedColor = colorSpinner.getSelectedItem().toString();
         filter.color = (selectedColor.equals("Color")) ? null : selectedColor;
         String selectedShape = shapeSpinner.getSelectedItem().toString();
