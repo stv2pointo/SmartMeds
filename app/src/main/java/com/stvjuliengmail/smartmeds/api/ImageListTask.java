@@ -40,7 +40,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.d(TAG, "beginning of doInBackground");
         try {
             URL url = new URL(buildRequest());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -59,7 +58,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                     Toast.makeText(weakActivity.get(), "Server Error", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-
             Log.d(TAG, "doInBackground() Exception !!: " + e.getMessage());
         }
         return rawJson;

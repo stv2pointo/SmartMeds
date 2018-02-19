@@ -89,7 +89,6 @@ public class SearchActivity extends AppCompatActivity {
             etName.setText("");
         }
         filter.name = nameInput;
-
         /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
                 where color = "Choose color" etc **/
         String selectedColor = colorSpinner.getSelectedItem().toString();
