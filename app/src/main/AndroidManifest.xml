@@ -18,9 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SearchActivity" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.MyMedsActivity" />
-        <activity android:name=".activity.RxInfo"></activity>
+        <activity android:name=".activity.RxInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -1,176 +1,182 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
+import com.stvjuliengmail.smartmeds.api.ImageListTask;
+import com.stvjuliengmail.smartmeds.model.NlmRxImage;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    // TODO: replace hard coded imprint with search parms later
-    String imprint;
-    Button btnRxInfo;
     Button btnLoadList;
+    Spinner colorSpinner, shapeSpinner;
+    EditText etName, etImprint;
     RecyclerView recyclerView;
-    //RecyclerView.Adapter adapter;
     ResultsAdapter adapter;
-    List<RxImagesResult.NlmRxImage> imageList = new ArrayList<>();
+    ArrayList<NlmRxImage> imageList = new ArrayList<>();
+    boolean isInitialDisplayColor;
+    boolean isInitialDisplayShape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        initializeUiComponents();
+    }
 
-        imprint = "dp";
-
-        recyclerView = (RecyclerView)findViewById(R.id.recVwResultList);
-        btnLoadList = (Button)findViewById(R.id.btnLoadList);
-        btnRxInfo = (Button) findViewById(R.id.btnRxInfo);
+    private void initializeUiComponents() {
+        recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
+        btnLoadList = (Button) findViewById(R.id.btnLoadList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        etName = (EditText) findViewById(R.id.etName);
+        etImprint = (EditText) findViewById(R.id.etImprint);
+
+        wireUpColorSpinner();
+
+        wireUpShapeSpinner();
+
+        wireAdapterToRecyclerView();
+
+        wireUpSearchButton();
+    }
+
+
+    private void wireUpColorSpinner() {
+        colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
+        colorSpinner.setSelection(0);
+        isInitialDisplayColor = true;
+        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isInitialDisplayColor) {
+                    isInitialDisplayColor = false;
+                } else {
+                    search();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // obligatory override
+            }
+        });
+    }
+
+    private void wireUpShapeSpinner() {
+        shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+        shapeSpinner.setSelection(0);
+        isInitialDisplayShape = true;
+        shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (isInitialDisplayShape) {
+                    isInitialDisplayShape = false;
+                } else {
+                    search();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // obligatory override
+            }
+        });
+    }
+
+    private void wireAdapterToRecyclerView() {
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
 
-        //Create custom interface object and send it to adapter
-        //Adapter trigger it when any item view is clicked
-        //adapter.setOnItemClickListener()
-        final Context context = this;
+        //Create custom interface object and send it to adapter for clickable list items
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, "item clicked " + Integer.toString(imageList.get(position).getRxcui()), Toast.LENGTH_SHORT).show();
-                loadRxInfoActivity(imageList.get(position).getRxcui());
+                startRxInfoActivity(imageList.get(position).getRxcui());
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                //Toast.makeText(MainActivity.this, getResources().getString(R.string.long_clicked_item, albumList.get(position).getAlbumName()), Toast.LENGTH_SHORT).show();
+                // TODO: Use long click to open option to save to myMeds
             }
         });
 
         recyclerView.setAdapter(adapter);
+    }
 
+    private void wireUpSearchButton() {
         btnLoadList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new getImageListData().execute("");
+                search();
             }
         });
-
-        btnRxInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadMyAct();
-            }
-        });
-
     }
 
-    public void loadRxInfoActivity(int rxcui){
-        Intent intent = new Intent(this, RxInfo.class);
-        intent.putExtra("rxcui",rxcui);
-        startActivity(intent);
+    public void search() {
+        hideKeyboard();
+        new ImageListTask(this, getFilter()).execute("");
     }
 
-    public void loadMyAct(){
-        Intent intent = new Intent(this, RxInfo.class);
-        startActivity(intent);
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(this.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
-    public class getImageListData extends AsyncTask<String, Integer, String> {
-        String rawJson = "";
+    public ImageListTask.ImageFilter getFilter() {
+        ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
 
-        @Override
-        protected String doInBackground(String... params){
-            try{
-                URL url = new URL("https://rximage.nlm.nih.gov/api/rximage/1/rxnav?&resolution=600&imprint=dp&rLimit=12");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setRequestMethod("GET");
-                connection.connect();
-                int status = connection.getResponseCode();
-                switch (status) {
-                    case 200:
-                    case 201:
-                        BufferedReader br =
-                                new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                        rawJson = br.readLine();
-                        //Log.d("test", "raw json string length = " + rawJson.length());
-                        Log.d("test", "raw first 256 chars = " + rawJson.substring(0,256));
-                        //Log.d("test", "ra json last 256 = " + rawJson.substring(rawJson.length()-256,rawJson.length()));
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            return rawJson;
-        } // end doInBackg...
-
-
-        @Override
-        protected void onPostExecute(String result){
-            super.onPostExecute(result);
-            try{
-                RxImagesResult rxImagesResult = jsonParse(result);
-                showData(rxImagesResult);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+        filter.imprint = etImprint.getText().toString();
+        String nameInput = etName.getText().toString();
+        if (nameInput != null && nameInput.length() > 0 && nameInput.length() < 3) {
+            Toast.makeText(this, "Names must be more than 2 letters", Toast.LENGTH_SHORT).show();
+            nameInput = "";
+            etName.setText("");
         }
+        filter.name = nameInput;
+        /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
+         where color = "Choose color" etc **/
+        String selectedColor = colorSpinner.getSelectedItem().toString();
+        filter.color = (selectedColor.equals("Color")) ? null : selectedColor;
+        String selectedShape = shapeSpinner.getSelectedItem().toString();
+        filter.shape = (selectedShape.equals("Shape")) ? null : selectedShape;
+        return filter;
+    }
 
-        private RxImagesResult jsonParse(String rawJson) {
-            GsonBuilder gsonB = new GsonBuilder();
-            Gson gson = gsonB.create();
-
-            RxImagesResult rxImagesResult = null;
-
-            try {
-                rxImagesResult = gson.fromJson(rawJson, RxImagesResult.class);
-                Log.d("test", "the replyStatus.img count is " + Integer.toString(rxImagesResult.getReplyStatus().getImageCount()));
-                Log.d("test", "the first imageUrl in the array is " + rxImagesResult.getNlmRxImages()[0].getImageUrl());
-            }
-            catch (Exception e) {
-                Log.d("test", e.getMessage());
-            }
-            return rxImagesResult;
-        } // end parse
-
-    } // end getImageList task
-
-    public void showData(RxImagesResult rxImagesResult){
-
-        if (rxImagesResult != null){
-            imageList.clear();
+    public void populateRecyclerView(RxImagesResult rxImagesResult) {
+        imageList.clear();
+        if (rxImagesResult != null && rxImagesResult.getNlmRxImages() != null && rxImagesResult.getNlmRxImages().length > 0) {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
-            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
         }
+        adapter.notifyDataSetChanged();
+    }
+
+    public void startRxInfoActivity(int rxcui) {
+        Intent intent = new Intent(this, RxInfoActivity.class);
+        intent.putExtra("rxcui", rxcui);
+        startActivity(intent);
     }
 }
 
