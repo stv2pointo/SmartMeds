@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.model.NlmRxImage;
 import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.io.IOException;
@@ -29,22 +30,22 @@ import java.util.List;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultsViewHolder> {
 
-    private List<RxImagesResult.NlmRxImage> results;
+    private List<NlmRxImage> results;
     private int rowLayout;
     private Context context;
     private RecyclerViewItemClickListener recyclerViewItemClickListener;
 
-    public ResultsAdapter(List<RxImagesResult.NlmRxImage> results, int rowLayout, Context context) {
+    public ResultsAdapter(List<NlmRxImage> results, int rowLayout, Context context) {
         this.results = results;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
-    public List<RxImagesResult.NlmRxImage> getResults() {
+    public List<NlmRxImage> getResults() {
         return results;
     }
 
-    public void setResults(List<RxImagesResult.NlmRxImage> results) {
+    public void setResults(List<NlmRxImage> results) {
         this.results = results;
     }
 

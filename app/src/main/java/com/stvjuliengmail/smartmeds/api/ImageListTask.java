@@ -16,7 +16,6 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
 public class ImageListTask extends AsyncTask<String, Integer, String> {
     private final String TAG = getClass().getSimpleName();
     private String rawJson = "";
@@ -40,7 +39,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.d(TAG, "beginning of doInBackground");
         try {
             URL url = new URL(buildRequest());
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -59,12 +57,10 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
                     Toast.makeText(weakActivity.get(), "Server Error", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-
             Log.d(TAG, "doInBackground() Exception !!: " + e.getMessage());
         }
         return rawJson;
     }
-
 
     @Override
     protected void onPostExecute(String result) {
@@ -114,7 +110,6 @@ public class ImageListTask extends AsyncTask<String, Integer, String> {
         Log.d(TAG, request);
         return request;
     }
-
 
     public void setResultsInUI() {
         if(rxImagesResult != null){
