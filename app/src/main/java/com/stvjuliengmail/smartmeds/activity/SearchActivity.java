@@ -167,6 +167,7 @@ public class SearchActivity extends AppCompatActivity {
         imageList.clear();
         if (rxImagesResult != null && rxImagesResult.getNlmRxImages() != null && rxImagesResult.getNlmRxImages().length > 0) {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
+            Toast.makeText(this, rxImagesResult.getNlmRxImages().length + " results were found.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
         }
