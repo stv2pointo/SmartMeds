@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity {
-
+    private final String TAG = getClass().getSimpleName();
     Button btnLoadList;
     Spinner colorSpinner, shapeSpinner;
     EditText etName, etImprint;
@@ -167,7 +168,7 @@ public class SearchActivity extends AppCompatActivity {
         imageList.clear();
         if (rxImagesResult != null && rxImagesResult.getNlmRxImages() != null && rxImagesResult.getNlmRxImages().length > 0) {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
-            Toast.makeText(this, rxImagesResult.getNlmRxImages().length + " results were found.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, rxImagesResult.getNlmRxImages().length + " results were found.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
         }
@@ -175,6 +176,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void startRxInfoActivity(int rxcui) {
+        Log.d(TAG, "startRxInfo, rxcui is " + Integer.toString(rxcui));
         Intent intent = new Intent(this, RxInfoActivity.class);
         intent.putExtra("rxcui", rxcui);
         startActivity(intent);
