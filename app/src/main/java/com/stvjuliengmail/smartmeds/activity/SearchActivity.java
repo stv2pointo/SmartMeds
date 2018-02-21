@@ -24,6 +24,8 @@ import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.lang.String.*;
+
 public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     Button btnLoadList;
@@ -168,7 +170,7 @@ public class SearchActivity extends AppCompatActivity {
         imageList.clear();
         if (rxImagesResult != null && rxImagesResult.getNlmRxImages() != null && rxImagesResult.getNlmRxImages().length > 0) {
             imageList.addAll(Arrays.asList(rxImagesResult.getNlmRxImages()));
-//            Toast.makeText(this, rxImagesResult.getNlmRxImages().length + " results were found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, Integer.toString(rxImagesResult.getNlmRxImages().length) + " results were found.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
         }
