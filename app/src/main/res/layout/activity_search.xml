@@ -11,15 +11,15 @@
         android:id="@+id/filtersLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="3"
+            android:layout_weight="1.75"
             android:orientation="vertical">
 
             <EditText
@@ -68,7 +68,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:drawableTop="@android:drawable/ic_search_category_default"
+            android:drawableTop="@android:drawable/ic_menu_search"
             android:padding="10dp"
             android:text="Search"
             android:textAllCaps="false" />

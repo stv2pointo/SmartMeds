@@ -157,9 +157,9 @@ public class SearchActivity extends AppCompatActivity {
         /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
          where color = "Choose color" etc **/
         String selectedColor = colorSpinner.getSelectedItem().toString();
-        filter.color = (selectedColor.equals("Color")) ? null : selectedColor;
+        filter.color = (selectedColor.equals("Pill Color")) ? "" : selectedColor;
         String selectedShape = shapeSpinner.getSelectedItem().toString();
-        filter.shape = (selectedShape.equals("Shape")) ? null : selectedShape;
+        filter.shape = (selectedShape.equals("Pill Shape")) ? "" : selectedShape;
         return filter;
     }
 

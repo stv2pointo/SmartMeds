@@ -8,13 +8,12 @@
     <string name="text_PillName">Pill Name</string>
     <string name="text_PillInscription">Pill Inscription</string>
     <string name="checkbox_PillInscription">Check if no/unknown inscription</string>
-    <string name="text_PillColor">Color</string>
-    <string name="text_PillShape">Shape</string>
+    <string name="text_PillColor">Pill Color</string>
+    <string name="text_PillShape">Pill Shape</string>
     <string name="button_Search">Search</string>
-    <string name="empty_shape_field">Shape</string>
 
     <string-array name="array_PillColors">
-        <item>Color</item>
+        <item>Pill Color</item>
         <item>Black</item>
         <item>Blue</item>
         <item>Brown</item>
@@ -23,14 +22,14 @@
         <item>Orange</item>
         <item>Pink</item>
         <item>Purple</item>
-        <item>RED</item>
+        <item>Red</item>
         <item>Turquoise</item>
         <item>White</item>
         <item>Yellow</item>
     </string-array>
 
     <string-array name="array_PillShapes">
-        <item>Shape</item>
+        <item>Pill Shape</item>
         <item>Bullet</item>
         <item>Capsule</item>
         <item>Clover</item>
@@ -58,4 +57,5 @@
     <string name="inscription">Inscription:</string>
     <string name="shape">Shape:</string>
     <string name="color">Color:</string>
+    <string name="title_activity_edit_med">EditMed</string>
 </resources>
