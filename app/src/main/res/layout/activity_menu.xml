@@ -28,7 +28,6 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@mipmap/ic_logo"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="0dp" />
 
