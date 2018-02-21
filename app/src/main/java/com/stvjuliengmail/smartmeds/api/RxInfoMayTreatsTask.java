@@ -8,7 +8,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stvjuliengmail.smartmeds.activity.RxInfoActivity;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -17,14 +16,14 @@ import java.util.ArrayList;
 
 public class RxInfoMayTreatsTask extends RxInfoStringTask {
     private final String TAG = getClass().getSimpleName();
-
+    private ArrayList<String> mayTreatsFromJson;
     public RxInfoMayTreatsTask(RxInfoActivity activity, String requestPath) {
         super(activity, requestPath);
     }
 
     @Override
     public void jsonParse(String rawJson){
-        ArrayList<String> mayTreatsFromJson = new ArrayList<>();
+        mayTreatsFromJson = new ArrayList<>();
 
         try {
             JsonParser parser = new JsonParser();
@@ -33,27 +32,30 @@ public class RxInfoMayTreatsTask extends RxInfoStringTask {
                 JsonObject wholeThing = element.getAsJsonObject();
                 JsonObject rxclassDrugInfoList = wholeThing.getAsJsonObject("rxclassDrugInfoList");
                 JsonArray rxclassDrugInfos = rxclassDrugInfoList.getAsJsonArray("rxclassDrugInfo");
-//                    Log.d("test", "This list should have six and the count is " + Integer.toString(rxclassDrugInfos.size()));
                 for (JsonElement listElement : rxclassDrugInfos) {
                     JsonParser nestedParser = new JsonParser();
                     JsonElement nestedElement = nestedParser.parse(listElement.toString());
                     JsonObject unNamedListItem = nestedElement.getAsJsonObject();
-                    JsonObject thingThatIactuallyWant = unNamedListItem.getAsJsonObject("rxclassMinConceptItem");
-                    JsonElement elementIwant = thingThatIactuallyWant.get("className");
-                    mayTreatsFromJson.add(elementIwant.getAsString());
+                    JsonObject diseaseClass = unNamedListItem.getAsJsonObject("rxclassMinConceptItem");
+                    JsonElement diseaseName = diseaseClass.get("className");
+                    mayTreatsFromJson.add(diseaseName.getAsString());
                 }
             }
         } catch (Exception e) {
             Log.d(TAG, "jsonParse(): " + e.getMessage());
         }
-        StringBuilder sb = new StringBuilder();
-        for (String s : mayTreatsFromJson)
+        convertArrayListToStringThatLooksLikeVerticalList();
+    }
+
+    public void convertArrayListToStringThatLooksLikeVerticalList(){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String diseaseName : mayTreatsFromJson)
         {
-            sb.append(s);
-            sb.append("\n");
+            stringBuilder.append(diseaseName);
+            stringBuilder.append("\n");
         }
 
-        resultString = sb.toString();
+        resultString = stringBuilder.toString();
     }
 
     @Override
