@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -50,11 +53,13 @@ public class RxInfoActivity extends AppCompatActivity {
         // get the id of the selected pill
         rxcui = extras.getInt("rxcui");
 
+
         // TODO: Remove and replace with a desired field
         tvTest.setText(Integer.toString(rxcui));
 
         // instantiate an empty list to put disease names in
         mayTreatDiseaseNames = new ArrayList<String>();
+
 
         // Create a new asynchronous task that will go get the "May Treat" disease names from rxNav
         new getMayTreatsJSON().execute("");
@@ -88,7 +93,7 @@ public class RxInfoActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                String request = "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui="
+                String request = REQUEST_BASE.CLASS_BY_RXCUI
                         + Integer.toString(rxcui) + "&relaSource=NDFRT&relas=may_treat";
                 URL url = new URL(request);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
