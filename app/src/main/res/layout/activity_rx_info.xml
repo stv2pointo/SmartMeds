@@ -41,18 +41,18 @@
             android:textSize="18sp" />
     </ScrollView>
 
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/btnSaveMyMeds"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_gravity="bottom|right"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:layout_marginBottom="16dp"-->
-        <!--android:layout_marginEnd="16dp"-->
-        <!--android:src="@android:drawable/ic_menu_save"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent" />-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSaveMyMeds"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="24dp"
+        android:src="@android:drawable/ic_menu_save"
+        app:backgroundTint="@color/color_mainGreen"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="12dp" />
 
 </android.support.constraint.ConstraintLayout>
-    <!--app:layout_anchorGravity="bottom|right|end"-->

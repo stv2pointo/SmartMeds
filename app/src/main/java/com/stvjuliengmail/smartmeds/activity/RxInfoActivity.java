@@ -1,10 +1,14 @@
 package com.stvjuliengmail.smartmeds.activity;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -20,19 +24,27 @@ import java.util.ArrayList;
 
 public class RxInfoActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    TextView tvTest, tvMayTreat;
-    int rxcui = -1; // the id of the selected pill
-    ArrayList<String> mayTreatDiseaseNames;
+    private TextView tvTest, tvMayTreat;
+    private int rxcui = -1; // the id of the selected pill
+    private ArrayList<String> mayTreatDiseaseNames;
+    private FloatingActionButton fabSaveMyMeds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_info);
-
+        final Context context = this;
         // instantiate ui elements
         tvTest = (TextView) findViewById(R.id.tvTest);
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
 
+        fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
+        fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "This should open a form",Toast.LENGTH_SHORT).show();
+            }
+        });
         // Create a collection for stuff that was passed to this activity on start
         Bundle extras = getIntent().getExtras();
         // get the id of the selected pill
@@ -53,7 +65,7 @@ public class RxInfoActivity extends AppCompatActivity {
         tvMayTreat.setText(concatenateMayTreatDiseaseNames(diseases));
     }
 
-    public String concatenateMayTreatDiseaseNames(ArrayList<String> diseaseNames){
+    public String concatenateMayTreatDiseaseNames(ArrayList<String> diseaseNames) {
         String result = "May Treat:\n";
         if (diseaseNames != null && diseaseNames.size() > 0) {
             for (String str : diseaseNames) {
@@ -77,7 +89,7 @@ public class RxInfoActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             try {
                 String request = "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui="
-                        + Integer.toString(rxcui)+ "&relaSource=NDFRT&relas=may_treat";
+                        + Integer.toString(rxcui) + "&relaSource=NDFRT&relas=may_treat";
                 URL url = new URL(request);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -112,11 +124,11 @@ public class RxInfoActivity extends AppCompatActivity {
         /**
          * Parses the result by hand. The JSON result object is a nasty nested thing.
          * We could make a POJO and use :
-         *          GsonBuilder gsonB = new GsonBuilder();
-         *           Gson gson = gsonB.create();
-         *           MyResultObject myResult = null;
-         *           try {
-         *               myResult = gson.fromJson(rawJson, MyResultObject.class);
+         * GsonBuilder gsonB = new GsonBuilder();
+         * Gson gson = gsonB.create();
+         * MyResultObject myResult = null;
+         * try {
+         * myResult = gson.fromJson(rawJson, MyResultObject.class);
          * but I thought it unneccessary to create a whole object for a list of strings.
          * To avoid creating a stupid nested POJO for that list
          * I parsed the JSON tree until I got to the stuff I wanted
@@ -125,6 +137,7 @@ public class RxInfoActivity extends AppCompatActivity {
          * Each of those objects contained two objects
          * The second of those objects contained the field I wanted: className
          * Freaking brutal...
+         *
          * @param rawJson
          * @return
          */
@@ -140,7 +153,7 @@ public class RxInfoActivity extends AppCompatActivity {
                     JsonObject rxclassDrugInfoList = wholeThing.getAsJsonObject("rxclassDrugInfoList");
                     JsonArray rxclassDrugInfos = rxclassDrugInfoList.getAsJsonArray("rxclassDrugInfo");
 //                    Log.d("test", "This list should have six and the count is " + Integer.toString(rxclassDrugInfos.size()));
-                    for(JsonElement listElement: rxclassDrugInfos){
+                    for (JsonElement listElement : rxclassDrugInfos) {
                         JsonParser nestedParser = new JsonParser();
                         JsonElement nestedElement = nestedParser.parse(listElement.toString());
                         JsonObject unNamedListItem = nestedElement.getAsJsonObject();
