@@ -21,9 +21,10 @@
 
     <ScrollView
         android:id="@+id/svMayTreat"
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
+        android:layout_margin="16dp"
         android:background="@drawable/border_style"
         android:fadeScrollbars="false"
         app:layout_constraintEnd_toEndOf="parent"
