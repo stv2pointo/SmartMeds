@@ -113,7 +113,7 @@ public class SearchActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startRxInfoActivity(imageList.get(position).getRxcui());
+                startRxInfoActivity(imageList.get(position));
             }
 
             @Override
@@ -177,10 +177,15 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    public void startRxInfoActivity(int rxcui) {
-        Log.d(TAG, "startRxInfo, rxcui is " + Integer.toString(rxcui));
+    public void startRxInfoActivity(NlmRxImage nlmRxImage) {
+        int _rxcui = nlmRxImage.getRxcui();
+        String _name = nlmRxImage.getName();
+        String _imageUrl = nlmRxImage.getImageUrl();
+        Log.d(TAG, "startRxInfo, rxcui is " + Integer.toString(_rxcui));
         Intent intent = new Intent(this, RxInfoActivity.class);
-        intent.putExtra("rxcui", rxcui);
+        intent.putExtra("rxcui", _rxcui);
+        intent.putExtra("name", _name);
+        intent.putExtra("imageUrl", _imageUrl);
         startActivity(intent);
     }
 }

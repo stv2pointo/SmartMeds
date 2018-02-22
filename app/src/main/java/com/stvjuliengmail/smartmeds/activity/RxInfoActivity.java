@@ -16,8 +16,10 @@ import java.util.ArrayList;
 
 public class RxInfoActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private TextView tvTest, tvMayTreat;
+    private TextView tvName, tvMayTreat;
     private int rxcui; // the id of the selected pill
+    private String name;
+    private String imageUrl;
     private ArrayList<String> mayTreatDiseaseNames;
     private FloatingActionButton fabSaveMyMeds;
     private Context context;
@@ -34,8 +36,7 @@ public class RxInfoActivity extends AppCompatActivity {
 
         wireUpSaveToMyMedsButton();
 
-        // TODO: Remove and replace with a desired field
-        tvTest.setText(Integer.toString(rxcui));
+        displayName();
 
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
     }
@@ -43,10 +44,12 @@ public class RxInfoActivity extends AppCompatActivity {
     public void unpackIntentExtras() {
         Bundle extras = getIntent().getExtras();
         rxcui = extras.getInt("rxcui");
+        name = extras.getString("name");
+        imageUrl = extras.getString("imageUrl");
     }
 
     public void instantiateUiElements() {
-        tvTest = (TextView) findViewById(R.id.tvTest);
+        tvName = (TextView) findViewById(R.id.tvName);
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
         fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
     }
@@ -58,6 +61,14 @@ public class RxInfoActivity extends AppCompatActivity {
                 Toast.makeText(context, "This should open a form", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void displayName(){
+        tvName.setText(name);
+    }
+
+    public void displayImage(){
+
     }
 
     public String getMayTreatsRequest() {
