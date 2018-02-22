@@ -8,32 +8,39 @@
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+        style="@style/HeaderStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:minWidth="185dp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/svMayTreat"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="8dp"
         android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/border_style"
         android:fadeScrollbars="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName">
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <TextView
             android:id="@+id/tvMayTreat"

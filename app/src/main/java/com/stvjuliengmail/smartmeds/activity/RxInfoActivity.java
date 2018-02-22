@@ -1,15 +1,18 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
 
@@ -39,6 +42,8 @@ public class RxInfoActivity extends AppCompatActivity {
         wireUpSaveToMyMedsButton();
 
         displayName();
+
+        displayImage();
 
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
     }
@@ -71,7 +76,18 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void displayImage(){
-
+        ImageDownloadTask task = new ImageDownloadTask();
+        try {
+            Bitmap myBitmap = task.execute(imageUrl).get();
+            if(myBitmap == null){
+                imageView.setImageResource(R.drawable.no_img_avail);
+            }
+            else{
+                imageView.setImageBitmap(myBitmap);
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "display iMage exdeption: " + e.getMessage());
+        }
     }
 
     public String getMayTreatsRequest() {
