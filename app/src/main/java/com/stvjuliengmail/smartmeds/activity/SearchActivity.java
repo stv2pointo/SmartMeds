@@ -24,18 +24,19 @@ import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static java.lang.String.*;
 
 public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    Button btnLoadList;
-    Spinner colorSpinner, shapeSpinner;
-    EditText etName, etImprint;
-    RecyclerView recyclerView;
-    ResultsAdapter adapter;
-    ArrayList<NlmRxImage> imageList = new ArrayList<>();
-    boolean isInitialDisplayColor;
-    boolean isInitialDisplayShape;
+    private Button btnLoadList;
+    private Spinner colorSpinner, shapeSpinner;
+    private EditText etName, etImprint;
+    private RecyclerView recyclerView;
+    private ResultsAdapter adapter;
+    private ArrayList<NlmRxImage> imageList = new ArrayList<>();
+    private boolean isInitialDisplayColor;
+    private boolean isInitialDisplayShape;
+    private String defaultColorValue;
+    private String defaultShapeValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +48,20 @@ public class SearchActivity extends AppCompatActivity {
     private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (Button) findViewById(R.id.btnLoadList);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         wireUpColorSpinner();
-
         wireUpShapeSpinner();
-
         wireAdapterToRecyclerView();
-
         wireUpSearchButton();
     }
-
 
     private void wireUpColorSpinner() {
         colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
         colorSpinner.setSelection(0);
+        defaultColorValue = (String) colorSpinner.getItemAtPosition(0);
         isInitialDisplayColor = true;
         colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -76,7 +72,6 @@ public class SearchActivity extends AppCompatActivity {
                     search();
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // obligatory override
@@ -87,6 +82,7 @@ public class SearchActivity extends AppCompatActivity {
     private void wireUpShapeSpinner() {
         shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
         shapeSpinner.setSelection(0);
+        defaultShapeValue = (String) shapeSpinner.getItemAtPosition(0);
         isInitialDisplayShape = true;
         shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,7 +93,6 @@ public class SearchActivity extends AppCompatActivity {
                     search();
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // obligatory override
@@ -108,14 +103,12 @@ public class SearchActivity extends AppCompatActivity {
     private void wireAdapterToRecyclerView() {
         adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
                 getApplicationContext());
-
         //Create custom interface object and send it to adapter for clickable list items
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 startRxInfoActivity(imageList.get(position));
             }
-
             @Override
             public void onItemLongClick(View view, int position) {
                 // TODO: Use long click to open option to save to myMeds
@@ -157,12 +150,11 @@ public class SearchActivity extends AppCompatActivity {
             etName.setText("");
         }
         filter.name = nameInput;
-        /** TODO: Figure out how to get rid of hardcoded values to avoid problems in query
-         where color = "Choose color" etc **/
+
         String selectedColor = colorSpinner.getSelectedItem().toString();
-        filter.color = (selectedColor.equals("Pill Color")) ? "" : selectedColor;
+        filter.color = (selectedColor.equals(defaultColorValue)) ? "" : selectedColor;
         String selectedShape = shapeSpinner.getSelectedItem().toString();
-        filter.shape = (selectedShape.equals("Pill Shape")) ? "" : selectedShape;
+        filter.shape = (selectedShape.equals(defaultShapeValue)) ? "" : selectedShape;
         return filter;
     }
 

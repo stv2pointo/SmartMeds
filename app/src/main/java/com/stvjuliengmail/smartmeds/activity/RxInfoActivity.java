@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class RxInfoActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private TextView tvName, tvMayTreat;
+    private ImageView imageView;
     private int rxcui; // the id of the selected pill
     private String name;
     private String imageUrl;
@@ -52,6 +54,7 @@ public class RxInfoActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
         fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
+        imageView = (ImageView) findViewById(R.id.imageView);
     }
 
     public void wireUpSaveToMyMedsButton() {
