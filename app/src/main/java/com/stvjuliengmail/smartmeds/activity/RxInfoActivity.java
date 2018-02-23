@@ -1,12 +1,14 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ public class RxInfoActivity extends AppCompatActivity {
     private String imageUrl;
     private ArrayList<String> mayTreatDiseaseNames;
     private FloatingActionButton fabSaveMyMeds;
+    private Button btnInteractions;
     private Context context;
 
     @Override
@@ -40,6 +43,8 @@ public class RxInfoActivity extends AppCompatActivity {
         instantiateUiElements();
 
         wireUpSaveToMyMedsButton();
+
+        wireUpInteractionsButton();
 
         displayName();
 
@@ -60,6 +65,7 @@ public class RxInfoActivity extends AppCompatActivity {
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
         fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
         imageView = (ImageView) findViewById(R.id.imageView);
+        btnInteractions = (Button) findViewById(R.id.btnInteractions);
     }
 
     public void wireUpSaveToMyMedsButton() {
@@ -67,6 +73,18 @@ public class RxInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "This should open a form", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void wireUpInteractionsButton(){
+        btnInteractions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, InteractionsActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("rxcui", rxcui);
+                startActivity(intent);
             }
         });
     }
