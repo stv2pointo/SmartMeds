@@ -81,4 +81,19 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3522505" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:padding="7dp"
+        android:text="Interactions "
+        android:textSize="14sp"
+        android:background="@color/warn_yellow"
+        android:drawableRight="@android:drawable/stat_sys_warning"
+        android:drawableTint="@color/black_70"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
