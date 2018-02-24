@@ -1,17 +1,14 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.InteractionsAdapter;
+import com.stvjuliengmail.smartmeds.api.InteractionsListTask;
 import com.stvjuliengmail.smartmeds.model.Interaction;
 
 import java.util.ArrayList;
@@ -32,29 +29,26 @@ public class InteractionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactions);
 
+        unpackIntentExtras();
+
+        initializeUiElements();
+
+        displayPillName();
+
+        new InteractionsListTask(this, Integer.toString(rxcui)).execute("");
+//        loadInteractions();
+    }
+
+    private void initializeUiElements() {
+        tvName = (TextView) findViewById(R.id.tvName);
         interactions_recycler_view = (RecyclerView) findViewById(R.id.interactions_recycler_view);
         interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
 
         interactionsAdapter = new InteractionsAdapter(interactions, R.layout.listview_row_interaction, getApplicationContext());
         interactions_recycler_view.setAdapter(interactionsAdapter);
-
-
-
-        loadInteractions();
-
-
-        unpackIntentExtras();
-
-        initializeUiElements();
-
-        displayUiElements();
     }
 
-    private void initializeUiElements() {
-        tvName = (TextView) findViewById(R.id.tvName);
-    }
-
-    private void displayUiElements() {
+    private void displayPillName() {
         tvName.setText(name);
     }
 
@@ -64,16 +58,22 @@ public class InteractionsActivity extends AppCompatActivity {
         name = extras.getString("name");
     }
 
-    private void loadInteractions() {
-        interactions.clear();
-        getInteractions();
-        interactionsAdapter.notifyDataSetChanged();
-    }
+//    private void loadInteractions() {
+//        interactions.clear();
+//        getInteractions();
+//        interactionsAdapter.notifyDataSetChanged();
+//    }
 
-    private void getInteractions() {
-        for (int i = 0; i < 3; i++) {
-            interactions.add(new Interaction("pill " + i, "description " + i, "severity " + i));
-        }
+//    private void getInteractions() {
+////        for (int i = 0; i < 3; i++) {
+////            interactions.add(new Interaction("pill " + i, "description " + i, "severity " + i));
+////        }
+//    }
+
+    public void populateRecyclerView(ArrayList<Interaction> interactionsFromApi){
+        interactions.clear();
+        interactions.addAll(interactionsFromApi);
+        interactionsAdapter.notifyDataSetChanged();
     }
 
 }
