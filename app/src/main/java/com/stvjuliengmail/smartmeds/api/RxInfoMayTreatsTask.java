@@ -55,7 +55,7 @@ public class RxInfoMayTreatsTask extends RxInfoStringTask {
             stringBuilder.append("\n");
         }
 
-        resultString = stringBuilder.toString();
+        resultString = "May Treat: \n" + stringBuilder.toString();
     }
 
     @Override
