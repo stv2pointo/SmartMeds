@@ -11,4 +11,5 @@
     <color name="dark_red">#992600</color>
     <color name="dark_blue">#003366</color>
     <color name="color_mainGreen">#177c61</color>
+    <color name="warn_yellow">#ddd954</color>
 </resources>
