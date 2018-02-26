@@ -60,7 +60,6 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
                     BufferedReader br =
                             new BufferedReader(new InputStreamReader(connection.getInputStream()));
                     rawJson = br.readLine();
-                    //Log.d(TAG, "raw first 10 chars = " + rawJson.substring(0, 10));
                     break;
                 default:
                     Toast.makeText(weakActivity.get(), "Server Error", Toast.LENGTH_SHORT).show();
@@ -79,6 +78,7 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
         try {
             InteractionsResult resultObject = jsonParse(result);
             interactions = resultToInteractions(resultObject);
+            disclaimer = resultObject.getNlmDisclaimer();
             if (interactions != null && interactions.size() > 0) {
                 setResultsInUI();
             } else {
@@ -99,7 +99,6 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
         InteractionsResult interactionsResult = null;
         try {
             interactionsResult = gson.fromJson(rawJson, InteractionsResult.class);
-            //Log.d(TAG, "guess it worked: " + interactionsResult.getInteractionTypeGroup()[0].getInteractionType()[0].getInteractionPair()[0].getInteractionConcept()[1].getSourceConceptItem().getName());
         } catch (Exception e) {
             Log.d(TAG, "jsonParse() Exception !!!: " + e.getMessage());
         }
@@ -111,7 +110,6 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
         request += strRxcui;
         Log.d(TAG, request);
         return request;
-        //return "https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=341248";
     }
 
     public ArrayList<Interaction> resultToInteractions(InteractionsResult interactionsResult) {
@@ -132,6 +130,7 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
         if (interactions != null) {
             InteractionsActivity activity = weakActivity.get();
             if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+                activity.populateDisclaimer(disclaimer);
                 activity.populateRecyclerView(interactions);
             }
         }
