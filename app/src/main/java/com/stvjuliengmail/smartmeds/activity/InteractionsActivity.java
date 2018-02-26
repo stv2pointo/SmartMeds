@@ -18,7 +18,7 @@ public class InteractionsActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private String name;
     private int rxcui;
-    private TextView tvName;
+    private TextView tvName, tvDisclaimer;
     private RecyclerView interactions_recycler_view;
     private List<Interaction> interactions = new ArrayList<>();
     private RecyclerView.Adapter interactionsAdapter;
@@ -36,14 +36,14 @@ public class InteractionsActivity extends AppCompatActivity {
         displayPillName();
 
         new InteractionsListTask(this, Integer.toString(rxcui)).execute("");
-//        loadInteractions();
     }
 
     private void initializeUiElements() {
         tvName = (TextView) findViewById(R.id.tvName);
+        tvDisclaimer = (TextView) findViewById(R.id.tvDisclaimer);
+
         interactions_recycler_view = (RecyclerView) findViewById(R.id.interactions_recycler_view);
         interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
-
         interactionsAdapter = new InteractionsAdapter(interactions, R.layout.listview_row_interaction, getApplicationContext());
         interactions_recycler_view.setAdapter(interactionsAdapter);
     }
@@ -58,22 +58,13 @@ public class InteractionsActivity extends AppCompatActivity {
         name = extras.getString("name");
     }
 
-//    private void loadInteractions() {
-//        interactions.clear();
-//        getInteractions();
-//        interactionsAdapter.notifyDataSetChanged();
-//    }
-
-//    private void getInteractions() {
-////        for (int i = 0; i < 3; i++) {
-////            interactions.add(new Interaction("pill " + i, "description " + i, "severity " + i));
-////        }
-//    }
-
-    public void populateRecyclerView(ArrayList<Interaction> interactionsFromApi){
+    public void populateRecyclerView(ArrayList<Interaction> interactionsFromApi) {
         interactions.clear();
         interactions.addAll(interactionsFromApi);
         interactionsAdapter.notifyDataSetChanged();
     }
 
+    public void populateDisclaimer(String disclaimer) {
+        tvDisclaimer.setText(disclaimer);
+    }
 }
