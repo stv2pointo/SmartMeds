@@ -33,27 +33,35 @@ public class PillSearchTest {
     public ActivityTestRule<SearchActivity> mSearchActivityRule =
             new ActivityTestRule<>(SearchActivity.class);
 
+    // currently for these inputs the actual values are hard coded in
+    // how do I make these right all the time
+    // without recycling the same bad result?
+
     @Test
     public void searchOnExactNameTest() {
         onView(withId(R.id.etName)).perform(typeText("Levoxyl"), closeSoftKeyboard());
         onView(withId(R.id.btnLoadList)).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(5));
     }
 
     @Test
     public void searchOnImprintTest() {
         onView(withId(R.id.etImprint)).perform(typeText("dp"), closeSoftKeyboard());
         onView(withId(R.id.btnLoadList)).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(20));
     }
 
     @Test
     public void searchOnColorTest() {
         onView(withId(R.id.colorSpinner)).perform(click());
         onData(equalTo("Blue")).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(20));
     }
     @Test
     public void searchOnShapeTest() {
         onView(withId(R.id.shapeSpinner)).perform(click());
         onData(equalTo("Diamond")).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(16));
     }
 
 }
