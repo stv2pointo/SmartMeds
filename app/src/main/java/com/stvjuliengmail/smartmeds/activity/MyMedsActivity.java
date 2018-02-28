@@ -3,13 +3,13 @@ package com.stvjuliengmail.smartmeds.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 import android.widget.ListView;

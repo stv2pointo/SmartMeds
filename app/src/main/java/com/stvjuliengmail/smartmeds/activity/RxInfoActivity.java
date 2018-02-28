@@ -17,6 +17,7 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
+import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 

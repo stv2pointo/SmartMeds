@@ -1,4 +1,4 @@
-package com.stvjuliengmail.smartmeds.activity;
+package com.stvjuliengmail.smartmeds.database;
 
 import java.util.ArrayList;
 import java.util.HashMap;
