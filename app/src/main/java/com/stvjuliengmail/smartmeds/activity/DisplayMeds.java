@@ -33,35 +33,33 @@ public class DisplayMeds extends Activity {
 //            int Value = extras.getInt("id");
 //
 //            if (Value > 0) {
-                //means this is the view part not the add meds part.
-                Cursor rs = mydb.getData(id);
-                id_To_Update = id;
-                rs.moveToFirst();
+        //means this is the view part not the add meds part.
+        Cursor rs = mydb.getData(id);
+        id_To_Update = id;
+        rs.moveToFirst();
 
-                String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXid));
-                String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
-                String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXDOC));
+        String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXid));
+        String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
+        String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXDOC));
 
-                if (!rs.isClosed()) {
-                    rs.close();
-                }
-                Button b = (Button) findViewById(R.id.button1);
-                b.setVisibility(View.INVISIBLE);
-
-                RXid.setText((CharSequence) rxID);
-                RXid.setFocusable(false);
-                RXid.setClickable(false);
-
-                dosage.setText((CharSequence) dose);
-                dosage.setFocusable(false);
-                dosage.setClickable(false);
-
-                doc.setText((CharSequence) doctor);
-                doc.setFocusable(false);
-                doc.setClickable(false);
-
-
-            }
+        if (!rs.isClosed()) {
+            rs.close();
         }
-//    }
-//}
+        Button b = (Button) findViewById(R.id.button1);
+        b.setVisibility(View.INVISIBLE);
+
+        RXid.setText((CharSequence) rxID);
+        RXid.setFocusable(false);
+        RXid.setClickable(false);
+
+        dosage.setText((CharSequence) dose);
+        dosage.setFocusable(false);
+        dosage.setClickable(false);
+
+        doc.setText((CharSequence) doctor);
+        doc.setFocusable(false);
+        doc.setClickable(false);
+
+
+    }
+}
