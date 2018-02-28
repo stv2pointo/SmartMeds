@@ -19,7 +19,7 @@ import static com.stvjuliengmail.smartmeds.R.id.editRXid1;
 
 public class MyMedsActivity extends AppCompatActivity {
 
-    private ListView obj;
+    private ListView listViewMyMeds;
     DBHelper db;
 
 
@@ -29,14 +29,13 @@ public class MyMedsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_meds);
 
         db = new DBHelper(this);
-        ArrayList array_list = db.getAllMeds();
-        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, array_list);
-        obj = (ListView)findViewById(R.id.listView1);
-        obj.setAdapter(arrayAdapter);
+        ArrayList myMedsList = db.getAllMeds();
+        ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, myMedsList);
+        listViewMyMeds = (ListView)findViewById(R.id.listView1);
+        listViewMyMeds.setAdapter(arrayAdapter);
         arrayAdapter.notifyDataSetChanged();
 
-
-        obj.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listViewMyMeds.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
@@ -46,8 +45,6 @@ public class MyMedsActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -67,12 +64,6 @@ public class MyMedsActivity extends AppCompatActivity {
         }
     }
 
-    public boolean onKeyDown(int keycode, KeyEvent event) {
-        if (keycode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(true);
-        }
-        return super.onKeyDown(keycode, event);
-    }
 }
 
 

@@ -83,7 +83,7 @@ public class RxInfoActivity extends AppCompatActivity {
                 //Open a new activity (editMed)?
                 Intent intent = new Intent(context, MyMedsActivity.class);
                 startActivity(intent);
-                Toast.makeText(context, "This should open a form", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Added to your pills", Toast.LENGTH_SHORT).show();
             }
         });
     }
