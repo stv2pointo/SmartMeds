@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SmartMeds.iml" filepath="$PROJECT_DIR$/SmartMeds.iml" />
-      <module fileurl="file://C:\repos\4450project\SmartMeds\SmartMeds.iml" filepath="C:\repos\4450project\SmartMeds\SmartMeds.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\repos\4450project\SmartMeds\app\app.iml" filepath="C:\repos\4450project\SmartMeds\app\app.iml" />
     </modules>
   </component>
 </project>
