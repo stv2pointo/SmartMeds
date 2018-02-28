@@ -37,6 +37,10 @@
         <activity
             android:name=".activity.InteractionsActivity"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.DisplayMeds"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
