@@ -40,7 +40,7 @@ public class EditMed extends AppCompatActivity {
         bundle = getIntent().getExtras();
         if(bundle != null)
         {
-            Cursor rs = db.getData(bundle.getInt("RXid"));
+            Cursor rs = db.getOnePillCursor(bundle.getInt("RXid"));
             rs.moveToFirst();
 
             while (!rs.isAfterLast()) {
@@ -75,37 +75,37 @@ public class EditMed extends AppCompatActivity {
     }
 
     public void run(View view) {
-        int x = bundle.getInt("RXid");
-        Integer rxint = null;
-            if(x>0){
-                if(db.updateMed(x,textRXid.getText().toString(), textdosage.getText().toString(), textdoc.getText().toString()))
-                {
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),MyMedsActivity.class);
-                    startActivity(intent);
-                } else{
-                    Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
-                }
-            } else{
-
-                try
-                {
-                    rxint = Integer.parseInt(textRXid.getText().toString());
-                }
-                catch(NumberFormatException nfe)
-                {
-                }
-
-                if(db.insertRX(rxint, textdosage.getText().toString(), textdoc.getText().toString())){
-                    Toast.makeText(getApplicationContext(), "done",
-                            Toast.LENGTH_SHORT).show();
-                } else{
-                    Toast.makeText(getApplicationContext(), "not done",
-                            Toast.LENGTH_SHORT).show();
-                }
-                Intent intent = new Intent(getApplicationContext(),MyMedsActivity.class);
-                startActivity(intent);
-            }
+//        int x = bundle.getInt("RXid");
+//        Integer rxint = null;
+//            if(x>0){
+//                if(db.updatePill(x,textRXid.getText().toString(), textdosage.getText().toString(), textdoc.getText().toString(), null,null))
+//                {
+//                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(),MyMedsActivity.class);
+//                    startActivity(intent);
+//                } else{
+//                    Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
+//                }
+//            } else{
+//
+//                try
+//                {
+//                    rxint = Integer.parseInt(textRXid.getText().toString());
+//                }
+//                catch(NumberFormatException nfe)
+//                {
+//                }
+//
+//                if(db.insertRX(rxint.toString(), textdosage.getText().toString(), textdoc.getText().toString(), null, null)){
+//                    Toast.makeText(getApplicationContext(), "done",
+//                            Toast.LENGTH_SHORT).show();
+//                } else{
+//                    Toast.makeText(getApplicationContext(), "not done",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//                Intent intent = new Intent(getApplicationContext(),MyMedsActivity.class);
+//                startActivity(intent);
+//            }
         }
 //    private void update(View view){
 //        String RXID = textRXid.getText().toString();

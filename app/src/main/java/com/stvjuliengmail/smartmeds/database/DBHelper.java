@@ -2,106 +2,153 @@ package com.stvjuliengmail.smartmeds.database;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
+    private SQLiteDatabase database;
+
     public static final String DATABASE_NAME = "SmartMeds.db";
-    public static final String TABLE_NAME = "Mymeds";
-    public static final String COLUMN_RXid = "RXid";
+    public static final String TABLE_MYMEDS = "Mymeds";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_RXCUI = "rxcui";
     public static final String COLUMN_DOSAGE = "dosage";
-    public static final String COLUMN_RXDOC = "rxDoc";
+    public static final String COLUMN_DOCTOR = "doctor";
+    public static final String COLUMN_DIRECTIONS = "directions";
+    public static final String COLUMN_PHARMACY = "pharmacy";
     private HashMap hp;
 
     public DBHelper(Context context) {
-        super(context, DATABASE_NAME , null, 1);
+        super(context, DATABASE_NAME, null, 1);
     }
 
+    public SQLiteDatabase open(){
+        database = getWritableDatabase();
+        return database;
+    }
+
+    public void close(){
+        if(database != null){
+            database.close();
+        }
+    }
+
+    public long insertPill(String rxcui, String dosage, String doctor, String directions, String pharmacy) {
+        long rowId = -1;
+        // TODO: CHECK TO MAKE SURE THIS RXCUI DOESN'T ALREADY EXIST
+        ContentValues newPillValuesToAdd = buildContentValues(rxcui,dosage,doctor,directions,pharmacy);
+        if(open() != null){
+            rowId = database.insert(TABLE_MYMEDS, null, newPillValuesToAdd);
+            close();
+        }
+        return rowId;
+    }
+
+    public long updatePill(long id, String rxcui, String dosage, String doctor, String directions, String pharmacy) {
+        long rowId = -1;
+        ContentValues pillValuesToUpdate = buildContentValues(rxcui,dosage,doctor,directions,pharmacy);
+        pillValuesToUpdate.put(COLUMN_ID, id);
+        if(open() != null){
+            rowId = database.update(TABLE_MYMEDS, pillValuesToUpdate, COLUMN_ID + "=" + id, null);
+            close();
+        }
+        return rowId;
+    }
+
+    public void deletePill(long id){
+        if(open() != null){
+            database.delete(TABLE_MYMEDS," "+COLUMN_ID + "=" + id, null);
+            Log.d("test", "pill at index " + id + " deleted");
+            close();
+        }
+    }
+
+    public void deleteAllPills(){
+        Log.d("test", "database helper delete ALL called");
+        if(open() != null){
+            database.delete(TABLE_MYMEDS," "+COLUMN_ID+">0 ", null);
+            close();
+        }
+
+    }
+
+    public Cursor getAllPillsCursor(){
+        Cursor cursor = null;
+        if(open() != null){
+            cursor = database.rawQuery("SELECT * FROM " + TABLE_MYMEDS, null);
+        }
+        return cursor;
+    }
+
+    public Cursor getOnePillCursor(long id){
+        String[] params = new String[1];
+        params[0] = "" + id;
+        Cursor cursor = null;
+        if (open() != null) {
+            cursor = database.rawQuery("SELECT * FROM " + TABLE_MYMEDS + " WHERE " + COLUMN_ID + " = ?", params);
+        }
+        return cursor;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
-        db.execSQL(
-                "create table Mymeds " +
-                        "(id integer primary key, RXid text,dosage,rxDoc)"
-        );
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("RXid", 1234);
-        contentValues.put("dosage", "take three times a day");
-        contentValues.put("rxDoc", "dr smith");
-        db.insert("Mymeds", null, contentValues);
-
-        contentValues = new ContentValues();
-        contentValues.put("RXid", 5678);
-        contentValues.put("dosage", "take 4 times a day");
-        contentValues.put("rxDoc", "dr jones");
-        db.insert("Mymeds", null, contentValues);
+        String createQuery =
+                "create table " + TABLE_MYMEDS +
+                " (" + COLUMN_ID + " integer primary key autoincrement, " +
+                        COLUMN_RXCUI + " TEXT, " +
+                        COLUMN_DOSAGE + " TEXT , " +
+                        COLUMN_DOCTOR + " TEXT, " +
+                        COLUMN_DIRECTIONS + " TEXT, " +
+                        COLUMN_PHARMACY + " TEXT)";
+        db.execSQL(createQuery);
+        // TODO: REMOVE AFTER TESTING IS COMPLETE
+        if(numberOfRows() < 1) {
+            seedDatabaseWithDummyData();
+        }
     }
 
+    private ContentValues buildContentValues(String rxcui, String dosage, String doctor, String directions, String pharmacy) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_RXCUI, rxcui);
+        contentValues.put(COLUMN_DOSAGE, dosage);
+        contentValues.put(COLUMN_DOCTOR, doctor);
+        contentValues.put(COLUMN_DIRECTIONS, directions);
+        contentValues.put(COLUMN_PHARMACY, pharmacy);
+        return contentValues;
+    }
+
+    private void seedDatabaseWithDummyData(){
+        Long rowId = insertPill("33333", "150 mg", "Dr Smith", "Take 2 and call me in the morning", "ACME Pharmacy");
+        Log.d("test", "dummy data added at row " + Long.toString(rowId));
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS Mymeds");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MYMEDS);
         onCreate(db);
-    }
-
-    public boolean insertRX (Integer RXid, String dosage, String rxDoc) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("RXid", RXid);
-        contentValues.put("dosage", dosage);
-        contentValues.put("rxDoc", rxDoc);
-        db.insert("Mymeds", null, contentValues);
-        return true;
-    }
-
-    public Cursor getData(Integer rxid) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from Mymeds where id="+rxid+"", null );
-        return res;
     }
 
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_MYMEDS);
         return numRows;
-    }
-
-    public boolean updateMed (Integer id, String RXid, String dosage, String rxDoc) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("RXid", RXid);
-        contentValues.put("dosage", dosage);
-        contentValues.put("rxDoc", rxDoc);
-        db.update("Mymeds", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
-        return true;
-    }
-
-    public Integer deleteMed (Integer id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete("Mymeds",
-                "id = ? ",
-                new String[] { Integer.toString(id) });
     }
 
     public ArrayList<String> getAllMeds() {
         ArrayList<String> array_list = new ArrayList<String>();
 
-        //hp = new HashMap();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from Mymeds", null );
-        res.moveToFirst();
+        Cursor cursor =  getAllPillsCursor();
+        cursor.moveToFirst();
 
-        while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(COLUMN_RXid)));
-            res.moveToNext();
+        while(cursor.isAfterLast() == false){
+            array_list.add(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+            cursor.moveToNext();
         }
         return array_list;
     }

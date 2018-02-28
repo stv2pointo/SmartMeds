@@ -21,7 +21,7 @@ public class MyMedsActivity extends AppCompatActivity {
 
     private ListView listViewMyMeds;
     DBHelper db;
-
+    ArrayList myMedsList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MyMedsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_meds);
 
         db = new DBHelper(this);
-        ArrayList myMedsList = db.getAllMeds();
+        myMedsList = db.getAllMeds();
         ArrayAdapter arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1, myMedsList);
         listViewMyMeds = (ListView)findViewById(R.id.listView1);
         listViewMyMeds.setAdapter(arrayAdapter);

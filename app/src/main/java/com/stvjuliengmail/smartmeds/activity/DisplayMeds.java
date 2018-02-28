@@ -35,13 +35,13 @@ public class DisplayMeds extends Activity {
 //
 //            if (Value > 0) {
                 //means this is the view part not the add meds part.
-                Cursor rs = mydb.getData(id);
+                Cursor rs = mydb.getOnePillCursor(id);
                 id_To_Update = id;
                 rs.moveToFirst();
 
-                String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXid));
+                String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXCUI));
                 String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
-                String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXDOC));
+                String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOCTOR));
 
                 if (!rs.isClosed()) {
                     rs.close();
