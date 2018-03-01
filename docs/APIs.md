@@ -7,7 +7,7 @@ http://jsonviewer.stack.hu/
 
 https://www.getpostman.com/apps
 
-JSON to POJO !!  http://pojo.sodhanalibrary.com/Convert
+JSON to POJO !!  http://pojo.sodhanalibrary.com
 
 
 ## RxImage
