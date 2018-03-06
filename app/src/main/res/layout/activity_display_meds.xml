@@ -1,83 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".activity.DisplayMeds" >
+    android:orientation="vertical"
+    tools:context=".activity.DisplayMeds"
+    tools:ignore="ExtraText">
 
-    <RelativeLayout
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textRXid"
+        android:textAlignment="textEnd"
+        android:layout_width="0dp"
+        android:layout_weight="2"
+        android:layout_height="wrap_content"
+        android:text="RX ID:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/editRXid1"
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="text"
+        tools:ignore="Deprecated"/>
+
+</LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="370dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textRXName"
+            android:textAlignment="textEnd"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="RX Name:"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
-            android:id="@+id/editRXid1"
-            android:layout_width="wrap_content"
+            android:id="@+id/editRXName"
+            android:layout_width="0dp"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:editable="false"
             android:ems="10"
             android:inputType="text"
-            tools:ignore="Deprecated"></EditText>
+            tools:ignore="Deprecated"/>
 
-        <TextView
-            android:id="@+id/textRXid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editRXid1"
-            android:layout_alignParentLeft="true"
-            android:text="RXid:"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textDosage"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="28dp"
-            />
-            //android:onClick="run"
-            android:text="save" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textDosage"
-            android:layout_width="wrap_content"
+            android:textAlignment="textEnd"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editDosage1"
-            android:layout_alignLeft="@+id/textRXid"
             android:text="Dosage:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <EditText
+            android:id="@+id/editDosage1"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+            android:textAlignment="textEnd"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/editDoc1"
-            android:layout_alignParentStart="true"
-            android:text="Prescribing Do"
+            android:text="Doctor:"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
             android:id="@+id/editDoc1"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="5"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editRXid1"
-            android:layout_below="@+id/editDosage1"
             android:ems="10"
-            android:inputType="text" >
+            android:inputType="text"/>
 
-        </EditText>
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/editDosage1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editRXid1"
-            android:layout_toEndOf="@+id/button1"
-            android:ems="10"
-            android:inputType="text" />
 
-    </RelativeLayout>
-</ScrollView>
+    <Button
+        android:id="@+id/button1"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
+
+
+
+
+
+
+
+</LinearLayout>

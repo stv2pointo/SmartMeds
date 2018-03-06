@@ -15,6 +15,7 @@ public class DisplayMeds extends Activity {
     int from_Where_I_Am_Coming = 0;
 
     TextView RXid;
+    TextView RXname;
     TextView dosage;
     TextView doc;
 
@@ -23,6 +24,7 @@ public class DisplayMeds extends Activity {
     protected void onCreate(Integer id) {
         setContentView(R.layout.activity_display_meds);
         RXid = (TextView) findViewById(R.id.editRXid1);
+        RXname = (TextView) findViewById(R.id.editRXName);
         dosage = (TextView) findViewById(R.id.editDosage1);
         doc = (TextView) findViewById(R.id.editDoc1);
 
@@ -39,6 +41,7 @@ public class DisplayMeds extends Activity {
         rs.moveToFirst();
 
         String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXid));
+        String rxName = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_Name));
         String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
         String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXDOC));
 
@@ -51,6 +54,10 @@ public class DisplayMeds extends Activity {
         RXid.setText((CharSequence) rxID);
         RXid.setFocusable(false);
         RXid.setClickable(false);
+
+        RXname.setText((CharSequence) rxName);
+        RXname.setFocusable(false);
+        RXname.setClickable(false);
 
         dosage.setText((CharSequence) dose);
         dosage.setFocusable(false);

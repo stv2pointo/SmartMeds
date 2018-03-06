@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SmartMeds</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="text_MedicationID">Medication Identifier</string>
@@ -50,8 +50,7 @@
         <item>Triangle</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <!--<string name="hello_blank_fragment">Hello blank fragment</string>-->
+
     <string name="button_SearchAll">Search All</string>
     <string name="name">Name:</string>
     <string name="inscription">Inscription:</string>

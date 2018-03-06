@@ -20,27 +20,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.SearchActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.MyMedsActivity"
             android:screenOrientation="portrait"/>
+
         <activity android:name=".activity.RxInfoActivity"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.EditMed"
-            android:label="@string/title_activity_edit_med"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".activity.InteractionsActivity"
             android:screenOrientation="portrait"/>
 
-        <activity
-            android:name=".activity.DisplayMeds"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

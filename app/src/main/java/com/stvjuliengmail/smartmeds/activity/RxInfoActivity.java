@@ -74,16 +74,12 @@ public class RxInfoActivity extends AppCompatActivity {
         fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Insert into db. boolean insertRX (Integer RXid, String dosage, String rxDoc)
-                Log.d("test","RxInfoActivity: Button Clicked before Insert");
 
-                db.insertRX(rxcui,"Take two","Me");
-                Log.d("test","RxInfoActivity: Button Clicked after Insert");
-                //Add an Intent. Put rxcui.
-                //Open a new activity (editMed)?
+                db.insertRX(rxcui, name);
+
                 Intent intent = new Intent(context, MyMedsActivity.class);
                 startActivity(intent);
-                Toast.makeText(context, "This should open a form", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Medication Saved.", Toast.LENGTH_SHORT).show();
             }
         });
     }
