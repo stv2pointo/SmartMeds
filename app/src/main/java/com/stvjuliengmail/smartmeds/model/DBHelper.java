@@ -150,7 +150,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Integer deleteMed (Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("Mymeds",
-                "id = ? ",
+                "RXid = ? ",
                 new String[] { Integer.toString(id) });
     }
 

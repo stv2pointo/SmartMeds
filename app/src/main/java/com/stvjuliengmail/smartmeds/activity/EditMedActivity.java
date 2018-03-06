@@ -1,9 +1,11 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,9 +32,11 @@ public class EditMedActivity extends AppCompatActivity {
     private TextView textRefill;
     private ImageView pillImage;
     private Button btnSave;
+    private Button btnDelete;
     private Bundle bundle;
     private DBHelper db;
     private BitmapUtility bu;
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +53,14 @@ public class EditMedActivity extends AppCompatActivity {
         textMayTreat = (TextView) findViewById(R.id.edit_mayTreat);
         textRefill = (TextView) findViewById(R.id.edit_refill);
         btnSave = (Button) findViewById(R.id.btnSave);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
         pillImage = (ImageView) findViewById(R.id.pillImage);
 
 
-        String id = null;
+        id = null;
         String name = null;
-        String dose= null;
-        String doc= null;
+        String dose = null;
+        String doc = null;
         byte[] pillImageArray = null;
         String contact = null;
         String expires = null;
@@ -67,8 +72,7 @@ public class EditMedActivity extends AppCompatActivity {
         db = new DBHelper(this);
 
         bundle = getIntent().getExtras();
-        if(bundle != null)
-        {
+        if (bundle != null) {
             Cursor rs = db.getData(bundle.getInt("RXid"));
             rs.moveToFirst();
             while (!rs.isAfterLast()) {
@@ -130,9 +134,42 @@ public class EditMedActivity extends AppCompatActivity {
 //                hideKeyboard();
                 Toast.makeText(context, "Medication Saved.", Toast.LENGTH_SHORT).show();
 
-
             }
         });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                alertDialog.setTitle("Are you sure?");
+                alertDialog.setMessage("This will permanently delete this medication.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CANCEL",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+
+                                db.deleteMed(Integer.parseInt(id));
+
+                                Toast toast = Toast.makeText(context,"Medication Deleted Successfully.",Toast.LENGTH_SHORT);
+                                toast.show();
+
+                                startUp(MyMedsActivity.class);
+                            }
+                        });
+                alertDialog.show();
+            }
+        });
+    }
+
+    public void startUp(Class c) {
+        Intent intent = new Intent(this, c);
+        startActivity(intent);
     }
 
     @Override
