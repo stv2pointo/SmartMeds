@@ -1,63 +1,58 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.app.Activity;
-
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
+import com.stvjuliengmail.smartmeds.model.MyMed;
 
+public class MyMedActivity extends AppCompatActivity {
 
-public class MyMedActivity extends Activity {
-    int from_Where_I_Am_Coming = 0;
+    private TextView tvName, tvDosage, tvDoctor, tvDirections, tvPharmacy;
+    private ImageView ivPillImage;
+    private MyMed myMed;
 
-    TextView RXid;
-    TextView dosage;
-    TextView doc;
-
-    int id_To_Update = 0;
-
-    protected void onCreate(Integer id) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_med);
-        RXid = (TextView) findViewById(R.id.editRXid1);
-        dosage = (TextView) findViewById(R.id.editDosage1);
-        doc = (TextView) findViewById(R.id.editDoc1);
 
-//        DBHelper mydb = new DBHelper(this);
+        Bundle extras = getIntent().getExtras();
+        myMed = extras.getParcelable("myMed");
 
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            int Value = extras.getInt("id");
-//
-//            if (Value > 0) {
-                //means this is the view part not the add meds part.
-//                Cursor rs = mydb.getOnePillCursor(id);
-//                id_To_Update = id;
-//                rs.moveToFirst();
-//
-//                String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXCUI));
-//                String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
-//                String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOCTOR));
-//
-//                if (!rs.isClosed()) {
-//                    rs.close();
-//                }
-//                Button b = (Button) findViewById(R.id.button1);
-//                b.setVisibility(View.INVISIBLE);
-//
-//                RXid.setText((CharSequence) rxID);
-//                RXid.setFocusable(false);
-//                RXid.setClickable(false);
-//
-//                dosage.setText((CharSequence) dose);
-//                dosage.setFocusable(false);
-//                dosage.setClickable(false);
-//
-//                doc.setText((CharSequence) doctor);
-//                doc.setFocusable(false);
-//                doc.setClickable(false);
+        tvName = (TextView) findViewById(R.id.tvName);
+        tvDosage = (TextView) findViewById(R.id.tvDosage);
+        tvDirections = (TextView) findViewById(R.id.tvDirections);
+        tvPharmacy = (TextView) findViewById(R.id.tvPharmacy);
+        ivPillImage = (ImageView) findViewById(R.id.ivPillImage);
 
+        setImage();
+        setText();
+    }
 
+    private void setText(){
+        tvName.setText(myMed.getName());
+        tvDosage.setText(myMed.getDosage());
+        tvDirections.setText(myMed.getDirections());
+        tvPharmacy.setText(myMed.getPharmacy());
+    }
+
+    private void setImage(){
+        ImageDownloadTask task = new ImageDownloadTask();
+        try {
+            Bitmap myBitmap = task.execute(myMed.getImageUrl()).get();
+            if(myBitmap == null){
+                ivPillImage.setImageResource(R.drawable.no_img_avail);
             }
+            else {
+                ivPillImage.setImageBitmap(myBitmap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-//    }
-//}
+    }
+}

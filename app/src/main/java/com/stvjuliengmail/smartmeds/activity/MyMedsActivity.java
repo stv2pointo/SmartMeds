@@ -77,7 +77,10 @@ public class MyMedsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(context, myMedsList.get(position).getName() + " selected",Toast.LENGTH_SHORT).show();
-//                startRxInfoActivity(imageList.get(position));
+                MyMed myMed = myMedsList.get(position);
+                Intent intent = new Intent(context, MyMedActivity.class);
+                intent.putExtra("myMed", myMed);
+                context.startActivity(intent);
             }
 
             @Override
