@@ -27,6 +27,7 @@ public class EditMedActivity extends AppCompatActivity {
     private TextView textContact;
     private TextView textExpires;
     private TextView textMayTreat;
+    private TextView textRefill;
     private ImageView pillImage;
     private Button btnSave;
     private Bundle bundle;
@@ -46,6 +47,7 @@ public class EditMedActivity extends AppCompatActivity {
         textContact = (TextView) findViewById(R.id.edit_contact);
         textExpires = (TextView) findViewById(R.id.edit_expires);
         textMayTreat = (TextView) findViewById(R.id.edit_mayTreat);
+        textRefill = (TextView) findViewById(R.id.edit_refill);
         btnSave = (Button) findViewById(R.id.btnSave);
         pillImage = (ImageView) findViewById(R.id.pillImage);
 
@@ -58,8 +60,9 @@ public class EditMedActivity extends AppCompatActivity {
         String contact = null;
         String expires = null;
         String mayTreat = null;
+        String refill = null;
+
         bu = new BitmapUtility();
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         db = new DBHelper(this);
 
@@ -77,6 +80,7 @@ public class EditMedActivity extends AppCompatActivity {
                 contact = rs.getString(6);
                 expires = rs.getString(7);
                 mayTreat = rs.getString(8);
+                refill = rs.getString(9);
                 rs.moveToNext();
             }
             if (!rs.isClosed()) {
@@ -107,6 +111,8 @@ public class EditMedActivity extends AppCompatActivity {
 
             textExpires.setText(expires);
 
+            textRefill.setText(refill);
+
             textMayTreat.setText(mayTreat);
         }
 
@@ -119,7 +125,8 @@ public class EditMedActivity extends AppCompatActivity {
                         textdoc.getText().toString(),
                         textContact.getText().toString(),
                         textExpires.getText().toString(),
-                        textMayTreat.getText().toString());
+                        textMayTreat.getText().toString(),
+                        textRefill.getText().toString());
 //                hideKeyboard();
                 Toast.makeText(context, "Medication Saved.", Toast.LENGTH_SHORT).show();
 

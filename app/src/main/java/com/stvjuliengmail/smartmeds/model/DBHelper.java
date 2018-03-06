@@ -22,6 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_RXDOC = "rxDoc";
     public static final String COLUMN_PillImageArray = "pillImageArray";
     public static final String COLUMN_MayTreat = "mayTreats";
+    public static final String COLUMN_Refill = "refill";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -33,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table Mymeds " +
-                        "(id integer primary key, RXid, rxname, dosage, rxDoc, pillImageArray, contact, expires, mayTreat)"
+                        "(id integer primary key, RXid, rxname, dosage, rxDoc, pillImageArray, contact, expires, mayTreat, refill)"
         );
 
 //        ContentValues contentValues = new ContentValues();
@@ -128,16 +129,17 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateMed (String RXid, String rxName, String dosage, String rxDoc, String contact, String expires, String mayTreat) {
+    public boolean updateMed (String RXid, String rxName, String dosage, String rxDoc, String contact, String expires, String mayTreat, String refill) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("RXid", RXid);
         contentValues.put("rxName", rxName);
         contentValues.put("dosage", dosage);
         contentValues.put("rxDoc", rxDoc);
-        contentValues.put("contact",contact);
-        contentValues.put("expires",expires);
+        contentValues.put("contact", contact);
+        contentValues.put("expires", expires);
         contentValues.put("mayTreat", mayTreat);
+        contentValues.put("refill", refill);
 
         db.update(TABLE_NAME, contentValues, "RXid="+RXid,null);
 
