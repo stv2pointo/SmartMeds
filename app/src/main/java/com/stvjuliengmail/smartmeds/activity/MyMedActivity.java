@@ -2,17 +2,12 @@ package com.stvjuliengmail.smartmeds.activity;
 
 import android.app.Activity;
 
-import android.database.Cursor;
-
-import android.view.View;
-
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
 
 
-public class DisplayMeds extends Activity {
+public class MyMedActivity extends Activity {
     int from_Where_I_Am_Coming = 0;
 
     TextView RXid;
@@ -22,7 +17,7 @@ public class DisplayMeds extends Activity {
     int id_To_Update = 0;
 
     protected void onCreate(Integer id) {
-        setContentView(R.layout.activity_display_meds);
+        setContentView(R.layout.activity_my_med);
         RXid = (TextView) findViewById(R.id.editRXid1);
         dosage = (TextView) findViewById(R.id.editDosage1);
         doc = (TextView) findViewById(R.id.editDoc1);

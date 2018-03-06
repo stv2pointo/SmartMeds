@@ -39,7 +39,7 @@
             android:name=".activity.InteractionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.DisplayMeds"
+            android:name=".activity.MyMedActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.SavePillActivity"></activity>
     </application>
