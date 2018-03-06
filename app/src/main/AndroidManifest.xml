@@ -41,7 +41,7 @@
         <activity
             android:name=".activity.MyMedActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SavePillActivity"></activity>
+        <activity android:name=".activity.AddOrEditMyMedActivity"></activity>
     </application>
 
 </manifest>

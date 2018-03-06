@@ -22,8 +22,8 @@
         <TextView
             android:id="@+id/tvPillName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="100dp"
+            android:layout_weight="2.5"
             android:text="Pill name here"
             android:textColor="@color/green"
             android:textSize="14sp"
