@@ -12,11 +12,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.model.BitmapUtility;
 
 public class EditMed extends AppCompatActivity {
     private Context context;
@@ -24,9 +27,11 @@ public class EditMed extends AppCompatActivity {
     private TextView textRXName;
     private TextView textdosage;
     private TextView textdoc;
+    private ImageView editPillImage;
     private Button btnSave;
     private Bundle bundle;
     private DBHelper db;
+    private BitmapUtility bu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +44,14 @@ public class EditMed extends AppCompatActivity {
         textdosage = (TextView) findViewById(R.id.editDosage1);
         textdoc = (TextView) findViewById(R.id.editDoc1);
         btnSave = (Button) findViewById(R.id.btnSave);
+        editPillImage = (ImageView) findViewById(R.id.editPillImage);
 
         String id = null;
         String name = null;
         String dose= null;
         String doc= null;
+        byte[] pillImageArray = null;
+        bu = new BitmapUtility();
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         db = new DBHelper(this);
@@ -58,11 +66,14 @@ public class EditMed extends AppCompatActivity {
                 name = rs.getString(2);
                 dose = rs.getString(3);
                 doc = rs.getString(4);
+                pillImageArray = rs.getBlob(5);
                 rs.moveToNext();
             }
             if (!rs.isClosed()) {
                 rs.close();
             }
+
+            editPillImage.setImageBitmap(bu.getImage(pillImageArray));
 
             textRXid.setText(id);
             textRXid.setFocusable(false);
@@ -90,7 +101,9 @@ public class EditMed extends AppCompatActivity {
                         textRXName.getText().toString(),
                         textdosage.getText().toString(),
                         textdoc.getText().toString());
+                hideKeyboard();
                 Toast.makeText(context, "Medication Saved.", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -113,6 +126,13 @@ public class EditMed extends AppCompatActivity {
             startActivity(mainMenuIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 //
 //    public void run(View view) {

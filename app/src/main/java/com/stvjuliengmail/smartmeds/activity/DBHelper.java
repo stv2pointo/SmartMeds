@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -19,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_Name = "rxname";
     public static final String COLUMN_DOSAGE = "dosage";
     public static final String COLUMN_RXDOC = "rxDoc";
-
+    public static final String COLUMN_PillImageArray = "pillImageArray";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -31,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(
                 "create table Mymeds " +
-                        "(id integer primary key, RXid, rxname, dosage, rxDoc)"
+                        "(id integer primary key, RXid, rxname, dosage, rxDoc, pillImageArray)"
         );
 
 //        ContentValues contentValues = new ContentValues();
@@ -77,9 +78,20 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    public boolean insertRX (Integer RXid, String rxName, byte[] pillImageArray) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("RXid", RXid);
+        contentValues.put("rxName", rxName);
+        contentValues.put("pillImageArray", pillImageArray);
+        db.insert("Mymeds", null, contentValues);
+        return true;
+    }
+
+
     public Cursor getData(Integer rxid) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from Mymeds where id="+rxid+"", null );
+        Cursor res =  db.rawQuery( "select * from Mymeds where id="+rxid, null );
         return res;
     }
 

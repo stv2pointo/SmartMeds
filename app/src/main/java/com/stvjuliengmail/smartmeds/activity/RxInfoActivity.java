@@ -19,6 +19,7 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
+import com.stvjuliengmail.smartmeds.model.BitmapUtility;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class RxInfoActivity extends AppCompatActivity {
     private Button btnInteractions;
     private Context context;
     private DBHelper db;
+    private Bitmap pillImage;
+    private byte[] pillImageArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -96,8 +99,9 @@ public class RxInfoActivity extends AppCompatActivity {
         fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                db.insertRX(rxcui, name);
+                BitmapUtility bu = new BitmapUtility();
+                pillImageArray = bu.getBytes(pillImage);
+                db.insertRX(rxcui, name, pillImageArray);
 
                 Intent intent = new Intent(context, MyMedsActivity.class);
                 startActivity(intent);
@@ -125,15 +129,15 @@ public class RxInfoActivity extends AppCompatActivity {
     public void displayImage(){
         ImageDownloadTask task = new ImageDownloadTask();
         try {
-            Bitmap myBitmap = task.execute(imageUrl).get();
-            if(myBitmap == null){
+            pillImage = task.execute(imageUrl).get();
+            if(pillImage == null){
                 imageView.setImageResource(R.drawable.no_img_avail);
             }
             else{
-                imageView.setImageBitmap(myBitmap);
+                imageView.setImageBitmap(pillImage);
             }
         } catch (Exception e) {
-            Log.d(TAG, "display iMage exdeption: " + e.getMessage());
+            Log.d(TAG, "display image exception: " + e.getMessage());
         }
     }
 
