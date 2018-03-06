@@ -34,7 +34,6 @@ import static com.stvjuliengmail.smartmeds.R.id.editRXid1;
 
 public class MyMedsActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private SmartMedsDbOpenHelper dbOpenHelper;
     private RecyclerView recyclerView;
     private MyMedsAdapter adapter;
     private ArrayList<MyMed> myMedsList = new ArrayList<>();
@@ -46,18 +45,46 @@ public class MyMedsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_meds);
         context = this;
 
-        DataManager.loadFromDatabase(dbOpenHelper);
         recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Get singleton instance of database
+        SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(this);
+
+
+
+
+        populateRecyclerView(dbOpenHelper);
+
+
+    }
+
+    private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
+        myMedsList.clear();
+        myMedsList = dbOpenHelper.getAllMyMeds();
+        if(myMedsList == null || myMedsList.size() < 1){
+            loadDummyData(dbOpenHelper);
+            myMedsList = dbOpenHelper.getAllMyMeds();
+        }
         wireAdapterToRecyclerView();
-        //myMedsList = DataManager.getInstance().getMyMeds();
+        adapter.notifyDataSetChanged();
+    }
 
-        dbOpenHelper = new SmartMedsDbOpenHelper(this);
-
-
-
-        populateRecyclerView();
-
+    private void loadDummyData(SmartMedsDbOpenHelper dbOpenHelper) {
+        String[] rxcuis = new String[]{"966200","197313"};
+        String[] names = new String[]{"Levothyroxine Sodium 0.15 MG Oral Tablet [Levoxyl]", "Acyclovir 800 MG Oral Tablet"};
+        String[] urls = new String[] {"https://rximage.nlm.nih.gov/image/images/gallery/600/60793-0858-01_RXNAVIMAGE10_02088174.jpg",
+            "https://rximage.nlm.nih.gov/image/images/gallery/600/60505-5307-01_RXNAVIMAGE10_4D26A6D5.jpg"};
+        for(int i=0;i<2;i++){
+            long rowId = dbOpenHelper.addOrUpdateMyMed(new MyMed(
+                    names[i],
+                    rxcuis[i],
+                    "150 mg",
+                    "Dr. Feelgood",
+                    "Take some daily",
+                    "Walgreens",
+                    urls[i]));
+        }
 
     }
 
@@ -81,29 +108,8 @@ public class MyMedsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    public void generateDummyPills(){
-        for(int i=0;i<3;i++){
-            String index = Integer.toString(i);
-            myMedsList.add(new MyMed(
-                    "Name " + index,
-                    index,"150 mg",
-                    "Dr. Feelgood",
-                    "Take " + index + " daily",
-                    "Walgreens",
-                    "https://rximage.nlm.nih.gov/image/images/gallery/600/00172-5728-60_RXNAVIMAGE10_5821AC5D.jpg"));
-        }
-    }
-
-    public void populateRecyclerView() { //accepts arraylist of myMeds objects later
-        myMedsList.clear();
-
-        generateDummyPills();
-        adapter.notifyDataSetChanged();
-    }
-
     @Override
     protected void onDestroy() {
-        dbOpenHelper.close();
         super.onDestroy();
     }
 

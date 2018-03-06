@@ -3,6 +3,7 @@ package com.stvjuliengmail.smartmeds.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
         this.results = results;
         this.rowLayout = rowLayout;
         this.context = context;
+
     }
 
     public List<MyMed> getResults() {
@@ -79,7 +81,14 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
         ImageDownloadTask task = new ImageDownloadTask();
         try {
             Bitmap myBitmap = task.execute(results.get(position).getImageUrl()).get();
-            holder.ivPillImage.setImageBitmap(myBitmap);
+            Log.d("dbcrap", "directions " + results.get(position).getDirections());
+            if(myBitmap == null){
+                holder.ivPillImage.setImageResource(R.drawable.no_img_avail);
+            }
+            else {
+                holder.ivPillImage.setImageBitmap(myBitmap);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

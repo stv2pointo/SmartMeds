@@ -24,7 +24,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_DOCTOR = "doctor";
     public static final String COLUMN_DIRECTIONS = "directions";
     public static final String COLUMN_PHARMACY = "pharmacy";
-    private HashMap hp;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);

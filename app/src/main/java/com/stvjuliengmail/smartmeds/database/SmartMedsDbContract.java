@@ -29,6 +29,10 @@ public final class SmartMedsDbContract {
                         COLUMN_DIRECTIONS + " TEXT, " +
                         COLUMN_PHARMACY + " TEXT, " +
                         COLUMN_IMAGE_URL + " TEXT)";
+        public static final String SQL_SELECT_ALL_MEDS = "SELECT * FROM " + TABLE_NAME;
+        public static final String SQL_MED_WHERE_RXCUI =
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_RXCUI + " = ?";
     }
+
 }
 
