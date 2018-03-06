@@ -1,20 +1,21 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.stvjuliengmail.smartmeds.R;
 
 import java.util.ArrayList;
-import android.widget.ListView;
 
 import static com.stvjuliengmail.smartmeds.R.id.editRXid1;
 
@@ -50,12 +51,39 @@ public class MyMedsActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+//        int id = item.getItemId();
+//        if(id==R.id.action_mainmenu)
+//        {
+//            Intent mainMenuIntent = new Intent(SearchActivity.this, MenuActivity.class);
+//            startActivity(mainMenuIntent);
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         super.onOptionsItemSelected(item);
+        int id1 = item.getItemId();
+        if(id1==R.id.action_mainmenu)
+        {
+            Intent mainMenuIntent = new Intent(MyMedsActivity.this, MenuActivity.class);
+            startActivity(mainMenuIntent);
+        }
 
-        switch(item.getItemId()) {
+        switch(item.getItemId())
+        {
             case editRXid1:Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", 0);
 
@@ -67,6 +95,7 @@ public class MyMedsActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 
     public boolean onKeyDown(int keycode, KeyEvent event) {
