@@ -2,8 +2,11 @@ package com.stvjuliengmail.smartmeds.activity;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.Button;
@@ -66,7 +69,24 @@ public class DisplayMeds extends Activity {
         doc.setText((CharSequence) doctor);
         doc.setFocusable(false);
         doc.setClickable(false);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+        @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if(id==R.id.action_mainmenu)
+        {
+            Intent mainMenuIntent = new Intent(DisplayMeds.this, MenuActivity.class);
+            startActivity(mainMenuIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

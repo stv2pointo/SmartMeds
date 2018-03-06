@@ -9,6 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -84,11 +86,33 @@ public class EditMed extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.updateMed(textRXid.getText().toString(), textRXName.getText().toString(), textdosage.getText().toString(), textdoc.getText().toString());
+                db.updateMed(textRXid.getText().toString(),
+                        textRXName.getText().toString(),
+                        textdosage.getText().toString(),
+                        textdoc.getText().toString());
                 Toast.makeText(context, "Medication Saved.", Toast.LENGTH_SHORT).show();
 
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if(id==R.id.action_mainmenu)
+        {
+            Intent mainMenuIntent = new Intent(EditMed.this, MenuActivity.class);
+            startActivity(mainMenuIntent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 //
 //    public void run(View view) {

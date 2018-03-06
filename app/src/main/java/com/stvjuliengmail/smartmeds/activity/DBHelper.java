@@ -9,17 +9,17 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "SmartMeds.db";
     public static final String TABLE_NAME = "Mymeds";
     public static final String COLUMN_RXid = "RXid";
-    public static final String COLUMN_Name = "rxName";
+    public static final String COLUMN_Name = "rxname";
     public static final String COLUMN_DOSAGE = "dosage";
     public static final String COLUMN_RXDOC = "rxDoc";
 
-    private HashMap hp;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -54,6 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     public boolean insertRX (Integer RXid, String rxName, String dosage, String rxDoc) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -65,6 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+
     public boolean insertRX (Integer RXid, String rxName) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -74,17 +76,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+
     public Cursor getData(Integer rxid) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from Mymeds where id="+rxid+"", null );
         return res;
     }
 
+
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_NAME);
         return numRows;
     }
+
 
     public boolean updateMed (Integer id, String RXid, String rxName, String dosage, String rxDoc) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -97,6 +102,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+
     public boolean updateMed (String RXid, String rxName, String dosage, String rxDoc) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -104,9 +110,12 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("rxName", rxName);
         contentValues.put("dosage", dosage);
         contentValues.put("rxDoc", rxDoc);
-        db.update("Mymeds", contentValues, "RXid = ? ", new String[] { RXid } );
+
+        db.update(TABLE_NAME, contentValues, "RXid="+RXid,null);
+
         return true;
     }
+
 
     public Integer deleteMed (Integer id) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -114,6 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "id = ? ",
                 new String[] { Integer.toString(id) });
     }
+
 
     public ArrayList<String> getAllMeds() {
         ArrayList<String> array_list = new ArrayList<String>();
@@ -124,7 +134,8 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(COLUMN_RXid)));
+//            array_list.add(res.getString(res.getColumnIndex(COLUMN_RXid)));
+            array_list.add(res.getString(res.getColumnIndex(COLUMN_Name)));
             res.moveToNext();
         }
         return array_list;
