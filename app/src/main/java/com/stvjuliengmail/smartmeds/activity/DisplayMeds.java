@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.model.DBHelper;
 
 public class DisplayMeds extends Activity {
     int from_Where_I_Am_Coming = 0;

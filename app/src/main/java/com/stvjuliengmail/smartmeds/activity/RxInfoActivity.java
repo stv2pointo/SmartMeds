@@ -20,6 +20,7 @@ import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
 import com.stvjuliengmail.smartmeds.model.BitmapUtility;
+import com.stvjuliengmail.smartmeds.model.DBHelper;
 
 import java.util.ArrayList;
 
@@ -37,6 +38,7 @@ public class RxInfoActivity extends AppCompatActivity {
     private DBHelper db;
     private Bitmap pillImage;
     private byte[] pillImageArray;
+    private String mayTreat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -101,7 +103,7 @@ public class RxInfoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 BitmapUtility bu = new BitmapUtility();
                 pillImageArray = bu.getBytes(pillImage);
-                db.insertRX(rxcui, name, pillImageArray);
+                db.insertRX(rxcui, name, pillImageArray, mayTreat);
 
                 Intent intent = new Intent(context, MyMedsActivity.class);
                 startActivity(intent);
@@ -146,7 +148,8 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void populateMayTreat(String diseases) {
-        tvMayTreat.setText(diseases);
+        mayTreat = diseases; // for database insert
+        tvMayTreat.setText("May Treat: \n" + diseases);
     }
 
 }

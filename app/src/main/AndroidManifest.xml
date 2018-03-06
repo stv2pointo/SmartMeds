@@ -34,7 +34,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.EditMed"
+            android:name=".activity.EditMedActivity"
             android:screenOrientation="portrait"/>
 
         <activity

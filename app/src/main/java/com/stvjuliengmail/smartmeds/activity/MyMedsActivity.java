@@ -2,8 +2,6 @@ package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -14,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.model.DBHelper;
 
 import java.util.ArrayList;
 
@@ -43,7 +42,7 @@ public class MyMedsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-                Intent intent = new Intent(MyMedsActivity.this, EditMed.class);
+                Intent intent = new Intent(MyMedsActivity.this, EditMedActivity.class);
                 intent.putExtra("RXid", arg2 +1);
                 startActivity(intent);
             }
