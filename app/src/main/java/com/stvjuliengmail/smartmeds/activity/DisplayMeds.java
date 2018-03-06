@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
-import com.stvjuliengmail.smartmeds.database.DBHelper;
+
 
 public class DisplayMeds extends Activity {
     int from_Where_I_Am_Coming = 0;
@@ -27,7 +27,7 @@ public class DisplayMeds extends Activity {
         dosage = (TextView) findViewById(R.id.editDosage1);
         doc = (TextView) findViewById(R.id.editDoc1);
 
-        DBHelper mydb = new DBHelper(this);
+//        DBHelper mydb = new DBHelper(this);
 
 //        Bundle extras = getIntent().getExtras();
 //        if (extras != null) {
@@ -35,31 +35,31 @@ public class DisplayMeds extends Activity {
 //
 //            if (Value > 0) {
                 //means this is the view part not the add meds part.
-                Cursor rs = mydb.getOnePillCursor(id);
-                id_To_Update = id;
-                rs.moveToFirst();
-
-                String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXCUI));
-                String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
-                String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOCTOR));
-
-                if (!rs.isClosed()) {
-                    rs.close();
-                }
-                Button b = (Button) findViewById(R.id.button1);
-                b.setVisibility(View.INVISIBLE);
-
-                RXid.setText((CharSequence) rxID);
-                RXid.setFocusable(false);
-                RXid.setClickable(false);
-
-                dosage.setText((CharSequence) dose);
-                dosage.setFocusable(false);
-                dosage.setClickable(false);
-
-                doc.setText((CharSequence) doctor);
-                doc.setFocusable(false);
-                doc.setClickable(false);
+//                Cursor rs = mydb.getOnePillCursor(id);
+//                id_To_Update = id;
+//                rs.moveToFirst();
+//
+//                String rxID = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_RXCUI));
+//                String dose = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOSAGE));
+//                String doctor = rs.getString(rs.getColumnIndex(DBHelper.COLUMN_DOCTOR));
+//
+//                if (!rs.isClosed()) {
+//                    rs.close();
+//                }
+//                Button b = (Button) findViewById(R.id.button1);
+//                b.setVisibility(View.INVISIBLE);
+//
+//                RXid.setText((CharSequence) rxID);
+//                RXid.setFocusable(false);
+//                RXid.setClickable(false);
+//
+//                dosage.setText((CharSequence) dose);
+//                dosage.setFocusable(false);
+//                dosage.setClickable(false);
+//
+//                doc.setText((CharSequence) doctor);
+//                doc.setFocusable(false);
+//                doc.setClickable(false);
 
 
             }

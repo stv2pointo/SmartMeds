@@ -3,12 +3,9 @@ package com.stvjuliengmail.smartmeds.api;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -27,18 +24,10 @@ public class ImageDownloadTask extends AsyncTask<String, Void, Bitmap> {
             InputStream inputStream = connection.getInputStream();
             Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
             return myBitmap;
-        } catch (MalformedURLException e) {
-//            Log.d(TAG, "Exception: " + e.getMessage());
-            return null;
-        } catch (IOException e) {
+        } catch (Exception e) {
 //            Log.d(TAG, "Exception: " + e.getMessage());
             return null;
         }
-        catch (Exception e){
-//            Log.d(TAG, "Exception: " + e.getMessage());
-            return null;
-        }
-        //return null;
     }
 
 }

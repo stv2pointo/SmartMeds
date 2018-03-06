@@ -17,7 +17,7 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
-import com.stvjuliengmail.smartmeds.database.DBHelper;
+//import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class RxInfoActivity extends AppCompatActivity {
     private FloatingActionButton fabSaveMyMeds;
     private Button btnInteractions;
     private Context context;
-    private DBHelper db;
+//    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

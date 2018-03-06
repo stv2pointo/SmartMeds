@@ -2,35 +2,20 @@ package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.MyMedsAdapter;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
-import com.stvjuliengmail.smartmeds.database.DBHelper;
 import com.stvjuliengmail.smartmeds.database.SmartMedsDbOpenHelper;
-import com.stvjuliengmail.smartmeds.model.DataManager;
 import com.stvjuliengmail.smartmeds.model.MyMed;
-import com.stvjuliengmail.smartmeds.model.RxImagesResult;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import android.widget.ListView;
-import android.widget.Toast;
-
-import static com.stvjuliengmail.smartmeds.R.id.editRXid1;
-
 
 public class MyMedsActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
@@ -51,11 +36,7 @@ public class MyMedsActivity extends AppCompatActivity {
         // Get singleton instance of database
         SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(this);
 
-
-
-
         populateRecyclerView(dbOpenHelper);
-
 
     }
 
@@ -101,7 +82,7 @@ public class MyMedsActivity extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                // TODO: Use long click to open option to save to myMeds
+                // TODO: Is there a use case for this?
             }
         });
 

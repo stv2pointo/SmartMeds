@@ -8,10 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.stvjuliengmail.smartmeds.model.MyMed;
-import com.stvjuliengmail.smartmeds.database.SmartMedsDbContract;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Steven on 3/1/2018.
@@ -70,7 +68,7 @@ public class SmartMedsDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Insert or update a user in the database
+    // Insert or update a myMed in the database
     // Since SQLite doesn't support "upsert" we need to fall back on an attempt to UPDATE (in case the
     // item already exists) optionally followed by an INSERT (in case the item does not already exist).
     // Unfortunately, there is a bug with the insertOnConflict method
@@ -83,7 +81,7 @@ public class SmartMedsDbOpenHelper extends SQLiteOpenHelper {
 
         db.beginTransaction();
         try {
-            ContentValues values = buildContentValues(myMed);
+            ContentValues values = buildMyMedContentValues(myMed);
             String[] params = new String[]{myMed.getRxcui()};
             // First try to update the myMed in case the myMed already exists in the database
             // Assumes Unique rxcui
@@ -106,12 +104,12 @@ public class SmartMedsDbOpenHelper extends SQLiteOpenHelper {
                     }
                 }
             } else {
-                // user with this userName did not already exist, so insert new user
+                // myMed with this rxcui did not already exist, so insert new myMed
                 rowId = db.insertOrThrow(SmartMedsDbContract.MyMedEntry.TABLE_NAME, null, values);
                 db.setTransactionSuccessful();
             }
         } catch (Exception e) {
-            Log.d(TAG, "Error while trying to add or update user");
+            Log.d(TAG, "Error while trying to add or update myMed");
         } finally {
             db.endTransaction();
         }
@@ -138,7 +136,7 @@ public class SmartMedsDbOpenHelper extends SQLiteOpenHelper {
 //        }
 //    }
 
-    // Get all myMeds in the database
+    // Get all myMeds from the database
     public ArrayList<MyMed> getAllMyMeds() {
         ArrayList<MyMed> myMeds = new ArrayList<>();
 
@@ -171,18 +169,18 @@ public class SmartMedsDbOpenHelper extends SQLiteOpenHelper {
         return myMeds;
     }
 
-    // Update a pill
+    // Update
     public int updateMyMed(int id,MyMed myMed) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] params = new String[1];
         params[0] = Integer.toString(id);
-        ContentValues values = buildContentValues(myMed);
+        ContentValues values = buildMyMedContentValues(myMed);
         values.put(SmartMedsDbContract.MyMedEntry._ID, id);
 
         return db.update(SmartMedsDbContract.MyMedEntry.TABLE_NAME, values, SmartMedsDbContract.MyMedEntry._ID + " = ?", params);
     }
 
-    // Delete all
+    // Delete one myMed
     public void deleteMyMed(MyMed myMed) {
         SQLiteDatabase db = getWritableDatabase();
         db.beginTransaction();
@@ -214,7 +212,7 @@ public class SmartMedsDbOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private ContentValues buildContentValues(MyMed myMed) {
+    private ContentValues buildMyMedContentValues(MyMed myMed) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(SmartMedsDbContract.MyMedEntry.COLUMN_RXCUI, myMed.getRxcui());
         contentValues.put(SmartMedsDbContract.MyMedEntry.COLUMN_NAME, myMed.getName());

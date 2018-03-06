@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
-import com.stvjuliengmail.smartmeds.database.DBHelper;
+//import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 public class EditMed extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class EditMed extends AppCompatActivity {
     TextView textdoc;
     Button btnSave;
     Bundle bundle;
-    DBHelper db;
+    //DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,44 +34,44 @@ public class EditMed extends AppCompatActivity {
         String doc= null;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        db = new DBHelper(this);
+//        db = new DBHelper(this);
 
 
-        bundle = getIntent().getExtras();
-        if(bundle != null)
-        {
-            Cursor rs = db.getOnePillCursor(bundle.getInt("RXid"));
-            rs.moveToFirst();
+//        bundle = getIntent().getExtras();
+//        if(bundle != null)
+//        {
+//            Cursor rs = db.getOnePillCursor(bundle.getInt("RXid"));
+//            rs.moveToFirst();
+//
+//            while (!rs.isAfterLast()) {
+//
+//                name = rs.getString(1);
+//                dose = rs.getString(2);
+//                doc = rs.getString(3);
+//
+//                rs.moveToNext();
+//
+//            }
+//            if (!rs.isClosed()) {
+//                rs.close();
+//            }
+//
+//            textRXid.setText(name);
+//            textRXid.setFocusable(false);
+//            textRXid.setClickable(false);
+//
+//            textdosage.setText(dose);
+//            textdosage.setEnabled(true);
+//            textdosage.setFocusableInTouchMode(true);
+//            textdosage.setClickable(true);
+//
+//
+//            textdoc.setText(doc);
+//            textdoc.setFocusableInTouchMode(true);
+//            textdoc.setEnabled(true);
+//            textdoc.setClickable(true);
 
-            while (!rs.isAfterLast()) {
-
-                name = rs.getString(1);
-                dose = rs.getString(2);
-                doc = rs.getString(3);
-
-                rs.moveToNext();
-
-            }
-            if (!rs.isClosed()) {
-                rs.close();
-            }
-
-            textRXid.setText(name);
-            textRXid.setFocusable(false);
-            textRXid.setClickable(false);
-
-            textdosage.setText(dose);
-            textdosage.setEnabled(true);
-            textdosage.setFocusableInTouchMode(true);
-            textdosage.setClickable(true);
-
-
-            textdoc.setText(doc);
-            textdoc.setFocusableInTouchMode(true);
-            textdoc.setEnabled(true);
-            textdoc.setClickable(true);
-
-        }
+//        }
     }
 
     public void run(View view) {
