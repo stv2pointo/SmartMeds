@@ -135,5 +135,6 @@ public class MyMedActivity extends AppCompatActivity {
     private void routeToMyMeds() {
         Intent intent = new Intent(this, MyMedsActivity.class);
         startActivity(intent);
+        finish();
     }
 }
