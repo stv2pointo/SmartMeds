@@ -22,6 +22,7 @@ public class AddOrEditMyMedActivity extends AppCompatActivity {
     private EditText etDosage, etDoctor, etDirections, etPharmacy;
     private ImageView ivPillImage;
     private FloatingActionButton fabSave;
+    private MyMed myMed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +51,28 @@ public class AddOrEditMyMedActivity extends AppCompatActivity {
 
     private void unpackIntentExtras() {
         Bundle extras = getIntent().getExtras();
-        rxcuiAsString = extras.getString("rxcui");
-        name = extras.getString("name");
-        dosage = name.replaceAll("\\D+", "") + " mg";
-        doctor = "";
-        directions = "";
-        pharmacy = "";
-        imageUrl = extras.getString("imageUrl");
+        MyMed myMed = null;
+        myMed = extras.getParcelable("myMed");
+        if(myMed != null){
+            rxcuiAsString = myMed.getRxcui();
+            name = myMed.getName();
+            dosage = myMed.getDosage();
+            doctor = myMed.getDoctor();
+            directions = myMed.getDirections();
+            pharmacy = myMed.getPharmacy();
+            imageUrl = myMed.getImageUrl();
+        }
+        else{
+            rxcuiAsString = extras.getString("rxcui");
+            name = extras.getString("name");
+            doctor = "";
+            directions = "";
+            pharmacy = "";
+            imageUrl = extras.getString("imageUrl");
+        }
+        if(dosage == null || dosage.isEmpty()){
+            dosage = name.replaceAll("\\D+", "") + " mg";
+        }
     }
 
     private void setImage() {

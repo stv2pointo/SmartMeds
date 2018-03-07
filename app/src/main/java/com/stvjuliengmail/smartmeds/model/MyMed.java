@@ -57,7 +57,7 @@ public class MyMed implements Parcelable{
     }
 
     public String getDosage() {
-        return dosage;
+        return (dosage != null) ? dosage : "";
     }
 
     public void setDosage(String dosage) {
@@ -65,7 +65,7 @@ public class MyMed implements Parcelable{
     }
 
     public String getDoctor() {
-        return doctor;
+        return (doctor != null) ? doctor : "";
     }
 
     public void setDoctor(String doctor) {
@@ -73,7 +73,7 @@ public class MyMed implements Parcelable{
     }
 
     public String getDirections() {
-        return directions;
+        return (directions != null) ? directions : "";
     }
 
     public void setDirections(String directions) {
@@ -81,7 +81,7 @@ public class MyMed implements Parcelable{
     }
 
     public String getPharmacy() {
-        return pharmacy;
+        return (pharmacy != null) ? pharmacy : "";
     }
 
     public void setPharmacy(String pharmacy) {
@@ -89,7 +89,7 @@ public class MyMed implements Parcelable{
     }
 
     public String getName() {
-        return name;
+        return (name != null) ? name : "";
     }
 
     public void setName(String name) {
@@ -97,7 +97,7 @@ public class MyMed implements Parcelable{
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return (imageUrl != null) ? imageUrl : "";
     }
 
     public void setImageUrl(String imageUrl) {
@@ -111,12 +111,12 @@ public class MyMed implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(rxcui);
-        dest.writeString(dosage);
-        dest.writeString(doctor);
-        dest.writeString(directions);
-        dest.writeString(pharmacy);
-        dest.writeString(imageUrl);
+        dest.writeString(getName());
+        dest.writeString(getRxcui());
+        dest.writeString(getDosage());
+        dest.writeString(getDoctor());
+        dest.writeString(getDirections());
+        dest.writeString(getPharmacy());
+        dest.writeString(getImageUrl());
     }
 }
