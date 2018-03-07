@@ -38,6 +38,7 @@ public class MyMedActivity extends AppCompatActivity {
 
         tvName = (TextView) findViewById(R.id.tvName);
         tvDosage = (TextView) findViewById(R.id.tvDosage);
+        tvDoctor = (TextView) findViewById(R.id.tvDoctor);
         tvDirections = (TextView) findViewById(R.id.tvDirections);
         tvPharmacy = (TextView) findViewById(R.id.tvPharmacy);
         ivPillImage = (ImageView) findViewById(R.id.ivPillImage);
@@ -62,6 +63,7 @@ public class MyMedActivity extends AppCompatActivity {
     private void setText(){
         tvName.setText(myMed.getName());
         tvDosage.setText(myMed.getDosage());
+        tvDoctor.setText(myMed.getDoctor());
         tvDirections.setText(myMed.getDirections());
         tvPharmacy.setText(myMed.getPharmacy());
     }
