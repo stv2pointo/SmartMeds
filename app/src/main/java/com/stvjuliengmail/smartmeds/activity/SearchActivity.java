@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private Button btnLoadList;
+    private ImageButton btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
     private EditText etName, etImprint;
     private RecyclerView recyclerView;
@@ -47,7 +48,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
-        btnLoadList = (Button) findViewById(R.id.btnLoadList);
+        btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
         etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

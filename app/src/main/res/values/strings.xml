@@ -58,4 +58,7 @@
     <string name="shape">Shape:</string>
     <string name="color">Color:</string>
     <string name="title_activity_edit_med">EditMed</string>
+    <string name="pill_name">Pill Name</string>
+    <string name="imprint">Imprint</string>
+    <string name="search">Search</string>
 </resources>

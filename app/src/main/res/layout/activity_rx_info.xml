@@ -91,7 +91,7 @@
         android:text="Interactions "
         android:textSize="14sp"
         android:background="@color/warn_yellow"
-        android:drawableRight="@android:drawable/stat_sys_warning"
+        android:drawableEnd="@android:drawable/stat_sys_warning"
         android:drawableTint="@color/black_70"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

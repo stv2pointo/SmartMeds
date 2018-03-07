@@ -17,6 +17,7 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
+//import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class RxInfoActivity extends AppCompatActivity {
     private FloatingActionButton fabSaveMyMeds;
     private Button btnInteractions;
     private Context context;
+//    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +74,12 @@ public class RxInfoActivity extends AppCompatActivity {
         fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "This should open a form", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, AddOrEditMyMedActivity.class);
+                intent.putExtra("rxcui", Integer.toString(rxcui));
+                intent.putExtra("name", name);
+                intent.putExtra("imageUrl", imageUrl);
+                startActivity(intent);
+                Toast.makeText(context, "Adding to your pills", Toast.LENGTH_SHORT).show();
             }
         });
     }

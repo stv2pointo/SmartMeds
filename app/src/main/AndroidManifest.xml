@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -22,21 +22,26 @@
         </activity>
         <activity
             android:name=".activity.SearchActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MyMedsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.RxInfoActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RxInfoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EditMed"
             android:label="@string/title_activity_edit_med"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.InteractionsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyMedActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.AddOrEditMyMedActivity"></activity>
     </application>
 
 </manifest>

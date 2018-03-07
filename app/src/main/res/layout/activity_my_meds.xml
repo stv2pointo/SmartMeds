@@ -12,11 +12,14 @@
         android:textSize="30dp"
         android:text="My Meds" />
 
-    <ListView
-        android:id="@+id/listView1"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMyMeds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"></ListView>
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/textView"
+        android:background="@color/gray_300"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>
