@@ -1,18 +1,17 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private Button btnLoadList;
+    private ImageButton btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
     private EditText etName, etImprint;
     private RecyclerView recyclerView;
@@ -41,37 +40,15 @@ public class SearchActivity extends AppCompatActivity {
     private String defaultShapeValue;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         initializeUiComponents();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-        @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-        if(id==R.id.action_mainmenu)
-        {
-            Intent mainMenuIntent = new Intent(SearchActivity.this, MenuActivity.class);
-            startActivity(mainMenuIntent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void initializeUiComponents()
-    {
+    private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
-        btnLoadList = (Button) findViewById(R.id.btnLoadList);
+        btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
         etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

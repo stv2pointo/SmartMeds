@@ -1,12 +1,9 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
@@ -39,26 +36,6 @@ public class InteractionsActivity extends AppCompatActivity {
         displayPillName();
 
         new InteractionsListTask(this, Integer.toString(rxcui)).execute("");
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-        if(id==R.id.action_mainmenu)
-        {
-            Intent mainMenuIntent = new Intent(InteractionsActivity.this, MenuActivity.class);
-            startActivity(mainMenuIntent);
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void initializeUiElements() {

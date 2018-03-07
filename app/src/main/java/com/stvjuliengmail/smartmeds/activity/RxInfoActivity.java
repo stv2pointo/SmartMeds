@@ -7,8 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,8 +17,7 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
-import com.stvjuliengmail.smartmeds.model.BitmapUtility;
-import com.stvjuliengmail.smartmeds.model.DBHelper;
+//import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 
@@ -35,14 +32,10 @@ public class RxInfoActivity extends AppCompatActivity {
     private FloatingActionButton fabSaveMyMeds;
     private Button btnInteractions;
     private Context context;
-    private DBHelper db;
-    private Bitmap pillImage;
-    private byte[] pillImageArray;
-    private String mayTreat;
+//    private DBHelper db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_info);
         context = this;
@@ -62,25 +55,6 @@ public class RxInfoActivity extends AppCompatActivity {
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        return true;
-    }
-
-
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-        if(id==R.id.action_mainmenu)
-        {
-            Intent mainMenuIntent = new Intent(RxInfoActivity.this, MenuActivity.class);
-            startActivity(mainMenuIntent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void unpackIntentExtras() {
         Bundle extras = getIntent().getExtras();
         rxcui = extras.getInt("rxcui");
@@ -97,17 +71,15 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void wireUpSaveToMyMedsButton() {
-        db = new DBHelper(this);
         fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BitmapUtility bu = new BitmapUtility();
-                pillImageArray = bu.getBytes(pillImage);
-                db.insertRX(rxcui, name, pillImageArray, mayTreat);
-
-                Intent intent = new Intent(context, MyMedsActivity.class);
+                Intent intent = new Intent(context, AddOrEditMyMedActivity.class);
+                intent.putExtra("rxcui", Integer.toString(rxcui));
+                intent.putExtra("name", name);
+                intent.putExtra("imageUrl", imageUrl);
                 startActivity(intent);
-                Toast.makeText(context, "Medication Saved.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Adding to your pills", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -131,15 +103,15 @@ public class RxInfoActivity extends AppCompatActivity {
     public void displayImage(){
         ImageDownloadTask task = new ImageDownloadTask();
         try {
-            pillImage = task.execute(imageUrl).get();
-            if(pillImage == null){
+            Bitmap myBitmap = task.execute(imageUrl).get();
+            if(myBitmap == null){
                 imageView.setImageResource(R.drawable.no_img_avail);
             }
             else{
-                imageView.setImageBitmap(pillImage);
+                imageView.setImageBitmap(myBitmap);
             }
         } catch (Exception e) {
-            Log.d(TAG, "display image exception: " + e.getMessage());
+            Log.d(TAG, "display iMage exdeption: " + e.getMessage());
         }
     }
 
@@ -148,8 +120,7 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void populateMayTreat(String diseases) {
-        mayTreat = diseases; // for database insert
-        tvMayTreat.setText("May Treat: \n" + diseases);
+        tvMayTreat.setText(diseases);
     }
 
 }
