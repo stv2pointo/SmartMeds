@@ -71,7 +71,6 @@
                 android:entries="@array/array_PillColors"
                 android:textAlignment="center" />
 
-
         </LinearLayout>
 
         <LinearLayout
