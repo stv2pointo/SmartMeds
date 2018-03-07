@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +32,8 @@ public class MyMedsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_meds);
         context = this;
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -38,6 +42,22 @@ public class MyMedsActivity extends AppCompatActivity {
 
         populateRecyclerView(dbOpenHelper);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
