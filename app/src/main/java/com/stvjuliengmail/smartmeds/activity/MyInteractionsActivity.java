@@ -2,10 +2,12 @@ package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +80,7 @@ public class MyInteractionsActivity extends AppCompatActivity {
         myInteractionsAdapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, myInteractions.get(position).getFirstDrug() + " selected",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, myInteractions.get(position).getFirstDrug() + " selected",Toast.LENGTH_SHORT).show();
 //                MyMed myMed = myMedsList.get(position);
 //                Intent intent = new Intent(context, MyMedActivity.class);
 //                intent.putExtra("myMed", myMed);
@@ -88,7 +90,8 @@ public class MyInteractionsActivity extends AppCompatActivity {
             @Override
             public void onItemLongClick(View view, int position) {
                 // TODO: Is there a use case for this?
-                Toast.makeText(context, "Send out browser intent", Toast.LENGTH_SHORT).show();
+                startBrowser(myInteractions.get(position).getUrl());
+
             }
         });
 
@@ -102,5 +105,17 @@ public class MyInteractionsActivity extends AppCompatActivity {
         myInteractions.clear();
         myInteractions.addAll(interactionsFromTask);
         myInteractionsAdapter.notifyDataSetChanged();
+    }
+
+    private void startBrowser(String url){
+        try{
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(browserIntent);
+        }
+        catch (Exception e){
+            Toast.makeText(context, "Site down", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Couldn't parse " + url);
+        }
+
     }
 }
