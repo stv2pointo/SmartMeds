@@ -30,6 +30,8 @@ public class MyInteractionsActivity extends AppCompatActivity {
     private TextView tvDisclaimer;
     private RecyclerView my_interactions_recycler_view;
     private List<MyInteraction> myInteractions = new ArrayList<>();
+    private ArrayList<MyInteraction> intentInteractions = new ArrayList<>();
+    private String disclaimer;
     private MyInteractionsAdapter myInteractionsAdapter;
     private Context context;
 
@@ -37,14 +39,16 @@ public class MyInteractionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_interactions);
-
+        unpackIntextExtras();
         context = this;
+
+
 
         initializeUiElements();
 
-        String[] temps = new String[]{"207106","152923","656659"};
+        populateDisclaimer();
+        populateRecyclerView(intentInteractions);
 
-        new MyInteractionsTask(this, temps).execute("");
     }
 
     @Override
@@ -60,6 +64,12 @@ public class MyInteractionsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void unpackIntextExtras(){
+        Bundle extras = getIntent().getExtras();
+        intentInteractions = extras.getParcelableArrayList("my_interactions");
+        disclaimer = extras.getString("disclaimer");
     }
 
     private void initializeUiElements() {
@@ -86,7 +96,7 @@ public class MyInteractionsActivity extends AppCompatActivity {
 
         my_interactions_recycler_view.setAdapter(myInteractionsAdapter);
     }
-    public void populateDisclaimer(String disclaimer) {
+    public void populateDisclaimer() {
         tvDisclaimer.setText(disclaimer);
     }
 

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.stvjuliengmail.smartmeds.activity.InteractionsActivity;
 import com.stvjuliengmail.smartmeds.activity.MyInteractionsActivity;
+import com.stvjuliengmail.smartmeds.activity.MyMedsActivity;
 import com.stvjuliengmail.smartmeds.model.Interaction;
 import com.stvjuliengmail.smartmeds.model.InteractionsResult;
 import com.stvjuliengmail.smartmeds.model.MyInteraction;
@@ -29,14 +30,14 @@ public class MyInteractionsTask extends AsyncTask<String, Integer, String> {
     private final String TAG = getClass().getSimpleName();
     private String rawJson = "";
     private ArrayList<MyInteraction> myInteractions;
-    private final WeakReference<MyInteractionsActivity> weakActivity;
+    private final WeakReference<MyMedsActivity> weakActivity;
     private String[] rxcuis;
     private String disclaimer;
     private ProgressDialog progressDialog;
 
 
-    public MyInteractionsTask(MyInteractionsActivity myInteractionsActivity, String[] rxcuis) {
-        this.weakActivity = new WeakReference<MyInteractionsActivity>(myInteractionsActivity);
+    public MyInteractionsTask(MyMedsActivity myMedsActivity, String[] rxcuis) {
+        this.weakActivity = new WeakReference<MyMedsActivity>(myMedsActivity);
         this.rxcuis = rxcuis;
     }
 
@@ -147,10 +148,10 @@ public class MyInteractionsTask extends AsyncTask<String, Integer, String> {
 
     public void setResultsInUI() {
         if (myInteractions != null) {
-            MyInteractionsActivity activity = weakActivity.get();
+            MyMedsActivity activity = weakActivity.get();
             if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
-                activity.populateDisclaimer(disclaimer);
-                activity.populateRecyclerView(myInteractions);
+//                activity.setDisclaimer(disclaimer);
+//                activity.setMyInteractions(myInteractions);
             }
         }
     }

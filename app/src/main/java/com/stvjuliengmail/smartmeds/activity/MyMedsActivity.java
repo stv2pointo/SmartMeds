@@ -1,10 +1,10 @@
 package com.stvjuliengmail.smartmeds.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,13 +13,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.MyMedsAdapter;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
+import com.stvjuliengmail.smartmeds.api.MyInteractionsTask;
+import com.stvjuliengmail.smartmeds.database.GetDBMedsTask;
 import com.stvjuliengmail.smartmeds.database.SmartMedsDbOpenHelper;
+import com.stvjuliengmail.smartmeds.model.MyInteraction;
 import com.stvjuliengmail.smartmeds.model.MyMed;
 
 import java.util.ArrayList;
@@ -30,7 +33,10 @@ public class MyMedsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyMedsAdapter adapter;
     private ArrayList<MyMed> myMedsList = new ArrayList<>();
+    private ArrayList<MyInteraction> myInteractions = new ArrayList<>();
+    private String interactionDisclaimer;
     private Context context;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +49,10 @@ public class MyMedsActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Get singleton instance of database
-        SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(this);
+        wireAdapterToRecyclerView();
 
-        populateRecyclerView(dbOpenHelper);
-
-        warnInteractions();
+        new GetDBMedsTask(this).execute("");
+//        populateRecyclerView(dbOpenHelper);
 
     }
 
@@ -68,34 +72,24 @@ public class MyMedsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
+    public void setMyMeds(ArrayList<MyMed> myMedsFromDb){
         myMedsList.clear();
-        myMedsList = dbOpenHelper.getAllMyMeds();
-        if(myMedsList == null || myMedsList.size() < 1){
-            loadDummyData(dbOpenHelper);
-            myMedsList = dbOpenHelper.getAllMyMeds();
-        }
-        wireAdapterToRecyclerView();
+        myMedsList.addAll(myMedsFromDb);
         adapter.notifyDataSetChanged();
+warnInteractions();
     }
 
-    private void loadDummyData(SmartMedsDbOpenHelper dbOpenHelper) {
-        String[] rxcuis = new String[]{"966200","197313"};
-        String[] names = new String[]{"Levothyroxine Sodium 0.15 MG Oral Tablet [Levoxyl]", "Acyclovir 800 MG Oral Tablet"};
-        String[] urls = new String[] {"https://rximage.nlm.nih.gov/image/images/gallery/600/60793-0858-01_RXNAVIMAGE10_02088174.jpg",
-            "https://rximage.nlm.nih.gov/image/images/gallery/600/60505-5307-01_RXNAVIMAGE10_4D26A6D5.jpg"};
-        for(int i=0;i<2;i++){
-            long rowId = dbOpenHelper.addOrUpdateMyMed(new MyMed(
-                    names[i],
-                    rxcuis[i],
-                    "150 mg",
-                    "Dr. Feelgood",
-                    "Take some daily",
-                    "Walgreens",
-                    urls[i]));
-        }
-
-    }
+//    private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
+//        myMedsList.clear();
+//        myMedsList = dbOpenHelper.getAllMyMeds();
+////        if(myMedsList == null || myMedsList.size() < 1){
+////            loadDummyData(dbOpenHelper);
+////            myMedsList = dbOpenHelper.getAllMyMeds();
+////        }
+//        wireAdapterToRecyclerView();
+//        adapter.notifyDataSetChanged();
+////        lookForMyInteractionsTask();
+//    }
 
     private void wireAdapterToRecyclerView() {
         adapter = new MyMedsAdapter(myMedsList, R.layout.my_meds_item,
@@ -120,9 +114,28 @@ public class MyMedsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private void countInteractions(){
+//    private void lookForMyInteractionsTask() {
+//        new MyInteractionsTask(this, getMyRxcuis()).execute("");
+//    }
 
-    }
+//    private String[] getMyRxcuis() {
+//        String[] rxcuis = new String[myMedsList.size()];
+//        int index = 0;
+//        for(MyMed myMed : myMedsList){
+//            rxcuis[index] = myMed.getRxcui();
+//        }
+//        return rxcuis;
+//    }
+//public void setDisclaimer(String disclaimer){
+//        interactionDisclaimer = disclaimer;
+//}
+//    public void setMyInteractions(ArrayList<MyInteraction> myInteractionsFromApi){
+//        if(myInteractionsFromApi != null && myInteractionsFromApi.size() > 0){
+//            myInteractions = myInteractionsFromApi;
+//            warnInteractions();
+//        }
+//    }
+
     private void warnInteractions(){
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Drug Interactions!");
@@ -137,18 +150,36 @@ public class MyMedsActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        startInteractions();
-                        //Toast.makeText(context,"SHOW THE LIST.",Toast.LENGTH_SHORT).show();
-
+                        //startInteractions();
                     }
                 });
         alertDialog.show();
     }
 
-    private void startInteractions(){
-        Intent intent = new Intent(this, MyInteractionsActivity.class);
-        startActivity(intent);
-    }
+//    private void startInteractions(){
+//        Intent intent = new Intent(this, MyInteractionsActivity.class);
+//        intent.putExtra("my_interactions", myInteractions);
+//        intent.putExtra("disclaimer", interactionDisclaimer);
+//        startActivity(intent);
+//    }
+
+//    private void loadDummyData(SmartMedsDbOpenHelper dbOpenHelper) {
+//        String[] rxcuis = new String[]{"966200","197313"};
+//        String[] names = new String[]{"Levothyroxine Sodium 0.15 MG Oral Tablet [Levoxyl]", "Acyclovir 800 MG Oral Tablet"};
+//        String[] urls = new String[] {"https://rximage.nlm.nih.gov/image/images/gallery/600/60793-0858-01_RXNAVIMAGE10_02088174.jpg",
+//                "https://rximage.nlm.nih.gov/image/images/gallery/600/60505-5307-01_RXNAVIMAGE10_4D26A6D5.jpg"};
+//        for(int i=0;i<2;i++){
+//            long rowId = dbOpenHelper.addOrUpdateMyMed(new MyMed(
+//                    names[i],
+//                    rxcuis[i],
+//                    "150 mg",
+//                    "Dr. Feelgood",
+//                    "Take some daily",
+//                    "Walgreens",
+//                    urls[i]));
+//        }
+//    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
