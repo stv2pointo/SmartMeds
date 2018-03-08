@@ -95,36 +95,36 @@ public class MyListInteractionResult
     //////////
     public class InteractionConcept
     {
-        private MinConceptItem minConceptItem;
+        private SourceConceptItem sourceConceptItem;
 
-        public MinConceptItem getMinConceptItem ()
+        public SourceConceptItem getSourceConceptItem ()
         {
-            return minConceptItem;
+            return sourceConceptItem;
         }
 
-        public void setMinConceptItem (MinConceptItem minConceptItem)
+        public void setSourceConceptItem (SourceConceptItem sourceConceptItem)
         {
-            this.minConceptItem = minConceptItem;
+            this.sourceConceptItem = sourceConceptItem;
         }
     }
 
     //////////
-    public class MinConceptItem
+    public class SourceConceptItem
     {
-        private String rxcui;
+        private String id;
 
         private String name;
 
-        private String tty;
+        private String url;
 
-        public String getRxcui ()
+        public String getId ()
         {
-            return rxcui;
+            return id;
         }
 
-        public void setRxcui (String rxcui)
+        public void setId (String id)
         {
-            this.rxcui = rxcui;
+            this.id = id;
         }
 
         public String getName ()
@@ -137,15 +137,16 @@ public class MyListInteractionResult
             this.name = name;
         }
 
-        public String getTty ()
+        public String getUrl ()
         {
-            return tty;
+            return url;
         }
 
-        public void setTty (String tty)
+        public void setUrl (String url)
         {
-            this.tty = tty;
+            this.url = url;
         }
     }
+
     /////////
 }

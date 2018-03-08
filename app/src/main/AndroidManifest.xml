@@ -41,7 +41,8 @@
         <activity
             android:name=".activity.MyMedActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.AddOrEditMyMedActivity"></activity>
+        <activity android:name=".activity.AddOrEditMyMedActivity" />
+        <activity android:name=".activity.MyInteractionsActivity"></activity>
     </application>
 
 </manifest>

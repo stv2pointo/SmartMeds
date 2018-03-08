@@ -1,7 +1,11 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
@@ -21,6 +26,7 @@ import java.util.ArrayList;
 
 public class MyMedsActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
+    private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerView;
     private MyMedsAdapter adapter;
     private ArrayList<MyMed> myMedsList = new ArrayList<>();
@@ -41,6 +47,8 @@ public class MyMedsActivity extends AppCompatActivity {
         SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(this);
 
         populateRecyclerView(dbOpenHelper);
+
+        warnInteractions();
 
     }
 
@@ -112,6 +120,35 @@ public class MyMedsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    private void countInteractions(){
+
+    }
+    private void warnInteractions(){
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Drug Interactions!");
+        alertDialog.setMessage("Your medicines have interactions that may be hazardous.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "VIEW INTERACTIONS",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startInteractions();
+                        //Toast.makeText(context,"SHOW THE LIST.",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        alertDialog.show();
+    }
+
+    private void startInteractions(){
+        Intent intent = new Intent(this, MyInteractionsActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
