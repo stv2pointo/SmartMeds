@@ -37,6 +37,7 @@ public class MyMedsActivity extends AppCompatActivity {
     private String interactionDisclaimer;
     private Context context;
     private ProgressDialog progressDialog;
+    private String[] rxcuis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,31 +66,12 @@ public class MyMedsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id==android.R.id.home) {
+        if (id == android.R.id.home) {
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void setMyMeds(ArrayList<MyMed> myMedsFromDb){
-        myMedsList.clear();
-        myMedsList.addAll(myMedsFromDb);
-        adapter.notifyDataSetChanged();
-warnInteractions();
-    }
-
-//    private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
-//        myMedsList.clear();
-//        myMedsList = dbOpenHelper.getAllMyMeds();
-////        if(myMedsList == null || myMedsList.size() < 1){
-////            loadDummyData(dbOpenHelper);
-////            myMedsList = dbOpenHelper.getAllMyMeds();
-////        }
-//        wireAdapterToRecyclerView();
-//        adapter.notifyDataSetChanged();
-////        lookForMyInteractionsTask();
-//    }
 
     private void wireAdapterToRecyclerView() {
         adapter = new MyMedsAdapter(myMedsList, R.layout.my_meds_item,
@@ -98,7 +80,7 @@ warnInteractions();
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, myMedsList.get(position).getName() + " selected",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, myMedsList.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
                 MyMed myMed = myMedsList.get(position);
                 Intent intent = new Intent(context, MyMedActivity.class);
                 intent.putExtra("myMed", myMed);
@@ -114,29 +96,43 @@ warnInteractions();
         recyclerView.setAdapter(adapter);
     }
 
-//    private void lookForMyInteractionsTask() {
-//        new MyInteractionsTask(this, getMyRxcuis()).execute("");
-//    }
+    public void setMyMeds(ArrayList<MyMed> myMedsFromDb) {
+        myMedsList.clear();
+        myMedsList.addAll(myMedsFromDb);
+        adapter.notifyDataSetChanged();
+        checkForInteractions();
+    }
 
-//    private String[] getMyRxcuis() {
-//        String[] rxcuis = new String[myMedsList.size()];
-//        int index = 0;
-//        for(MyMed myMed : myMedsList){
-//            rxcuis[index] = myMed.getRxcui();
-//        }
-//        return rxcuis;
-//    }
-//public void setDisclaimer(String disclaimer){
-//        interactionDisclaimer = disclaimer;
-//}
-//    public void setMyInteractions(ArrayList<MyInteraction> myInteractionsFromApi){
-//        if(myInteractionsFromApi != null && myInteractionsFromApi.size() > 0){
-//            myInteractions = myInteractionsFromApi;
-//            warnInteractions();
-//        }
-//    }
+    private void checkForInteractions() {
+        setRxcuis();
+        lookForMyInteractionsTask();
+    }
 
-    private void warnInteractions(){
+    private void setRxcuis() {
+        rxcuis = new String[myMedsList.size()];
+        int index = 0;
+        for (MyMed myMed : myMedsList) {
+            rxcuis[index] = myMed.getRxcui();
+            index++;
+        }
+    }
+
+    private void lookForMyInteractionsTask() {
+        new MyInteractionsTask(this, rxcuis).execute("");
+    }
+
+    public void setDisclaimer(String disclaimer) {
+        interactionDisclaimer = disclaimer;
+    }
+
+    public void setMyInteractions(ArrayList<MyInteraction> myInteractionsFromApi){
+        if(myInteractionsFromApi != null && myInteractionsFromApi.size() > 0){
+            myInteractions = myInteractionsFromApi;
+            warnInteractions();
+        }
+    }
+
+    private void warnInteractions() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Drug Interactions!");
         alertDialog.setMessage("Your medicines have interactions that may be hazardous.");
@@ -150,18 +146,18 @@ warnInteractions();
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        //startInteractions();
+                        startInteractions();
                     }
                 });
         alertDialog.show();
     }
 
-//    private void startInteractions(){
-//        Intent intent = new Intent(this, MyInteractionsActivity.class);
-//        intent.putExtra("my_interactions", myInteractions);
-//        intent.putExtra("disclaimer", interactionDisclaimer);
-//        startActivity(intent);
-//    }
+    private void startInteractions(){
+        Intent intent = new Intent(this, MyInteractionsActivity.class);
+        intent.putExtra("my_interactions", myInteractions);
+        intent.putExtra("disclaimer", interactionDisclaimer);
+        startActivity(intent);
+    }
 
 //    private void loadDummyData(SmartMedsDbOpenHelper dbOpenHelper) {
 //        String[] rxcuis = new String[]{"966200","197313"};

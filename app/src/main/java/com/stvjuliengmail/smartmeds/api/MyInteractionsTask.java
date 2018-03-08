@@ -150,8 +150,8 @@ public class MyInteractionsTask extends AsyncTask<String, Integer, String> {
         if (myInteractions != null) {
             MyMedsActivity activity = weakActivity.get();
             if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
-//                activity.setDisclaimer(disclaimer);
-//                activity.setMyInteractions(myInteractions);
+                activity.setDisclaimer(disclaimer);
+                activity.setMyInteractions(myInteractions);
             }
         }
     }
