@@ -75,18 +75,21 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:layout_gravity="center_vertical"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/btnLoadList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-              android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="5dp"
-                android:src="@drawable/search" />
+                android:layout_marginHorizontal="5dp"
+                android:src="@drawable/search"
+                android:adjustViewBounds="true"
+                android:padding="5dp"
+                android:scaleType="fitCenter"/>
         </LinearLayout>
     </LinearLayout>
 
