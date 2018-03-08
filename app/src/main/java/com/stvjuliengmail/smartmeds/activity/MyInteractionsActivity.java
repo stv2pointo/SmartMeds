@@ -42,8 +42,6 @@ public class MyInteractionsActivity extends AppCompatActivity {
 
         initializeUiElements();
 
-        wireAdapterToRecyclerView();
-
         String[] temps = new String[]{"207106","152923","656659"};
 
         new MyInteractionsTask(this, temps).execute("");
@@ -57,7 +55,6 @@ public class MyInteractionsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id==android.R.id.home) {
             finish();
             return true;
@@ -67,12 +64,11 @@ public class MyInteractionsActivity extends AppCompatActivity {
 
     private void initializeUiElements() {
         tvDisclaimer = (TextView) findViewById(R.id.tvDisclaimer);
-
-
+        my_interactions_recycler_view = (RecyclerView) findViewById(R.id.my_interactions_recycler_view);
+        wireAdapterToRecyclerView();
     }
 
     private void wireAdapterToRecyclerView() {
-        my_interactions_recycler_view = (RecyclerView) findViewById(R.id.my_interactions_recycler_view);
         my_interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
         myInteractionsAdapter = new MyInteractionsAdapter(myInteractions, R.layout.my_interaction_row, getApplicationContext());
         my_interactions_recycler_view.setAdapter(myInteractionsAdapter);
@@ -80,18 +76,11 @@ public class MyInteractionsActivity extends AppCompatActivity {
         myInteractionsAdapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //Toast.makeText(context, myInteractions.get(position).getFirstDrug() + " selected",Toast.LENGTH_SHORT).show();
-//                MyMed myMed = myMedsList.get(position);
-//                Intent intent = new Intent(context, MyMedActivity.class);
-//                intent.putExtra("myMed", myMed);
-//                context.startActivity(intent);
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                // TODO: Is there a use case for this?
                 startBrowser(myInteractions.get(position).getUrl());
-
             }
         });
 
@@ -113,9 +102,8 @@ public class MyInteractionsActivity extends AppCompatActivity {
             startActivity(browserIntent);
         }
         catch (Exception e){
-            Toast.makeText(context, "Site down", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Site unavailable", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Couldn't parse " + url);
         }
-
     }
 }

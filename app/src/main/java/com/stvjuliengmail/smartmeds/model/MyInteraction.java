@@ -1,10 +1,13 @@
 package com.stvjuliengmail.smartmeds.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Steven on 3/7/2018.
  */
 
-public class MyInteraction {
+public class MyInteraction implements Parcelable{
     private String firstDrug, secondDrug, description, url;
 
     public MyInteraction(String firstDrug, String secondDrug, String description, String url) {
@@ -13,6 +16,25 @@ public class MyInteraction {
         this.description = description;
         this.url = url;
     }
+
+    protected MyInteraction(Parcel in) {
+        firstDrug = in.readString();
+        secondDrug = in.readString();
+        description = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<MyInteraction> CREATOR = new Creator<MyInteraction>() {
+        @Override
+        public MyInteraction createFromParcel(Parcel in) {
+            return new MyInteraction(in);
+        }
+
+        @Override
+        public MyInteraction[] newArray(int size) {
+            return new MyInteraction[size];
+        }
+    };
 
     public String getFirstDrug() {
         return firstDrug;
@@ -44,5 +66,18 @@ public class MyInteraction {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(firstDrug);
+        dest.writeString(secondDrug);
+        dest.writeString(description);
+        dest.writeString(url);
     }
 }
