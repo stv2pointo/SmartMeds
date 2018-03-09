@@ -35,8 +35,8 @@
         android:id="@+id/my_interactions_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_300"
-        android:padding="16dp"
+
+        android:padding="8dp"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
