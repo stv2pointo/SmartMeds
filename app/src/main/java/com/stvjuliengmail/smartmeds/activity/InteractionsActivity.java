@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
@@ -29,6 +31,8 @@ public class InteractionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactions);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         unpackIntentExtras();
 
         initializeUiElements();
@@ -38,13 +42,29 @@ public class InteractionsActivity extends AppCompatActivity {
         new InteractionsListTask(this, Integer.toString(rxcui)).execute("");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void initializeUiElements() {
         tvName = (TextView) findViewById(R.id.tvName);
         tvDisclaimer = (TextView) findViewById(R.id.tvDisclaimer);
 
         interactions_recycler_view = (RecyclerView) findViewById(R.id.interactions_recycler_view);
         interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
-        interactionsAdapter = new InteractionsAdapter(interactions, R.layout.listview_row_interaction, getApplicationContext());
+        interactionsAdapter = new InteractionsAdapter(interactions, R.layout.rv_row_interaction, getApplicationContext());
         interactions_recycler_view.setAdapter(interactionsAdapter);
     }
 

@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +31,8 @@ public class AddOrEditMyMedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_or_edit_pill);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         tvName = (TextView) findViewById(R.id.tvName);
         etDosage = (EditText) findViewById(R.id.etDosage);
         etDoctor = (EditText) findViewById(R.id.etDoctor);
@@ -47,6 +51,21 @@ public class AddOrEditMyMedActivity extends AppCompatActivity {
 
         setImage();
         displayDataFromIntent();
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void unpackIntentExtras() {
@@ -115,6 +134,7 @@ public class AddOrEditMyMedActivity extends AppCompatActivity {
     private void routeToMyMeds() {
         Intent intent = new Intent(this, MyMedsActivity.class);
         startActivity(intent);
+        finish();
     }
 }
 

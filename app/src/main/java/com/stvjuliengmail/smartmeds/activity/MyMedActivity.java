@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +33,8 @@ public class MyMedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_med);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         context = this;
 
         Bundle extras = getIntent().getExtras();
@@ -38,6 +42,7 @@ public class MyMedActivity extends AppCompatActivity {
 
         tvName = (TextView) findViewById(R.id.tvName);
         tvDosage = (TextView) findViewById(R.id.tvDosage);
+        tvDoctor = (TextView) findViewById(R.id.tvDoctor);
         tvDirections = (TextView) findViewById(R.id.tvDirections);
         tvPharmacy = (TextView) findViewById(R.id.tvPharmacy);
         ivPillImage = (ImageView) findViewById(R.id.ivPillImage);
@@ -59,9 +64,26 @@ public class MyMedActivity extends AppCompatActivity {
         setText();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void setText(){
         tvName.setText(myMed.getName());
         tvDosage.setText(myMed.getDosage());
+        tvDoctor.setText(myMed.getDoctor());
         tvDirections.setText(myMed.getDirections());
         tvPharmacy.setText(myMed.getPharmacy());
     }
@@ -86,6 +108,7 @@ public class MyMedActivity extends AppCompatActivity {
         intent.putExtra("myMed", myMed);
         startActivity(intent);
     }
+
     private void delete() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Are you sure?");
@@ -112,5 +135,6 @@ public class MyMedActivity extends AppCompatActivity {
     private void routeToMyMeds() {
         Intent intent = new Intent(this, MyMedsActivity.class);
         startActivity(intent);
+        finish();
     }
 }

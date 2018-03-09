@@ -7,11 +7,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
@@ -38,6 +39,9 @@ public class RxInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_info);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         context = this;
 
         unpackIntentExtras();
@@ -53,6 +57,22 @@ public class RxInfoActivity extends AppCompatActivity {
         displayImage();
 
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void unpackIntentExtras() {
@@ -74,12 +94,7 @@ public class RxInfoActivity extends AppCompatActivity {
         fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AddOrEditMyMedActivity.class);
-                intent.putExtra("rxcui", Integer.toString(rxcui));
-                intent.putExtra("name", name);
-                intent.putExtra("imageUrl", imageUrl);
-                startActivity(intent);
-                Toast.makeText(context, "Adding to your pills", Toast.LENGTH_SHORT).show();
+               startAddMed();
             }
         });
     }
@@ -88,10 +103,7 @@ public class RxInfoActivity extends AppCompatActivity {
         btnInteractions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, InteractionsActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("rxcui", rxcui);
-                startActivity(intent);
+                startInteractions();
             }
         });
     }
@@ -123,4 +135,19 @@ public class RxInfoActivity extends AppCompatActivity {
         tvMayTreat.setText(diseases);
     }
 
+    private void startInteractions(){
+        Intent intent = new Intent(context, InteractionsActivity.class);
+        intent.putExtra("name", name);
+        intent.putExtra("rxcui", rxcui);
+        startActivity(intent);
+    }
+
+    private void startAddMed(){
+        Intent intent = new Intent(context, AddOrEditMyMedActivity.class);
+        intent.putExtra("rxcui", Integer.toString(rxcui));
+        intent.putExtra("name", name);
+        intent.putExtra("imageUrl", imageUrl);
+        startActivity(intent);
+        finish();
+    }
 }
