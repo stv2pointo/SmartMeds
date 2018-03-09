@@ -42,6 +42,7 @@ public class GetDBMedsTask extends AsyncTask <String, Integer, ArrayList<MyMed>>
         MyMedsActivity activity = weakActivity.get();
         if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
             activity.setMyMeds(myMeds);
+            activity.checkForInteractions();
         }
 
     }

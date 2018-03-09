@@ -111,10 +111,9 @@ public class MyMedsActivity extends AppCompatActivity {
         myMedsList.clear();
         myMedsList.addAll(myMedsFromDb);
         adapter.notifyDataSetChanged();
-        //checkForInteractions();
     }
 
-    private void checkForInteractions() {
+    public void checkForInteractions() {
         setRxcuis();
         lookForMyInteractionsTask();
     }
