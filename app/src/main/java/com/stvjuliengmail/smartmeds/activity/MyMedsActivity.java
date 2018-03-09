@@ -1,6 +1,5 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
@@ -75,7 +73,7 @@ public class MyMedsActivity extends AppCompatActivity {
     }
 
     private void wireAdapterToRecyclerView() {
-        adapter = new MyMedsAdapter(myMedsList, R.layout.my_meds_item,
+        adapter = new MyMedsAdapter(myMedsList, R.layout.rv_row_my_meds,
                 getApplicationContext());
         //Create custom interface object and send it to adapter for clickable list items
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -121,7 +120,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void wireAdapterToRecyclerView() {
-        adapter = new ResultsAdapter(imageList, R.layout.list_search_result,
+        adapter = new ResultsAdapter(imageList, R.layout.rv_row_search_result,
                 getApplicationContext());
         //Create custom interface object and send it to adapter for clickable list items
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {

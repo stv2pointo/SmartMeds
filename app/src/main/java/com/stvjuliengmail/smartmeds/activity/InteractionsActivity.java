@@ -64,7 +64,7 @@ public class InteractionsActivity extends AppCompatActivity {
 
         interactions_recycler_view = (RecyclerView) findViewById(R.id.interactions_recycler_view);
         interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
-        interactionsAdapter = new InteractionsAdapter(interactions, R.layout.listview_row_interaction, getApplicationContext());
+        interactionsAdapter = new InteractionsAdapter(interactions, R.layout.rv_row_interaction, getApplicationContext());
         interactions_recycler_view.setAdapter(interactionsAdapter);
     }
 

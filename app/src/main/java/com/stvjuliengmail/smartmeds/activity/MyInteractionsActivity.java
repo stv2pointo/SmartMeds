@@ -16,11 +16,8 @@ import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.MyInteractionsAdapter;
-import com.stvjuliengmail.smartmeds.adapter.MyMedsAdapter;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
-import com.stvjuliengmail.smartmeds.api.MyInteractionsTask;
 import com.stvjuliengmail.smartmeds.model.MyInteraction;
-import com.stvjuliengmail.smartmeds.model.MyMed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +77,7 @@ public class MyInteractionsActivity extends AppCompatActivity {
 
     private void wireAdapterToRecyclerView() {
         my_interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
-        myInteractionsAdapter = new MyInteractionsAdapter(myInteractions, R.layout.my_interaction_row, getApplicationContext());
+        myInteractionsAdapter = new MyInteractionsAdapter(myInteractions, R.layout.rv_row_my_interaction, getApplicationContext());
         my_interactions_recycler_view.setAdapter(myInteractionsAdapter);
         //Create custom interface object and send it to adapter for clickable list items
         myInteractionsAdapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
