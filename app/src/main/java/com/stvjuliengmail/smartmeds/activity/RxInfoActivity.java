@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class RxInfoActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private TextView tvName, tvMayTreat;
+    private TextView tvName, tvMayTreat, tvClassName;
     private ImageView imageView;
     private int rxcui; // the id of the selected pill
     private String name;
@@ -53,6 +53,8 @@ public class RxInfoActivity extends AppCompatActivity {
         wireUpInteractionsButton();
 
         displayName();
+
+        displayClassName();
 
         displayImage();
 
@@ -85,6 +87,7 @@ public class RxInfoActivity extends AppCompatActivity {
     public void instantiateUiElements() {
         tvName = (TextView) findViewById(R.id.tvName);
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
+        tvClassName = (TextView) findViewById(R.id.tvClassName);
         fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
         imageView = (ImageView) findViewById(R.id.imageView);
         btnInteractions = (Button) findViewById(R.id.btnInteractions);
@@ -110,6 +113,10 @@ public class RxInfoActivity extends AppCompatActivity {
 
     public void displayName(){
         tvName.setText(name);
+    }
+
+    public void displayClassName(){
+        tvClassName.setText("ClassNamejjhgjhgjhg");
     }
 
     public void displayImage(){

@@ -30,6 +30,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tvClassName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class Name Here"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="320dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <ScrollView
         android:id="@+id/svMayTreat"
         android:layout_width="match_parent"
@@ -51,6 +62,7 @@
             android:layout_marginStart="8dp"
             android:text="May Treat: "
             android:textSize="18sp" />
+
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
@@ -95,5 +107,6 @@
         android:drawableTint="@color/black_70"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
