@@ -36,7 +36,6 @@ public class MyMedsActivity extends AppCompatActivity {
     private ArrayList<MyInteraction> myInteractions = new ArrayList<>();
     private String interactionDisclaimer;
     private Context context;
-    private ProgressDialog progressDialog;
     private String[] rxcuis;
 
     @Override
@@ -53,8 +52,10 @@ public class MyMedsActivity extends AppCompatActivity {
         wireAdapterToRecyclerView();
 
         new GetDBMedsTask(this).execute("");
-//        populateRecyclerView(dbOpenHelper);
+//SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(this);
+//populateRecyclerView(dbOpenHelper);
 
+//setMyMeds(dbOpenHelper.getAllMyMeds());
     }
 
     @Override
@@ -96,11 +97,21 @@ public class MyMedsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
+        myMedsList.clear();
+        myMedsList = dbOpenHelper.getAllMyMeds();
+//        if(myMedsList == null || myMedsList.size() < 1){
+//            loadDummyData(dbOpenHelper);
+//            myMedsList = dbOpenHelper.getAllMyMeds();
+//        }
+        wireAdapterToRecyclerView();
+        adapter.notifyDataSetChanged();
+    }
     public void setMyMeds(ArrayList<MyMed> myMedsFromDb) {
         myMedsList.clear();
         myMedsList.addAll(myMedsFromDb);
         adapter.notifyDataSetChanged();
-        checkForInteractions();
+        //checkForInteractions();
     }
 
     private void checkForInteractions() {
