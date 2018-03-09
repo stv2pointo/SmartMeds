@@ -54,7 +54,7 @@ public class RxInfoActivity extends AppCompatActivity {
 
         displayName();
 
-        displayClassName();
+        displayClassName("ASDF");
 
         displayImage();
 
@@ -115,8 +115,8 @@ public class RxInfoActivity extends AppCompatActivity {
         tvName.setText(name);
     }
 
-    public void displayClassName(){
-        tvClassName.setText("ClassNamejjhgjhgjhg");
+    public void displayClassName(String className){
+        tvClassName.setText(className);
     }
 
     public void displayImage(){
