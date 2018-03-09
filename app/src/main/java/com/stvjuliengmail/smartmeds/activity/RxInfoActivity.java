@@ -148,5 +148,6 @@ public class RxInfoActivity extends AppCompatActivity {
         intent.putExtra("name", name);
         intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
+        finish();
     }
 }
