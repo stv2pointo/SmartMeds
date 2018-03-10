@@ -55,14 +55,10 @@ public class RxInfoActivity extends AppCompatActivity {
 
         displayName();
 
-        displayClassName("ASDF");
-
         displayImage();
 
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
-        new RxInfoClassNameTask(this,
-                "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui=7052&relaSource=ATC")
-                .execute("");
+        new RxInfoClassNameTask(this, getClassNameRequest()).execute("");
     }
 
     @Override
@@ -140,6 +136,10 @@ public class RxInfoActivity extends AppCompatActivity {
 
     public String getMayTreatsRequest() {
         return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=NDFRT&relas=may_treat";
+    }
+
+    private String getClassNameRequest(){
+        return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=ATC";
     }
 
     public void populateMayTreat(String diseases) {

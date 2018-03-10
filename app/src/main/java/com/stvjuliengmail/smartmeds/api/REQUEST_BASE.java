@@ -10,4 +10,5 @@ public class REQUEST_BASE {
     public static final String INTERACTIONS_BY_RXCUI = "https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=";
     public static final String INTERACTIONS_FOR_LIST = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=";
     public static final String RXCLASS_BY_CLASSID="https://rxnav.nlm.nih.gov/REST/rxclass/classTree.json?classId=N0000185505";
+    public static final String CLASSNAME_BY_RXUI = "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui=";
 }
