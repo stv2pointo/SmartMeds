@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
+import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
 //import com.stvjuliengmail.smartmeds.database.DBHelper;
 
@@ -59,6 +60,9 @@ public class RxInfoActivity extends AppCompatActivity {
         displayImage();
 
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
+        new RxInfoClassNameTask(this,
+                "https://rxnav.nlm.nih.gov/REST/rxclass/class/byRxcui.json?rxcui=7052&relaSource=ATC")
+                .execute("");
     }
 
     @Override
