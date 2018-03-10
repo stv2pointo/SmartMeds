@@ -19,7 +19,6 @@ import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
-//import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,6 @@ public class RxInfoActivity extends AppCompatActivity {
     private FloatingActionButton fabSaveMyMeds;
     private Button btnInteractions;
     private Context context;
-//    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +55,8 @@ public class RxInfoActivity extends AppCompatActivity {
 
         displayImage();
 
-        new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
-        new RxInfoClassNameTask(this, getClassNameRequest()).execute("");
+        startApiTasks();
+
     }
 
     @Override
@@ -134,7 +132,12 @@ public class RxInfoActivity extends AppCompatActivity {
         }
     }
 
-    public String getMayTreatsRequest() {
+    private void startApiTasks() {
+        new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
+        new RxInfoClassNameTask(this, getClassNameRequest()).execute("");
+    }
+
+    private String getMayTreatsRequest() {
         return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=NDFRT&relas=may_treat";
     }
 
