@@ -17,14 +17,14 @@ import android.widget.TextView;
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
+import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
-//import com.stvjuliengmail.smartmeds.database.DBHelper;
 
 import java.util.ArrayList;
 
 public class RxInfoActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private TextView tvName, tvMayTreat;
+    private TextView tvName, tvMayTreat, tvClassName;
     private ImageView imageView;
     private int rxcui; // the id of the selected pill
     private String name;
@@ -33,7 +33,6 @@ public class RxInfoActivity extends AppCompatActivity {
     private FloatingActionButton fabSaveMyMeds;
     private Button btnInteractions;
     private Context context;
-//    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,8 @@ public class RxInfoActivity extends AppCompatActivity {
 
         displayImage();
 
-        new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
+        startApiTasks();
+
     }
 
     @Override
@@ -85,6 +85,7 @@ public class RxInfoActivity extends AppCompatActivity {
     public void instantiateUiElements() {
         tvName = (TextView) findViewById(R.id.tvName);
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
+        tvClassName = (TextView) findViewById(R.id.tvClassName);
         fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
         imageView = (ImageView) findViewById(R.id.imageView);
         btnInteractions = (Button) findViewById(R.id.btnInteractions);
@@ -112,6 +113,10 @@ public class RxInfoActivity extends AppCompatActivity {
         tvName.setText(name);
     }
 
+    public void displayClassName(String className){
+        tvClassName.setText(className);
+    }
+
     public void displayImage(){
         ImageDownloadTask task = new ImageDownloadTask();
         try {
@@ -127,8 +132,17 @@ public class RxInfoActivity extends AppCompatActivity {
         }
     }
 
-    public String getMayTreatsRequest() {
+    private void startApiTasks() {
+        new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
+        new RxInfoClassNameTask(this, getClassNameRequest()).execute("");
+    }
+
+    private String getMayTreatsRequest() {
         return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=NDFRT&relas=may_treat";
+    }
+
+    private String getClassNameRequest(){
+        return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=ATC";
     }
 
     public void populateMayTreat(String diseases) {
