@@ -13,7 +13,7 @@
     <string name="button_Search">Search</string>
 
     <string-array name="array_PillColors">
-        <item>Pill Color</item>
+        <item>Select Pill Color</item>
         <item>Black</item>
         <item>Blue</item>
         <item>Brown</item>
@@ -29,7 +29,7 @@
     </string-array>
 
     <string-array name="array_PillShapes">
-        <item>Pill Shape</item>
+        <item>Select Pill Shape</item>
         <item>Bullet</item>
         <item>Capsule</item>
         <item>Clover</item>
