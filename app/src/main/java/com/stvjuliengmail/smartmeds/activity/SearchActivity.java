@@ -8,11 +8,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -32,7 +35,10 @@ public class SearchActivity extends AppCompatActivity {
     private ImageButton btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
     private EditText etName, etImprint;
+    private Button btnShowFilters;
     private RecyclerView recyclerView;
+    private LinearLayout filtersView;
+    private LinearLayout filtersWidget;
     private ResultsAdapter adapter;
     private ArrayList<NlmRxImage> imageList = new ArrayList<>();
     private boolean isInitialDisplayColor;
@@ -70,11 +76,15 @@ public class SearchActivity extends AppCompatActivity {
         etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        filtersView = (LinearLayout)findViewById(R.id.filters_view);
+        btnShowFilters = (Button) findViewById(R.id.btnShowFilters);
+        filtersWidget = (LinearLayout) findViewById(R.id.filters_widget);
 
         wireUpColorSpinner();
         wireUpShapeSpinner();
         wireAdapterToRecyclerView();
         wireUpSearchButton();
+        wireUpShowFiltersButton();
     }
 
     private void wireUpColorSpinner() {
@@ -149,6 +159,16 @@ public class SearchActivity extends AppCompatActivity {
     public void search() {
         hideKeyboard();
         new ImageListTask(this, getFilter()).execute("");
+        hideFilters();
+    }
+
+    private void wireUpShowFiltersButton() {
+        btnShowFilters.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFilters();
+            }
+        });
     }
 
     public void hideKeyboard() {
@@ -156,6 +176,20 @@ public class SearchActivity extends AppCompatActivity {
                 getSystemService(this.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    private void hideFilters(){
+        filtersView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0));
+        recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,90));
+//        filtersWidget.setVisibility(View.VISIBLE);
+        filtersWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,10));
+    }
+
+    private void showFilters(){
+//        filtersWidget.setVisibility(View.INVISIBLE);
+        filtersWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0));
+        filtersView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,30));
+        recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,70));
     }
 
     public ImageListTask.ImageFilter getFilter() {

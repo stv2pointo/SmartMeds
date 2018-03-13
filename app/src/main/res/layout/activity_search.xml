@@ -9,11 +9,29 @@
     tools:context="com.stvjuliengmail.smartmeds.activity.SearchActivity">
 
     <LinearLayout
+        android:id="@+id/filters_widget"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        android:gravity="end">
+        <Button
+            android:id="@+id/btnShowFilters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:drawableEnd="@drawable/ic_filter"
+            android:background="@android:color/transparent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filters_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="30"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -76,9 +94,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@color/white"
-            android:layout_gravity="center_vertical"
             android:gravity="center">
 
             <ImageButton
@@ -86,10 +104,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="5dp"
-                android:src="@drawable/search"
                 android:adjustViewBounds="true"
                 android:padding="5dp"
-                android:scaleType="fitCenter"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/search" />
         </LinearLayout>
     </LinearLayout>
 
