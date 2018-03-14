@@ -46,33 +46,33 @@ public class PillSearchTest {
         onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(5));
     }
 
-//    @Test
-//    public void searchOnShortNameTest() {
-//        onView(withId(R.id.etName)).perform(typeText("aa"), closeSoftKeyboard());
-//        onView(withId(R.id.btnLoadList)).perform(click());
-//        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
-//    }
+    @Test
+    public void searchOnShortNameTest() {
+        onView(withId(R.id.etName)).perform(typeText("aa"), closeSoftKeyboard());
+        onView(withId(R.id.btnLoadList)).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
+    }
 
-//    @Test
-//    public void searchOnImprintTest() {
-//        onView(withId(R.id.etImprint)).perform(typeText("dp"), closeSoftKeyboard());
-//        onView(withId(R.id.btnLoadList)).perform(click());
-//        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(20));
-//    }
-//
-//    @Test
-//    public void searchOnBadImprintTest() {
-//        onView(withId(R.id.etImprint)).perform(typeText("badImprint"), closeSoftKeyboard());
-//        onView(withId(R.id.btnLoadList)).perform(click());
-//        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
-//    }
-//
-//    @Test
-//    public void searchOnColorTest() {
-//        onView(withId(R.id.colorSpinner)).perform(click());
-//        onData(equalTo("Blue")).perform(click());
-//        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(20));
-//    }
+    @Test
+    public void searchOnImprintTest() {
+        onView(withId(R.id.etImprint)).perform(typeText("dp"), closeSoftKeyboard());
+        onView(withId(R.id.btnLoadList)).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(20));
+    }
+
+    @Test
+    public void searchOnBadImprintTest() {
+        onView(withId(R.id.etImprint)).perform(typeText("badImprint"), closeSoftKeyboard());
+        onView(withId(R.id.btnLoadList)).perform(click());
+        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
+    }
+
+    @Test
+    public void searchOnColorTest() {
+        onView(withId(R.id.colorSpinner)).perform(click());
+        //onData(equalTo("Blue")).perform(click());
+        //onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(20));
+    }
 //
 //    @Test
 //    public void searchOnDefaultColorTest() {
@@ -80,13 +80,13 @@ public class PillSearchTest {
 //        onData(equalTo("Pill Color")).perform(click());
 //        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
 //    }
-//
-//    @Test
-//    public void searchOnShapeTest() {
-//        onView(withId(R.id.shapeSpinner)).perform(click());
+
+    @Test
+    public void searchOnShapeTest() {
+        onView(withId(R.id.shapeSpinner)).perform(click());
 //        onData(equalTo("Diamond")).perform(click());
 //        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(16));
-//    }
+    }
 //
 //    @Test
 //    public void searchOnDefaultShapeTest() {
