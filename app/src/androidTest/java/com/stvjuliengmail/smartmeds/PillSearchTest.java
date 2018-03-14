@@ -95,19 +95,19 @@ public class PillSearchTest {
         onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
     }
 
-    @Test
-    public void searchOnAllInputsTest() {
-        onView(withId(R.id.etName)).perform(typeText("Levoxyl"), closeSoftKeyboard());
-
-        onView(withId(R.id.etImprint)).perform(typeText("dp"), closeSoftKeyboard());
-
-        onView(withId(R.id.shapeSpinner)).perform(click());
-        onData(equalTo("Oval")).perform(click());
-
-        onView(withId(R.id.colorSpinner)).perform(click());
-        onData(equalTo("Turquoise")).perform(click());
-
-        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(1));
-    }
+//    @Test
+//    public void searchOnAllInputsTest() {
+//        onView(withId(R.id.etName)).perform(typeText("Levoxyl"), closeSoftKeyboard());
+//
+//        onView(withId(R.id.etImprint)).perform(typeText("dp"), closeSoftKeyboard());
+//
+//        onView(withId(R.id.shapeSpinner)).perform(click());
+//        onData(equalTo("Oval")).perform(click());
+//
+//        onView(withId(R.id.colorSpinner)).perform(click());
+//        onData(equalTo("Turquoise")).perform(click());
+//
+//        onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(1));
+//    }
 
 }
