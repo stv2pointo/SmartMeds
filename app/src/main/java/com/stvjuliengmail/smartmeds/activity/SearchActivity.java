@@ -92,20 +92,21 @@ public class SearchActivity extends AppCompatActivity {
         colorSpinner.setSelection(0);
         defaultColorValue = (String) colorSpinner.getItemAtPosition(0);
         isInitialDisplayColor = true;
-        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (isInitialDisplayColor) {
-                    isInitialDisplayColor = false;
-                } else {
-                    search();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // obligatory override
-            }
-        });
+        //            //removed to allow for multiple options selected before searching
+//        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (isInitialDisplayColor) {
+//                    isInitialDisplayColor = false;
+//                } else {
+//                    search();
+//                }
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                // obligatory override
+//            }
+//        });
     }
 
     private void wireUpShapeSpinner() {
@@ -113,20 +114,21 @@ public class SearchActivity extends AppCompatActivity {
         shapeSpinner.setSelection(0);
         defaultShapeValue = (String) shapeSpinner.getItemAtPosition(0);
         isInitialDisplayShape = true;
-        shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (isInitialDisplayShape) {
-                    isInitialDisplayShape = false;
-                } else {
-                    search();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // obligatory override
-            }
-        });
+        //            //removed to allow for multiple options selected before searching
+//        shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                if (isInitialDisplayShape) {
+//                    isInitialDisplayShape = false;
+//                } else {
+//                    search();
+//                }
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                // obligatory override
+//            }
+//        });
     }
 
     private void wireAdapterToRecyclerView() {
