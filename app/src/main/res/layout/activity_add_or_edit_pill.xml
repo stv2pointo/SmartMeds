@@ -8,6 +8,14 @@
     android:gravity="top"
     tools:context="com.stvjuliengmail.smartmeds.activity.AddOrEditMyMedActivity">
 
+    <ImageView
+        android:id="@+id/ivPillImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray_300" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -119,14 +127,6 @@
             android:paddingLeft="8dp"
             android:textSize="18dp" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/ivPillImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/gray_300" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabSave"
