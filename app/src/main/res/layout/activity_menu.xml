@@ -95,5 +95,17 @@
             android:text="My Pills" />
     </android.support.v7.widget.CardView>
 
+    <Button
+        android:id="@+id/btnDisclaimer"
+        android:layout_width="wrap_content"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="250dp"
+        android:text="Disclaimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
 </android.support.constraint.ConstraintLayout>
