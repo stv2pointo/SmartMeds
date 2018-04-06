@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
     <color name="gray_300">#E0E0E0</color>
     <color name="gray_500">#9E9E9E</color>
     <color name="black_70">#b2000000</color>
@@ -13,4 +13,9 @@
     <color name="color_mainGreen">#177c61</color>
     <color name="warn_yellow">#ddd954</color>
     <color name="white">#ffffff</color>
+    <color name="japanese_indigo">#264653</color>
+    <color name="jungle_green">#2a9d8f</color>
+    <color name="hansa_yellow">#e9c46a</color>
+    <color name="sandy_brown">#f4a261</color>
+    <color name="light_red_ochre">#e76f51</color>
 </resources>

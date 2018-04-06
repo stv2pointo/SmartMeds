@@ -88,13 +88,13 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabSaveMyMeds"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="66dp"
+        android:layout_height="62dp"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
         android:src="@android:drawable/ic_menu_save"
-        app:backgroundTint="@color/color_mainGreen"
+        app:backgroundTint="@color/jungle_green"
         app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
