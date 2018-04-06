@@ -12,10 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MenuActivity"
+            android:name=".activity.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action  android:name=".activity.MyInteractionsActivity"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -43,7 +44,15 @@
             android:noHistory="true"/>
         <activity
             android:name=".activity.MyInteractionsActivity"
+
             android:noHistory="true"/>
+        <activity android:name=".activity.MenuActivity"
+            android:noHistory="true"/>
+        <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+        <!--</intent-filter>-->
     </application>
 
 </manifest>
