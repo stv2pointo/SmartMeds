@@ -1,7 +1,9 @@
 package com.stvjuliengmail.smartmeds.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.stvjuliengmail.smartmeds.R;
 
 public class NameListActivity extends AppCompatActivity
 {
