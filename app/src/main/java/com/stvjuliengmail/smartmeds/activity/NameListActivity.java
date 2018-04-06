@@ -9,17 +9,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.api.AutoFillTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NameListActivity extends AppCompatActivity {
+public class NameListActivity extends AppCompatActivity
+{
 
-    private String[] possibleNameMatches;
+    private ArrayList<String> possibleNameMatches;
+    private StableArrayAdapter adapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name_list);
 
@@ -27,13 +31,12 @@ public class NameListActivity extends AppCompatActivity {
 
 
         final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < possibleNameMatches.length; ++i) {
-            list.add(possibleNameMatches[i]);
-        }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+
+        adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
@@ -51,6 +54,7 @@ public class NameListActivity extends AppCompatActivity {
             }
 
         });
+        new AutoFillTask(this, "as;dlkfj").execute("");
     }
 
     private class StableArrayAdapter extends ArrayAdapter<String>
@@ -85,13 +89,9 @@ public class NameListActivity extends AppCompatActivity {
     }
     public void populateListView(ArrayList<String> nameListsFromAPI)
     {
-        possibleNameMatches=new String[nameListsFromAPI.size()];
-        int i = 0;
-        for(String name : nameListsFromAPI)
-        {
-            possibleNameMatches[i] = name;
-            i++;
-        }
+        possibleNameMatches.clear();
+        possibleNameMatches.addAll(nameListsFromAPI);
+        adapter.notifyDataSetChanged();
     }
 
 }
