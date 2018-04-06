@@ -19,7 +19,7 @@ public class NameListActivity extends AppCompatActivity
 {
 
     private ArrayList<String> possibleNameMatches;
-    private StableArrayAdapter adapter;
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,7 +32,7 @@ public class NameListActivity extends AppCompatActivity
 
         possibleNameMatches = new ArrayList<String>();
 
-        adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, possibleNameMatches);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, possibleNameMatches);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
