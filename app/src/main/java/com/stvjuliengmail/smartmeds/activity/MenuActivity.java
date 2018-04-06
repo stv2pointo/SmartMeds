@@ -49,8 +49,8 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         if (!getAgreement()){
-            btnMyMedsActivity.setEnabled(false);
-            btnSearchActivity.setEnabled(false);
+//            btnMyMedsActivity.setEnabled(false);
+//            btnSearchActivity.setEnabled(false);
             disclaimer();
         }
     }
@@ -66,10 +66,10 @@ public class MenuActivity extends AppCompatActivity {
                 "confirm any information obtained from or through this app with other sources, and review all information regarding " +
                 "any medical condition or treatment with your physician. NEVER DISREGARD PROFESSIONAL MEDICAL ADVICE OR DELAY SEEKING " +
                 "MEDICAL TREATMENT BECAUSE OF SOMETHING YOU HAVE READ ON OR ACCESSED THROUGH THIS APP.");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CANCEL",
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Close",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        killApp();
                     }
                 });
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "AGREE",
@@ -77,8 +77,8 @@ public class MenuActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         isAgreed(true);
-                        btnMyMedsActivity.setEnabled(true);
-                        btnSearchActivity.setEnabled(true);
+//                        btnMyMedsActivity.setEnabled(true);
+//                        btnSearchActivity.setEnabled(true);
                     }
                 });
         alertDialog.show();
@@ -100,5 +100,9 @@ public class MenuActivity extends AppCompatActivity {
     public void startUp(Class c) {
         Intent intent = new Intent(this, c);
         startActivity(intent);
+    }
+
+    private void killApp(){
+        this.finish();
     }
 }
