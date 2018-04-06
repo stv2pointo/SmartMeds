@@ -30,9 +30,9 @@ public class NameListActivity extends AppCompatActivity
         final ListView listview = (ListView) findViewById(R.id.listviewPillNames);
 
 
-        final ArrayList<String> list = new ArrayList<String>();
+        possibleNameMatches = new ArrayList<String>();
 
-        adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, list);
+        adapter = new StableArrayAdapter(this, android.R.layout.simple_list_item_1, possibleNameMatches);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -46,7 +46,7 @@ public class NameListActivity extends AppCompatActivity
                         .withEndAction(new Runnable() {
                             @Override
                             public void run() {
-                                list.remove(item);
+                                possibleNameMatches.remove(item);
                                 adapter.notifyDataSetChanged();
                                 view.setAlpha(1);
                             }
