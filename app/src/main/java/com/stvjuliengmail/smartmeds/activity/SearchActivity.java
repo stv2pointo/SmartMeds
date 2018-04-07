@@ -1,17 +1,18 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.support.v7.widget.RecyclerView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,7 +35,9 @@ public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private ImageButton btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
-    private EditText etName, etImprint;
+    //private EditText etName,
+    private AutoCompleteTextView autoName;
+    private EditText etImprint;
     private Button btnShowFilters;
     private RecyclerView recyclerView;
     private LinearLayout filtersView;
@@ -45,6 +48,7 @@ public class SearchActivity extends AppCompatActivity {
     private boolean isInitialDisplayShape;
     private String defaultColorValue;
     private String defaultShapeValue;
+    String[] Pill_Names;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +77,17 @@ public class SearchActivity extends AppCompatActivity {
     private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
-        etName = (EditText) findViewById(R.id.etName);
+        //etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         filtersView = (LinearLayout)findViewById(R.id.filters_view);
         btnShowFilters = (Button) findViewById(R.id.btnShowFilters);
         filtersWidget = (LinearLayout) findViewById(R.id.filters_widget);
+
+        autoName = (AutoCompleteTextView) findViewById(R.id.autoName);
+        Pill_Names = getResources().getStringArray(R.array.pill_Names);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,Pill_Names);
+        autoName.setAdapter(adapter);
 
         wireUpColorSpinner();
         wireUpShapeSpinner();
@@ -198,11 +207,12 @@ public class SearchActivity extends AppCompatActivity {
         ImageListTask.ImageFilter filter = new ImageListTask.ImageFilter();
 
         filter.imprint = etImprint.getText().toString();
-        String nameInput = etName.getText().toString();
-        if (nameInput != null && nameInput.length() > 0 && nameInput.length() < 3) {
+        String nameInput = autoName.getText().toString();
+        if (nameInput != null && nameInput.length() > 0 && nameInput.length() < 3)
+        {
             Toast.makeText(this, "Names must be more than 2 letters", Toast.LENGTH_SHORT).show();
             nameInput = "";
-            etName.setText("");
+            autoName.setText("");
         }
         filter.name = nameInput;
 
