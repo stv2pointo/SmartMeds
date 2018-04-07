@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.adapter.AutoCompletePillNameAdapter;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.adapter.ResultsAdapter;
 import com.stvjuliengmail.smartmeds.api.ImageListTask;
@@ -85,9 +86,12 @@ public class SearchActivity extends AppCompatActivity {
         filtersWidget = (LinearLayout) findViewById(R.id.filters_widget);
 
         autoName = (AutoCompleteTextView) findViewById(R.id.autoName);
-        Pill_Names = getResources().getStringArray(R.array.pill_Names);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,Pill_Names);
-        autoName.setAdapter(adapter);
+        int layout = android.R.layout.simple_list_item_1;
+        AutoCompletePillNameAdapter autoCompletePillNameAdapter = new AutoCompletePillNameAdapter(this, layout);
+        autoName.setAdapter(autoCompletePillNameAdapter);
+//        Pill_Names = getResources().getStringArray(R.array.pill_Names);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,Pill_Names);
+//        autoName.setAdapter(adapter);
 
         wireUpColorSpinner();
         wireUpShapeSpinner();
