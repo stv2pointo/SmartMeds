@@ -54,8 +54,7 @@ public class RxInfoMayTreatsTask extends RxInfoStringTask {
             stringBuilder.append(diseaseName);
             stringBuilder.append("\n");
         }
-
-        resultString = "May Treat: \n" + stringBuilder.toString();
+        resultString = stringBuilder.toString();
     }
 
     @Override
