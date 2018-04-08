@@ -36,7 +36,6 @@ public class SearchActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
     private ImageButton btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
-    //private EditText etName,
     private AutoCompleteTextView autoName;
     private EditText etImprint;
     private Button btnShowFilters;
@@ -45,17 +44,23 @@ public class SearchActivity extends AppCompatActivity {
     private LinearLayout filtersWidget;
     private ResultsAdapter adapter;
     private ArrayList<NlmRxImage> imageList = new ArrayList<>();
-    private boolean isInitialDisplayColor;
-    private boolean isInitialDisplayShape;
+//    private boolean isInitialDisplayColor;
+//    private boolean isInitialDisplayShape;
     private String defaultColorValue;
     private String defaultShapeValue;
-    String[] Pill_Names;
+    private AutoCompletePillNameAdapter autoCompletePillNameAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        catch (Exception e){
+            Log.d(TAG, e.getMessage());
+        }
+
         initializeUiComponents();
     }
 
@@ -78,20 +83,14 @@ public class SearchActivity extends AppCompatActivity {
     private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
         btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
-        //etName = (EditText) findViewById(R.id.etName);
         etImprint = (EditText) findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         filtersView = (LinearLayout)findViewById(R.id.filters_view);
         btnShowFilters = (Button) findViewById(R.id.btnShowFilters);
         filtersWidget = (LinearLayout) findViewById(R.id.filters_widget);
-
         autoName = (AutoCompleteTextView) findViewById(R.id.autoName);
-        int layout = android.R.layout.simple_list_item_1;
-        AutoCompletePillNameAdapter autoCompletePillNameAdapter = new AutoCompletePillNameAdapter(this, layout);
+        autoCompletePillNameAdapter = new AutoCompletePillNameAdapter(this, android.R.layout.simple_list_item_1);
         autoName.setAdapter(autoCompletePillNameAdapter);
-//        Pill_Names = getResources().getStringArray(R.array.pill_Names);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,Pill_Names);
-//        autoName.setAdapter(adapter);
 
         wireUpColorSpinner();
         wireUpShapeSpinner();
@@ -104,7 +103,7 @@ public class SearchActivity extends AppCompatActivity {
         colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
         colorSpinner.setSelection(0);
         defaultColorValue = (String) colorSpinner.getItemAtPosition(0);
-        isInitialDisplayColor = true;
+//        isInitialDisplayColor = true;
         //            //removed to allow for multiple options selected before searching
 //        colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -126,7 +125,7 @@ public class SearchActivity extends AppCompatActivity {
         shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
         shapeSpinner.setSelection(0);
         defaultShapeValue = (String) shapeSpinner.getItemAtPosition(0);
-        isInitialDisplayShape = true;
+//        isInitialDisplayShape = true;
         //            //removed to allow for multiple options selected before searching
 //        shapeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
@@ -158,7 +157,6 @@ public class SearchActivity extends AppCompatActivity {
                 // TODO: Use long click to open option to save to myMeds
             }
         });
-
         recyclerView.setAdapter(adapter);
     }
 

@@ -36,8 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         btnMyMedsActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startUp(MyMedsActivity.class);
-                startUp(NameListActivity.class);
+                startUp(MyMedsActivity.class);
             }
         });
 
