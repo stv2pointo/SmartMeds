@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".activity.MyMedActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        tools:context="com.stvjuliengmail.smartmeds.activity.MyMedActivity">
 
     <LinearLayout
+        android:id="@+id/fullForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:orientation="vertical">
+
 
         <ImageView
             android:id="@+id/ivPillImage"
@@ -30,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="2"
-                android:text="Name"
+                android:text="Name:"
                 android:textAlignment="textEnd"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -80,6 +84,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="2"
                 android:text="Directions:"
                 android:textAlignment="textEnd"
@@ -105,6 +110,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="2"
                 android:text="Doctor:"
                 android:textAlignment="textEnd"
@@ -130,6 +136,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_weight="2"
                 android:text="Pharmacy:"
                 android:textAlignment="textEnd"
@@ -147,45 +154,49 @@
 
         </LinearLayout>
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-           >
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabEdit"
+                android:layout_width="66dp"
+                android:layout_height="62dp"
+                android:src="@android:drawable/ic_menu_edit"
+                app:backgroundTint="@color/jungle_green"
+                app:elevation="6dp"
+                app:pressedTranslationZ="12dp" />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fabEdit"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:src="@android:drawable/ic_menu_edit"
-                    app:backgroundTint="@color/color_mainGreen"
-                    app:elevation="6dp"
-                    app:pressedTranslationZ="12dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fabDelete"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:src="@android:drawable/ic_menu_delete"
-                    app:backgroundTint="@color/dark_red"
-                    app:elevation="6dp"
-                    app:pressedTranslationZ="12dp" />
-            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabDelete"
+                android:layout_width="66dp"
+                android:layout_height="62dp"
+                android:src="@android:drawable/ic_menu_delete"
+                app:backgroundTint="@color/light_red_ochre"
+                app:elevation="6dp"
+                app:pressedTranslationZ="12dp" />
+        </LinearLayout>
+
     </LinearLayout>
-</ScrollView>
+
+</RelativeLayout>

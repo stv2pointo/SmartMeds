@@ -3,138 +3,144 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fillViewport="true"
+    android:orientation="vertical"
+    android:gravity="top"
     tools:context="com.stvjuliengmail.smartmeds.activity.AddOrEditMyMedActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:textSize="18sp" />
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/ivPillImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray_300" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Dosage:"
-                android:textSize="16dp" />
-
-            <EditText
-                android:id="@+id/etDosage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:gravity="left|center"
-                android:paddingLeft="8dp"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Prescribed by:"
-                android:textSize="16dp" />
-
-            <EditText
-                android:id="@+id/etDoctor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:gravity="left|center"
-                android:paddingLeft="8dp"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="Directions:"
-                android:textSize="16dp" />
-
-            <EditText
-                android:id="@+id/etDirections"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:gravity="left|center"
-                android:paddingLeft="8dp"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right|center"
-                android:text="Pharmacy:"
-                android:textSize="16dp" />
-
-            <EditText
-                android:id="@+id/etPharmacy"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:gravity="left|center"
-                android:paddingLeft="8dp"
-                android:textSize="18dp" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/ivPillImage"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@color/gray_300"
-            />
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabSave"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="10dp"
-            app:fabSize="normal"
-            app:srcCompat="@android:drawable/ic_menu_save" />
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Dosage:"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/etDosage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:gravity="left|center"
+            android:paddingLeft="8dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Directions:"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/etDirections"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:gravity="left|center"
+            android:paddingLeft="8dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="Doctor:"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/etDoctor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:gravity="left|center"
+            android:paddingLeft="8dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center"
+            android:text="Pharmacy:"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/etPharmacy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:gravity="left|center"
+            android:paddingLeft="8dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_gravity="right"
+
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/jungle_green"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_menu_save" />
 
 </LinearLayout>
 

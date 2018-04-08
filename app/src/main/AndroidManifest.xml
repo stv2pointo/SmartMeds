@@ -26,24 +26,24 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.MyMedsActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName="com.stvjuliengmail.smartmeds.activity.MenuActivity"/>
+            android:parentActivityName=".activity.MenuActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RxInfoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.InteractionsActivity"
-            android:screenOrientation="portrait"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MyMedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.AddOrEditMyMedActivity"
-            android:noHistory="true"/>
+            android:noHistory="true" />
         <activity
             android:name=".activity.MyInteractionsActivity"
-            android:noHistory="true"/>
+            android:noHistory="true" />
     </application>
 
 </manifest>

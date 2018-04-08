@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,13 +36,20 @@ public class MyMedsActivity extends AppCompatActivity {
     private String interactionDisclaimer;
     private Context context;
     private String[] rxcuis;
+    private FloatingActionButton fabAddNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_meds);
         context = this;
-
+        fabAddNew = (FloatingActionButton) findViewById(R.id.fabAddNew) ;
+        fabAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                routeToSearch();
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
@@ -167,23 +175,11 @@ public class MyMedsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    private void loadDummyData(SmartMedsDbOpenHelper dbOpenHelper) {
-//        String[] rxcuis = new String[]{"966200","197313"};
-//        String[] names = new String[]{"Levothyroxine Sodium 0.15 MG Oral Tablet [Levoxyl]", "Acyclovir 800 MG Oral Tablet"};
-//        String[] urls = new String[] {"https://rximage.nlm.nih.gov/image/images/gallery/600/60793-0858-01_RXNAVIMAGE10_02088174.jpg",
-//                "https://rximage.nlm.nih.gov/image/images/gallery/600/60505-5307-01_RXNAVIMAGE10_4D26A6D5.jpg"};
-//        for(int i=0;i<2;i++){
-//            long rowId = dbOpenHelper.addOrUpdateMyMed(new MyMed(
-//                    names[i],
-//                    rxcuis[i],
-//                    "150 mg",
-//                    "Dr. Feelgood",
-//                    "Take some daily",
-//                    "Walgreens",
-//                    urls[i]));
-//        }
-//    }
-
+private void routeToSearch() {
+    Intent intent = new Intent(this, SearchActivity.class);
+    startActivity(intent);
+    finish();
+}
     @Override
     protected void onDestroy() {
         super.onDestroy();

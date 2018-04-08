@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.activity.InteractionsActivity;
 import com.stvjuliengmail.smartmeds.model.Interaction;
 import com.stvjuliengmail.smartmeds.model.InteractionsResult;
@@ -18,6 +19,8 @@ import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+
+import static android.provider.Settings.Global.getString;
 
 /**
  * Created by Steven on 2/23/2018.
@@ -108,12 +111,13 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
     private String buildRequest() {
         String request = REQUEST_BASE.INTERACTIONS_BY_RXCUI;
         request += strRxcui;
-        Log.d(TAG, request);
+        request += "&sources=ONCHigh";
+        //Log.d(TAG, request);
         return request;
     }
 
     public ArrayList<Interaction> resultToInteractions(InteractionsResult interactionsResult) {
-        if(interactionsResult != null){
+        try{
             disclaimer = interactionsResult.getNlmDisclaimer();
             InteractionsResult.InteractionPair[] pairs = interactionsResult.getInteractionTypeGroup()[0].getInteractionType()[0].getInteractionPair();
             for (InteractionsResult.InteractionPair pair : pairs) {
@@ -122,6 +126,14 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
                 String _severity = pair.getSeverity();
                 interactions.add(new Interaction(_name, _desc, "Severity: " + _severity) );
             }
+        }
+        catch (Exception e){
+            Log.d(TAG, "BAD RESULT OBJECT: " + e.getMessage());
+            interactions = new ArrayList<>();
+            interactions.add(new Interaction(
+                    "No interactions with high severity found.",
+                    "Seek further information from a health professional",
+                    ""));
         }
         return interactions;
     }
@@ -134,6 +146,7 @@ public class InteractionsListTask extends AsyncTask<String, Integer, String> {
                 activity.populateRecyclerView(interactions);
             }
         }
+        Log.d(TAG, "NULL");
     }
 
 }
