@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,33 +34,12 @@ public class MyInteractionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_interactions);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         unpackIntextExtras();
         context = this;
-
-
-
         initializeUiElements();
-
         populateDisclaimer();
         populateRecyclerView(intentInteractions);
-
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id==android.R.id.home) {
-//            finish();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     private void unpackIntextExtras(){
         Bundle extras = getIntent().getExtras();
@@ -85,7 +62,6 @@ public class MyInteractionsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
             }
-
             @Override
             public void onItemLongClick(View view, int position) {
                 startBrowser(myInteractions.get(position).getUrl());

@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,19 +25,25 @@ public class MyMedActivity extends AppCompatActivity {
     private FloatingActionButton fabEdit, fabDelete;
     private MyMed myMed;
     private Context context;
+    private Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_med);
-
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         context = this;
+        setMyMedFromIntent();
+        initializeUiComponents();
+        setImage();
+        setText();
+    }
 
-        Bundle extras = getIntent().getExtras();
+    private void setMyMedFromIntent(){
+        extras = getIntent().getExtras();
         myMed = extras.getParcelable("myMed");
+    }
 
+    private void initializeUiComponents(){
         tvName = (TextView) findViewById(R.id.tvName);
         tvDosage = (TextView) findViewById(R.id.tvDosage);
         tvDoctor = (TextView) findViewById(R.id.tvDoctor);
@@ -60,25 +64,7 @@ public class MyMedActivity extends AppCompatActivity {
                 delete();
             }
         });
-        setImage();
-        setText();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//
-//        if (id==android.R.id.home) {
-//            finish();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     private void setText(){
         tvName.setText(myMed.getName());

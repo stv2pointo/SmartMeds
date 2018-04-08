@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_nav_search"
+        android:layout_centerVertical="true"
+        android:icon="@drawable/ic_search_meds"
+        android:title="Pill Finder"></item>
+    <item
+        android:id="@+id/bottom_nav_my_meds"
+        android:layout_centerVertical="true"
+        android:icon="@drawable/ic_my_med_cab"
+        android:title="My Cabinet"></item>
+</menu>

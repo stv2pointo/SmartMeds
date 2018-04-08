@@ -13,15 +13,23 @@ import com.stvjuliengmail.smartmeds.R;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button btnSearchActivity;
-    Button btnMyMedsActivity;
-    Button btnDisclaimer;
+    private Button btnSearchActivity;
+    private Button btnMyMedsActivity;
+    private Button btnDisclaimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        initializeUiComponents();
+        if (!getAgreement()){
+//            btnMyMedsActivity.setEnabled(false);
+//            btnSearchActivity.setEnabled(false);
+            disclaimer();
+        }
+    }
 
+    private void initializeUiComponents(){
         btnSearchActivity = (Button)findViewById(R.id.btnSearchActivity);
         btnMyMedsActivity = (Button)findViewById(R.id.btnMyMedsActivity);
         btnDisclaimer = (Button)findViewById(R.id.btnDisclaimer);
@@ -46,12 +54,6 @@ public class MenuActivity extends AppCompatActivity {
                 disclaimer();
             }
         });
-
-        if (!getAgreement()){
-//            btnMyMedsActivity.setEnabled(false);
-//            btnSearchActivity.setEnabled(false);
-            disclaimer();
-        }
     }
 
     private void disclaimer() {
