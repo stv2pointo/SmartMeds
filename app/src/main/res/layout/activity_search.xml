@@ -121,6 +121,15 @@
         android:paddingStart="8dp"
         android:scrollbars="vertical" />
 
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
+        android:id="@+id/bottom_nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_300"
+        app:menu="@menu/bottom_navigation_menu">
+    </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
+
 </LinearLayout>
 
 
