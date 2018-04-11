@@ -3,6 +3,7 @@ package com.stvjuliengmail.smartmeds.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -10,23 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.adapter.MyMedsAdapter;
 import com.stvjuliengmail.smartmeds.adapter.RecyclerViewItemClickListener;
 import com.stvjuliengmail.smartmeds.api.MyInteractionsTask;
 import com.stvjuliengmail.smartmeds.database.GetDBMedsTask;
-import com.stvjuliengmail.smartmeds.database.SmartMedsDbOpenHelper;
 import com.stvjuliengmail.smartmeds.model.MyInteraction;
 import com.stvjuliengmail.smartmeds.model.MyMed;
 
 import java.util.ArrayList;
 
-public class MyMedsActivity extends AppCompatActivity {
+public class MyMedsActivity extends AppCompatActivity implements BottomNavigationViewEx.OnNavigationItemSelectedListener {
     private final String TAG = getClass().getSimpleName();
     private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerView;
@@ -36,48 +36,48 @@ public class MyMedsActivity extends AppCompatActivity {
     private String interactionDisclaimer;
     private Context context;
     private String[] rxcuis;
-    private FloatingActionButton fabAddNew;
+//    private FloatingActionButton fabAddNew;
+    private BottomNavigationViewEx bottomNavigationViewEx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_meds);
         context = this;
-        fabAddNew = (FloatingActionButton) findViewById(R.id.fabAddNew) ;
-        fabAddNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                routeToSearch();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initializeUiComponents();
+        wireAdapterToRecyclerView();
+        new GetDBMedsTask(this).execute("");
+    }
 
+    private void initializeUiComponents(){
+//        fabAddNew = (FloatingActionButton) findViewById(R.id.fabAddNew);
+//        fabAddNew.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startSearchAndDie();
+//            }
+//        });
         recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        wireAdapterToRecyclerView();
-
-        new GetDBMedsTask(this).execute("");
-//SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(this);
-//populateRecyclerView(dbOpenHelper);
-
-//setMyMeds(dbOpenHelper.getAllMyMeds());
+        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_nav_view);
+        bottomNavigationViewEx.setOnNavigationItemSelectedListener(this);
+        bottomNavigationViewEx.setSelectedItemId(R.id.bottom_nav_my_meds);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            finish();
-            return true;
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.bottom_nav_search: {
+                item.setChecked(true);
+                startSearchAndDie();
+                break;
+            }
+            case R.id.bottom_nav_my_meds: {
+                item.setChecked(true);
+                break;
+            }
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     private void wireAdapterToRecyclerView() {
@@ -103,16 +103,6 @@ public class MyMedsActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private void populateRecyclerView(SmartMedsDbOpenHelper dbOpenHelper) {
-        myMedsList.clear();
-        myMedsList = dbOpenHelper.getAllMyMeds();
-//        if(myMedsList == null || myMedsList.size() < 1){
-//            loadDummyData(dbOpenHelper);
-//            myMedsList = dbOpenHelper.getAllMyMeds();
-//        }
-        wireAdapterToRecyclerView();
-        adapter.notifyDataSetChanged();
-    }
     public void setMyMeds(ArrayList<MyMed> myMedsFromDb) {
         myMedsList.clear();
         myMedsList.addAll(myMedsFromDb);
@@ -141,8 +131,8 @@ public class MyMedsActivity extends AppCompatActivity {
         interactionDisclaimer = disclaimer;
     }
 
-    public void setMyInteractions(ArrayList<MyInteraction> myInteractionsFromApi){
-        if(myInteractionsFromApi != null && myInteractionsFromApi.size() > 0){
+    public void setMyInteractions(ArrayList<MyInteraction> myInteractionsFromApi) {
+        if (myInteractionsFromApi != null && myInteractionsFromApi.size() > 0) {
             myInteractions = myInteractionsFromApi;
             warnInteractions();
         }
@@ -168,18 +158,19 @@ public class MyMedsActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void startInteractions(){
+    private void startInteractions() {
         Intent intent = new Intent(this, MyInteractionsActivity.class);
         intent.putExtra("my_interactions", myInteractions);
         intent.putExtra("disclaimer", interactionDisclaimer);
         startActivity(intent);
     }
 
-private void routeToSearch() {
-    Intent intent = new Intent(this, SearchActivity.class);
-    startActivity(intent);
-    finish();
-}
+    private void startSearchAndDie() {
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
