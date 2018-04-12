@@ -22,7 +22,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Smart Meds"
+        android:text="SmartMeds"
         android:textColor="@color/color_mainGreen"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

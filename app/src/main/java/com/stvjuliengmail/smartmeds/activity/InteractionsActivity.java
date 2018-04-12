@@ -25,7 +25,6 @@ public class InteractionsActivity extends AppCompatActivity {
     private List<Interaction> interactions = new ArrayList<>();
     private RecyclerView.Adapter interactionsAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

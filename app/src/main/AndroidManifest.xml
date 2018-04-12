@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".activity.MenuActivity"
+            android:name=".activity.Splash"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,11 @@
             android:noHistory="true" />
         <activity
             android:name=".activity.MyInteractionsActivity"
-            android:noHistory="true" />
+            android:noHistory="true"/>
+
+        <activity android:name=".activity.MenuActivity"
+            android:noHistory="true"/>
+
     </application>
 
 </manifest>
