@@ -17,12 +17,13 @@ import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
+import com.stvjuliengmail.smartmeds.api.SimpleNameTask;
 
 import java.util.ArrayList;
 
 public class RxInfoActivity extends AppCompatActivity {
     private final String TAG = getClass().getSimpleName();
-    private TextView tvName, tvMayTreat, tvClassName;
+    private TextView tvName, tvFullName, tvMayTreat, tvClassName;
     private ImageView imageView;
     private int rxcui; // the id of the selected pill
     private String name;
@@ -55,6 +56,7 @@ public class RxInfoActivity extends AppCompatActivity {
 
     public void instantiateUiElements() {
         tvName = (TextView) findViewById(R.id.tvName);
+        tvFullName = (TextView) findViewById(R.id.tvFullName);
         tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
         tvClassName = (TextView) findViewById(R.id.tvClassName);
         fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
@@ -81,7 +83,7 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void displayName(){
-        tvName.setText(name);
+        tvFullName.setText(name);
     }
 
     public void displayClassName(String className){
@@ -106,18 +108,30 @@ public class RxInfoActivity extends AppCompatActivity {
     private void startApiTasks() {
         new RxInfoMayTreatsTask(this, getMayTreatsRequest()).execute("");
         new RxInfoClassNameTask(this, getClassNameRequest()).execute("");
+        new SimpleNameTask(this, getSimplePillNameRequest()).execute("");
     }
 
     private String getMayTreatsRequest() {
-        return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=NDFRT&relas=may_treat";
+        return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) +
+                REQUEST_BASE.MAY_TREAT_PARMS;
     }
 
     private String getClassNameRequest(){
-        return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) + "&relaSource=ATC";
+        return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) +
+                REQUEST_BASE.CLASS_BY_RXCUI_PARMS;
+    }
+
+    private String getSimplePillNameRequest(){
+        return REQUEST_BASE.SIMPLE_NAME_BY_RXCUI + Integer.toString(rxcui) +
+                REQUEST_BASE.SIMPLE_NAME_PARMS;
     }
 
     public void populateMayTreat(String diseases) {
         tvMayTreat.setText(diseases);
+    }
+
+    public void populateSimplePillName(String nameFromApi){
+        tvName.setText(nameFromApi);
     }
 
     private void startInteractions(){
