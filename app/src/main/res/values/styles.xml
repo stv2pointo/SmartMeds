@@ -28,5 +28,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
+    <style name="ClearButtons">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">64dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="ButtonLabels">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

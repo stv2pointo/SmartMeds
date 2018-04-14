@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
         android:layout_marginStart="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/header_line"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_logo" />
@@ -22,90 +22,82 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SmartMeds"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Smart Meds"
         android:textColor="@color/color_mainGreen"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/header_line"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSearchActivity"
+        style="@style/ClearButtons"
+        android:drawableTop="@drawable/ic_search_meds"
+        app:layout_constraintEnd_toStartOf="@id/vert1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/header_line" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2.1dp"
-        app:cardMaxElevation="3dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/card_view_my_med_button"
+    <TextView
+        android:id="@+id/labelSearch"
+        style="@style/ButtonLabels"
+        android:text="Search Pills"
+        app:layout_constraintEnd_toStartOf="@id/vert1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchActivity" />
 
-        <Button
-            android:id="@+id/btnSearchActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/menu_buttons"
-            android:drawableTop="@drawable/menu_search"
-            android:gravity="center|bottom"
-            android:padding="8dp"
-            android:text="Search Pills" />
-    </android.support.v7.widget.CardView>
+    <Button
+        android:id="@+id/btnMyMedsActivity"
+        style="@style/ClearButtons"
+        android:drawableTop="@drawable/ic_my_med_cab"
+        app:layout_constraintEnd_toStartOf="@+id/vert2"
+        app:layout_constraintStart_toEndOf="@id/vert1"
+        app:layout_constraintTop_toBottomOf="@+id/header_line" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/card_view_my_med_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="2.1dp"
-        app:cardMaxElevation="3dp"
-        app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <Button
-            android:id="@+id/btnMyMedsActivity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/menu_buttons"
-            android:drawableTop="@drawable/cabinet"
-            android:gravity="center|top"
-            android:padding="8dp"
-            android:text="My Pills" />
-    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/labelMyMeds"
+        style="@style/ButtonLabels"
+        android:text="My Meds"
+        app:layout_constraintEnd_toStartOf="@id/vert2"
+        app:layout_constraintStart_toEndOf="@id/vert1"
+        app:layout_constraintTop_toBottomOf="@+id/btnMyMedsActivity" />
 
     <Button
         android:id="@+id/btnDisclaimer"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="250dp"
+        style="@style/ClearButtons"
+        android:drawableTop="@drawable/ic_disclaimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/vert2"
+        app:layout_constraintTop_toBottomOf="@+id/header_line"/>
+
+    <TextView
+        android:id="@+id/labelDisclaimer"
+        style="@style/ButtonLabels"
         android:text="Disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/vert2"
+        app:layout_constraintTop_toBottomOf="@+id/btnDisclaimer" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/vert1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vert2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/header_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
 
 </android.support.constraint.ConstraintLayout>

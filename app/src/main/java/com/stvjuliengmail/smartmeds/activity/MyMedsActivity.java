@@ -69,7 +69,12 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         switch (item.getItemId()) {
             case R.id.bottom_nav_search: {
                 item.setChecked(true);
-                startSearchAndDie();
+                dieAndStartA(SearchActivity.class);
+                break;
+            }
+            case R.id.bottom_nav_home:{
+                item.setChecked(true);
+                dieAndStartA(MenuActivity.class);
                 break;
             }
             case R.id.bottom_nav_my_meds: {
@@ -165,8 +170,8 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         startActivity(intent);
     }
 
-    private void startSearchAndDie() {
-        Intent intent = new Intent(this, SearchActivity.class);
+    private void dieAndStartA(Class c){
+        Intent intent = new Intent(this, c);
         startActivity(intent);
         finish();
     }
