@@ -45,8 +45,7 @@
             android:name=".activity.MyInteractionsActivity"
             android:noHistory="true"/>
 
-        <activity android:name=".activity.MenuActivity"
-            android:noHistory="true"/>
+        <activity android:name=".activity.MenuActivity" />
 
     </application>
 
