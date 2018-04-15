@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -109,9 +110,29 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     public void setMyMeds(ArrayList<MyMed> myMedsFromDb) {
-        myMedsList.clear();
-        myMedsList.addAll(myMedsFromDb);
-        adapter.notifyDataSetChanged();
+        if(myMedsFromDb == null || myMedsFromDb.isEmpty()){
+            notifyNoRecords();
+        }
+        else{
+            myMedsList.clear();
+            myMedsList.addAll(myMedsFromDb);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public class SnackBarListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            dieAndStartA(SearchActivity.class);
+        }
+    }
+
+    private void notifyNoRecords() {
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.my_meds_layout),
+                "You don't have any pills saved.", Snackbar.LENGTH_INDEFINITE);
+        mySnackbar.setAction("Search Pills", new SnackBarListener());
+        mySnackbar.show();
     }
 
     public void checkForInteractions() {
