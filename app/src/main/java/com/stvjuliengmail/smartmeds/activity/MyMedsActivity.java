@@ -58,9 +58,9 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
 //                startSearchAndDie();
 //            }
 //        });
-        recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
+        recyclerView = findViewById(R.id.rvMyMeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_nav_view);
+        bottomNavigationViewEx = findViewById(R.id.bottom_nav_view);
         bottomNavigationViewEx.setOnNavigationItemSelectedListener(this);
         bottomNavigationViewEx.setSelectedItemId(R.id.bottom_nav_my_meds);
     }

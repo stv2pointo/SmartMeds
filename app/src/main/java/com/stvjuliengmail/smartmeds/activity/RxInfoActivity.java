@@ -57,13 +57,13 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void instantiateUiElements() {
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvFullName = (TextView) findViewById(R.id.tvFullName);
-        tvMayTreat = (TextView) findViewById(R.id.tvMayTreat);
-        tvClassName = (TextView) findViewById(R.id.tvClassName);
-        fabSaveMyMeds = (FloatingActionButton) findViewById(R.id.fabSaveMyMeds);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        btnInteractions = (Button) findViewById(R.id.btnInteractions);
+        tvName = findViewById(R.id.tvName);
+        tvFullName = findViewById(R.id.tvFullName);
+        tvMayTreat = findViewById(R.id.tvMayTreat);
+        tvClassName = findViewById(R.id.tvClassName);
+        fabSaveMyMeds = findViewById(R.id.fabSaveMyMeds);
+        imageView = findViewById(R.id.imageView);
+        btnInteractions = findViewById(R.id.btnInteractions);
     }
 
     private void wireUpSaveToMyMedsButton() {

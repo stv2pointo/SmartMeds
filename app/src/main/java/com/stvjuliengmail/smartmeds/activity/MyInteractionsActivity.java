@@ -48,8 +48,8 @@ public class MyInteractionsActivity extends AppCompatActivity {
     }
 
     private void initializeUiElements() {
-        tvDisclaimer = (TextView) findViewById(R.id.tvDisclaimer);
-        my_interactions_recycler_view = (RecyclerView) findViewById(R.id.my_interactions_recycler_view);
+        tvDisclaimer = findViewById(R.id.tvDisclaimer);
+        my_interactions_recycler_view = findViewById(R.id.my_interactions_recycler_view);
         wireAdapterToRecyclerView();
     }
 

@@ -36,9 +36,9 @@ public class InteractionsActivity extends AppCompatActivity {
     }
 
     private void initializeUiElements() {
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvDisclaimer = (TextView) findViewById(R.id.tvDisclaimer);
-        interactions_recycler_view = (RecyclerView) findViewById(R.id.interactions_recycler_view);
+        tvName = findViewById(R.id.tvName);
+        tvDisclaimer = findViewById(R.id.tvDisclaimer);
+        interactions_recycler_view = findViewById(R.id.interactions_recycler_view);
         interactions_recycler_view.setLayoutManager(new LinearLayoutManager(this));
         interactionsAdapter = new InteractionsAdapter(interactions, R.layout.rv_row_interaction, getApplicationContext());
         interactions_recycler_view.setAdapter(interactionsAdapter);

@@ -30,9 +30,9 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void initializeUiComponents(){
-        btnSearchActivity = (Button)findViewById(R.id.btnSearchActivity);
-        btnMyMedsActivity = (Button)findViewById(R.id.btnMyMedsActivity);
-        btnDisclaimer = (Button)findViewById(R.id.btnDisclaimer);
+        btnSearchActivity = findViewById(R.id.btnSearchActivity);
+        btnMyMedsActivity = findViewById(R.id.btnMyMedsActivity);
+        btnDisclaimer = findViewById(R.id.btnDisclaimer);
 
         btnSearchActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +114,6 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void killApp(){
-
         this.finish();
     }
 }

@@ -34,8 +34,8 @@ public class MyMedActivity extends AppCompatActivity {
         context = this;
         setMyMedFromIntent();
         initializeUiComponents();
+        wireUpClicks();
         setImage();
-        wireUpImageClick();
         setText();
     }
 
@@ -45,29 +45,29 @@ public class MyMedActivity extends AppCompatActivity {
     }
 
     private void initializeUiComponents(){
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvDosage = (TextView) findViewById(R.id.tvDosage);
-        tvDoctor = (TextView) findViewById(R.id.tvDoctor);
-        tvDirections = (TextView) findViewById(R.id.tvDirections);
-        tvPharmacy = (TextView) findViewById(R.id.tvPharmacy);
-        ivPillImage = (ImageView) findViewById(R.id.ivPillImage);
-        fabEdit = (FloatingActionButton) findViewById(R.id.fabEdit);
+        tvName =  findViewById(R.id.tvName);
+        tvDosage = findViewById(R.id.tvDosage);
+        tvDoctor = findViewById(R.id.tvDoctor);
+        tvDirections = findViewById(R.id.tvDirections);
+        tvPharmacy = findViewById(R.id.tvPharmacy);
+        ivPillImage = findViewById(R.id.ivPillImage);
+        fabEdit = findViewById(R.id.fabEdit);
+        fabDelete = findViewById(R.id.fabDelete);
+    }
+
+    private void wireUpClicks(){
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 edit();
             }
         });
-        fabDelete = (FloatingActionButton) findViewById(R.id.fabDelete);
         fabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 delete();
             }
         });
-    }
-
-    private void wireUpImageClick(){
         ivPillImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

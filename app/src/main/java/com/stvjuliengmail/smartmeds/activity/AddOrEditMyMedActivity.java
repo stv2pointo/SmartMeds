@@ -35,13 +35,13 @@ public class AddOrEditMyMedActivity extends AppCompatActivity{
     }
 
     private void initializeUiComponents(){
-        tvName = (TextView) findViewById(R.id.tvName);
-        etDosage = (EditText) findViewById(R.id.etDosage);
-        etDoctor = (EditText) findViewById(R.id.etDoctor);
-        etDirections = (EditText) findViewById(R.id.etDirections);
-        etPharmacy = (EditText) findViewById(R.id.etPharmacy);
-        ivPillImage = (ImageView) findViewById(R.id.ivPillImage);
-        fabSave = (FloatingActionButton) findViewById(R.id.fabSave) ;
+        tvName = findViewById(R.id.tvName);
+        etDosage = findViewById(R.id.etDosage);
+        etDoctor = findViewById(R.id.etDoctor);
+        etDirections = findViewById(R.id.etDirections);
+        etPharmacy = findViewById(R.id.etPharmacy);
+        ivPillImage = findViewById(R.id.ivPillImage);
+        fabSave = findViewById(R.id.fabSave) ;
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

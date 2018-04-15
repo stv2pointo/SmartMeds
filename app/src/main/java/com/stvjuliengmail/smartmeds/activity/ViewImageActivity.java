@@ -18,7 +18,7 @@ public class ViewImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image);
-        touchImageView = (TouchImageView) findViewById(R.id.touch_iv);
+        touchImageView = findViewById(R.id.touch_iv);
         unpackIntentExtras();
         displayImage();
     }

@@ -81,18 +81,18 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     private void initializeUiComponents() {
-        recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
-//        btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
-        btnLoadList = (Button) findViewById(R.id.btnLoadList);
-        etImprint = (EditText) findViewById(R.id.etImprint);
+        recyclerView = findViewById(R.id.recVwResultList);
+//        btnLoadList = findViewById(R.id.btnLoadList);
+        btnLoadList = findViewById(R.id.btnLoadList);
+        etImprint = findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        filtersView = (LinearLayout)findViewById(R.id.filters_view);
-        btnShowFilters = (Button) findViewById(R.id.btnShowFilters);
-        filtersWidget = (LinearLayout) findViewById(R.id.filters_widget);
-        autoName = (AutoCompleteTextView) findViewById(R.id.autoName);
+        filtersView = findViewById(R.id.filters_view);
+        btnShowFilters = findViewById(R.id.btnShowFilters);
+        filtersWidget = findViewById(R.id.filters_widget);
+        autoName = findViewById(R.id.autoName);
         autoCompletePillNameAdapter = new AutoCompletePillNameAdapter(this, android.R.layout.simple_list_item_1);
         autoName.setAdapter(autoCompletePillNameAdapter);
-        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_nav_view);
+        bottomNavigationViewEx = findViewById(R.id.bottom_nav_view);
         bottomNavigationViewEx.setOnNavigationItemSelectedListener(this);
 
         wireUpColorSpinner();
@@ -103,7 +103,7 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     private void wireUpColorSpinner() {
-        colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
+        colorSpinner = findViewById(R.id.colorSpinner);
         colorSpinner.setSelection(0);
         defaultColorValue = (String) colorSpinner.getItemAtPosition(0);
         // please keep the following temporarily
@@ -126,7 +126,7 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     private void wireUpShapeSpinner() {
-        shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+        shapeSpinner = findViewById(R.id.shapeSpinner);
         shapeSpinner.setSelection(0);
         defaultShapeValue = (String) shapeSpinner.getItemAtPosition(0);
         // please keep the following temporarily
