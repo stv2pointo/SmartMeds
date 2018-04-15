@@ -3,7 +3,10 @@ package com.stvjuliengmail.smartmeds.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,10 +21,11 @@ import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
 import com.stvjuliengmail.smartmeds.api.SimpleNameTask;
+import com.stvjuliengmail.smartmeds.fragment.MyMedFragment;
 
 import java.util.ArrayList;
 
-public class RxInfoActivity extends AppCompatActivity {
+public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.OnFragmentInteractionListener{
     private final String TAG = getClass().getSimpleName();
     private TextView tvName, tvFullName, tvMayTreat, tvClassName;
     private ImageView imageView;
@@ -46,6 +50,7 @@ public class RxInfoActivity extends AppCompatActivity {
         wireUpImageClick();
         displayName();
         displayImage();
+        displayMyMedInfoFragment();
         startApiTasks();
     }
 
@@ -64,6 +69,15 @@ public class RxInfoActivity extends AppCompatActivity {
         fabSaveMyMeds = findViewById(R.id.fabSaveMyMeds);
         imageView = findViewById(R.id.imageView);
         btnInteractions = findViewById(R.id.btnInteractions);
+    }
+
+    private void displayMyMedInfoFragment(){
+        Bundle bundle = new Bundle();
+        bundle.putString("longName", longName);
+        MyMedFragment fragment = new MyMedFragment();
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction()
+            .replace(R.id.fragment_container_my_med, fragment,"MyMedFrag").commit();
     }
 
     private void wireUpSaveToMyMedsButton() {
@@ -166,5 +180,10 @@ public class RxInfoActivity extends AppCompatActivity {
         Intent intent = new Intent(context, ViewImageActivity.class);
         intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
