@@ -22,7 +22,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         initializeUiComponents();
-        if (!getAgreement()){
+        if (!getIsAgreed()){
 //            btnMyMedsActivity.setEnabled(false);
 //            btnSearchActivity.setEnabled(false);
             disclaimer();
@@ -67,32 +67,42 @@ public class MenuActivity extends AppCompatActivity {
                 "confirm any information obtained from or through this app with other sources, and review all information regarding " +
                 "any medical condition or treatment with your physician. NEVER DISREGARD PROFESSIONAL MEDICAL ADVICE OR DELAY SEEKING " +
                 "MEDICAL TREATMENT BECAUSE OF SOMETHING YOU HAVE READ ON OR ACCESSED THROUGH THIS APP.");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Close",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        killApp();
-                    }
-                });
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "AGREE",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        isAgreed(true);
+        if(getIsAgreed()){
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Close",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+        }
+        else{
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Close",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            killApp();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "AGREE",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            setIsAgreed(true);
 //                        btnMyMedsActivity.setEnabled(true);
 //                        btnSearchActivity.setEnabled(true);
-                    }
-                });
+                        }
+                    });
+        }
         alertDialog.show();
     }
 
-    private void isAgreed(boolean agreed){
+    private void setIsAgreed(boolean agreed){
         SharedPreferences mSharedPreferences = getSharedPreferences("agreed", MODE_PRIVATE);
         SharedPreferences.Editor mEditor = mSharedPreferences.edit();
         mEditor.putBoolean("agreed", agreed);
         mEditor.apply();
     }
 
-    private boolean getAgreement(){
+    private boolean getIsAgreed(){
         SharedPreferences mSharedPreferences = getSharedPreferences("agreed", MODE_PRIVATE);
         boolean haveAgreed = mSharedPreferences.getBoolean("agreed", false);
         return haveAgreed;
@@ -104,6 +114,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void killApp(){
+
         this.finish();
     }
 }
