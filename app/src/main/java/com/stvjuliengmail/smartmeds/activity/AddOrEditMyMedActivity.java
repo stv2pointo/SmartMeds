@@ -68,12 +68,10 @@ public class AddOrEditMyMedActivity extends AppCompatActivity{
             rxcuiAsString = extras.getString("rxcui");
             name = extras.getString("name");
             doctor = "";
+            dosage = "";
             directions = "";
             pharmacy = "";
             imageUrl = extras.getString("imageUrl");
-        }
-        if(dosage == null || dosage.isEmpty()){
-            dosage = name.replaceAll("\\D+", "") + " mg";
         }
     }
 

@@ -26,7 +26,8 @@ public class RxInfoActivity extends AppCompatActivity {
     private TextView tvName, tvFullName, tvMayTreat, tvClassName;
     private ImageView imageView;
     private int rxcui; // the id of the selected pill
-    private String name;
+    private String longName;
+    private String shortName;
     private String imageUrl;
     private ArrayList<String> mayTreatDiseaseNames;
     private FloatingActionButton fabSaveMyMeds;
@@ -50,7 +51,7 @@ public class RxInfoActivity extends AppCompatActivity {
     public void unpackIntentExtras() {
         Bundle extras = getIntent().getExtras();
         rxcui = extras.getInt("rxcui");
-        name = extras.getString("name");
+        longName = extras.getString("name");
         imageUrl = extras.getString("imageUrl");
     }
 
@@ -83,7 +84,7 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void displayName(){
-        tvFullName.setText(name);
+        tvFullName.setText(longName);
     }
 
     public void displayClassName(String className){
@@ -131,12 +132,13 @@ public class RxInfoActivity extends AppCompatActivity {
     }
 
     public void populateSimplePillName(String nameFromApi){
+        shortName = nameFromApi;
         tvName.setText(nameFromApi);
     }
 
     private void startInteractions(){
         Intent intent = new Intent(context, InteractionsActivity.class);
-        intent.putExtra("name", name);
+        intent.putExtra("name", longName);
         intent.putExtra("rxcui", rxcui);
         startActivity(intent);
     }
@@ -144,7 +146,7 @@ public class RxInfoActivity extends AppCompatActivity {
     private void dieAndStartAddMed(){
         Intent intent = new Intent(context, AddOrEditMyMedActivity.class);
         intent.putExtra("rxcui", Integer.toString(rxcui));
-        intent.putExtra("name", name);
+        intent.putExtra("name", shortName);
         intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
         finish();
