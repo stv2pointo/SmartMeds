@@ -199,12 +199,10 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     private void hideFilters(){
         filtersView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0));
         recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,90));
-//        filtersWidget.setVisibility(View.VISIBLE);
         filtersWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,10));
     }
 
     private void showFilters(){
-//        filtersWidget.setVisibility(View.INVISIBLE);
         filtersWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0));
         filtersView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,30));
         recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,70));
