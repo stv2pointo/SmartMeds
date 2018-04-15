@@ -35,6 +35,7 @@ public class MyMedActivity extends AppCompatActivity {
         setMyMedFromIntent();
         initializeUiComponents();
         setImage();
+        wireUpImageClick();
         setText();
     }
 
@@ -62,6 +63,15 @@ public class MyMedActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 delete();
+            }
+        });
+    }
+
+    private void wireUpImageClick(){
+        ivPillImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startImageView();
             }
         });
     }
@@ -122,5 +132,12 @@ public class MyMedActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MyMedsActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void startImageView(){
+        String imageUrl = myMed.getImageUrl();
+        Intent intent = new Intent(context, ViewImageActivity.class);
+        intent.putExtra("imageUrl", imageUrl);
+        startActivity(intent);
     }
 }

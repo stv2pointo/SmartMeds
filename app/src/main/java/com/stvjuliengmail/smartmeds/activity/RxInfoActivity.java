@@ -92,6 +92,7 @@ public class RxInfoActivity extends AppCompatActivity {
             }
         });
     }
+
     private void displayName(){
         tvFullName.setText(longName);
     }

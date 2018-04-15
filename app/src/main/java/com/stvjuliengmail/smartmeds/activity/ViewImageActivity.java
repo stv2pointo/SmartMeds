@@ -39,6 +39,7 @@ public class ViewImageActivity extends AppCompatActivity {
                 touchImageView.setImageBitmap(myBitmap);
             }
         } catch (Exception e) {
+            touchImageView.setImageResource(R.drawable.no_img_avail);
             Log.d("ViewImageActivity", "display iMage exdeption: " + e.getMessage());
         }
     }
