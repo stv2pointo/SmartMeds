@@ -34,7 +34,7 @@ import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity implements BottomNavigationViewEx.OnNavigationItemSelectedListener{
     private final String TAG = getClass().getSimpleName();
-    private ImageButton btnLoadList;
+    private Button btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
     private AutoCompleteTextView autoName;
     private EditText etImprint;
@@ -82,7 +82,8 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
 
     private void initializeUiComponents() {
         recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
-        btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
+//        btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
+        btnLoadList = (Button) findViewById(R.id.btnLoadList);
         etImprint = (EditText) findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         filtersView = (LinearLayout)findViewById(R.id.filters_view);
