@@ -43,6 +43,7 @@ public class RxInfoActivity extends AppCompatActivity {
         instantiateUiElements();
         wireUpSaveToMyMedsButton();
         wireUpInteractionsButton();
+        wireUpImageClick();
         displayName();
         displayImage();
         startApiTasks();
@@ -65,7 +66,7 @@ public class RxInfoActivity extends AppCompatActivity {
         btnInteractions = (Button) findViewById(R.id.btnInteractions);
     }
 
-    public void wireUpSaveToMyMedsButton() {
+    private void wireUpSaveToMyMedsButton() {
         fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +75,7 @@ public class RxInfoActivity extends AppCompatActivity {
         });
     }
 
-    public void wireUpInteractionsButton(){
+    private void wireUpInteractionsButton(){
         btnInteractions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +84,15 @@ public class RxInfoActivity extends AppCompatActivity {
         });
     }
 
-    public void displayName(){
+    private void wireUpImageClick(){
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startImageView();
+            }
+        });
+    }
+    private void displayName(){
         tvFullName.setText(longName);
     }
 
@@ -150,5 +159,11 @@ public class RxInfoActivity extends AppCompatActivity {
         intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);
         finish();
+    }
+
+    private void startImageView(){
+        Intent intent = new Intent(context, ViewImageActivity.class);
+        intent.putExtra("imageUrl", imageUrl);
+        startActivity(intent);
     }
 }
