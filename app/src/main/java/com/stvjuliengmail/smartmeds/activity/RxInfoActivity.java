@@ -131,9 +131,9 @@ public class RxInfoActivity extends AppCompatActivity {
         tvMayTreat.setText(diseases);
     }
 
-    public void populateSimplePillName(String nameFromApi){
-        shortName = nameFromApi;
-        tvName.setText(nameFromApi);
+    public void populateSimplePillName(String simpleNameFromApi){
+        shortName = simpleNameFromApi;
+        tvName.setText(simpleNameFromApi);
     }
 
     private void startInteractions(){
