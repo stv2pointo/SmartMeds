@@ -237,6 +237,7 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
             Toast.makeText(this, Integer.toString(rxImagesResult.getNlmRxImages().length) + " results were found.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
+            btnShowFilters.performClick();
         }
         adapter.notifyDataSetChanged();
     }
