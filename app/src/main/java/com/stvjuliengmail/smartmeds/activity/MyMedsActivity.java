@@ -93,9 +93,13 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, myMedsList.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, myMedsList.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+//                MyMed myMed = myMedsList.get(position);
+//                Intent intent = new Intent(context, MyMedActivity.class);
+//                intent.putExtra("myMed", myMed);
+//                context.startActivity(intent);
                 MyMed myMed = myMedsList.get(position);
-                Intent intent = new Intent(context, MyMedActivity.class);
+                Intent intent = new Intent(context, RxInfoActivity.class);
                 intent.putExtra("myMed", myMed);
                 context.startActivity(intent);
             }

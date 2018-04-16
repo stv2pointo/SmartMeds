@@ -9,13 +9,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.stvjuliengmail.smartmeds.R;
+import com.stvjuliengmail.smartmeds.model.MyMed;
 
 
 public class MyMedFragment extends android.support.v4.app.Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private String longName;
-    private TextView tvLongName;
+    private View rootView;
+    private MyMed myMed;
+    private TextView tvDosage, tvDoctor, tvDirections, tvPharmacy;
 
     public MyMedFragment() {
         // Required empty public constructor
@@ -25,21 +27,27 @@ public class MyMedFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_my_med, container, false);
-        longName = getArguments().getString("longName");
-        tvLongName = rootView.findViewById(R.id.tvLongName);
-        tvLongName.setText(longName);
+        rootView = inflater.inflate(R.layout.fragment_my_med, container, false);
+        //longName = getArguments().getString("longName");
+        myMed = getArguments().getParcelable("myMed");
+        initializeUiComponents();
+        displayTextInViews();
         return rootView;
-
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    private void initializeUiComponents(){
+        tvDosage = rootView.findViewById(R.id.tvDosage);
+        tvDoctor = rootView.findViewById(R.id.tvDoctor);
+        tvDirections = rootView.findViewById(R.id.tvDirections);
+        tvPharmacy = rootView.findViewById(R.id.tvPharmacy);
     }
 
+    private void displayTextInViews(){
+        tvDirections.setText(myMed.getDirections());
+        tvDoctor.setText(myMed.getDoctor());
+        tvDosage.setText(myMed.getDosage());
+        tvPharmacy.setText(myMed.getPharmacy());
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

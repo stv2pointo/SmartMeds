@@ -1,14 +1,123 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.stvjuliengmail.smartmeds.fragment.MyMedFragment">
+    tools:context="com.stvjuliengmail.smartmeds.fragment.RxInfoButtonsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvLongName"
+    <LinearLayout
+        android:id="@+id/box1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tvDosageLabel"
+            style="@style/EditPillLabels"
+            android:layout_weight="1"
+            android:text="Dosage: " />
+
+        <TextView
+            android:id="@+id/tvDosage"
+            style="@style/EditPillFields"
+            android:layout_weight="3.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box1">
+
+        <TextView
+            android:id="@+id/tvDirectionsLabel"
+            style="@style/EditPillLabels"
+            android:layout_weight="1"
+            android:text="Directions: " />
+
+        <TextView
+            android:id="@+id/tvDirections"
+            style="@style/EditPillFields"
+            android:layout_weight="3.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box2">
+
+        <TextView
+            android:id="@+id/tvDoctorLabel"
+            style="@style/EditPillLabels"
+            android:layout_weight="1"
+            android:text="Doctor: " />
+
+        <TextView
+            android:id="@+id/tvDoctor"
+            style="@style/EditPillFields"
+            android:layout_weight="3.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/box4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box3">
+
+        <TextView
+            android:id="@+id/tvPharmacyLabel"
+            style="@style/EditPillLabels"
+            android:layout_weight="1"
+            android:text="Pharmacy: " />
+
+        <TextView
+            android:id="@+id/tvPharmacy"
+            style="@style/EditPillFields"
+            android:layout_weight="3.5" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabDelete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="12dp"
+        android:src="@android:drawable/ic_menu_delete"
+        app:backgroundTint="@color/light_red_ochre"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box4"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabEdit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="12dp"
+        android:src="@android:drawable/ic_menu_edit"
+        app:backgroundTint="@color/jungle_green"
+        app:elevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box4"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/fourthOver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+</android.support.constraint.ConstraintLayout>

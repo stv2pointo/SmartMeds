@@ -22,10 +22,13 @@ import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
 import com.stvjuliengmail.smartmeds.api.SimpleNameTask;
 import com.stvjuliengmail.smartmeds.fragment.MyMedFragment;
+import com.stvjuliengmail.smartmeds.fragment.RxInfoButtonsFragment;
+import com.stvjuliengmail.smartmeds.model.MyMed;
 
 import java.util.ArrayList;
 
-public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.OnFragmentInteractionListener{
+public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.OnFragmentInteractionListener,
+        RxInfoButtonsFragment.OnFragmentInteractionListener {
     private final String TAG = getClass().getSimpleName();
     private TextView tvName, tvFullName, tvMayTreat, tvClassName;
     private ImageView imageView;
@@ -34,8 +37,7 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
     private String shortName;
     private String imageUrl;
     private ArrayList<String> mayTreatDiseaseNames;
-    private FloatingActionButton fabSaveMyMeds;
-    private Button btnInteractions;
+    private MyMed myMed;
     private Context context;
 
     @Override
@@ -50,15 +52,27 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
         wireUpImageClick();
         displayName();
         displayImage();
-        displayMyMedInfoFragment();
+        if (myMed != null) {
+            displayMyMedInfoFragment();
+        } else {
+            displayRxInfoButtonFragment();
+        }
         startApiTasks();
     }
 
     public void unpackIntentExtras() {
         Bundle extras = getIntent().getExtras();
-        rxcui = extras.getInt("rxcui");
-        longName = extras.getString("name");
-        imageUrl = extras.getString("imageUrl");
+        myMed = extras.getParcelable("myMed");
+        if(myMed == null){
+            rxcui = extras.getInt("rxcui");
+            longName = extras.getString("name");
+            imageUrl = extras.getString("imageUrl");
+        }
+        else{
+            rxcui = Integer.valueOf(myMed.getRxcui());
+            longName = "";
+            imageUrl = myMed.getImageUrl();
+        }
     }
 
     public void instantiateUiElements() {
@@ -66,39 +80,43 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
         tvFullName = findViewById(R.id.tvFullName);
         tvMayTreat = findViewById(R.id.tvMayTreat);
         tvClassName = findViewById(R.id.tvClassName);
-        fabSaveMyMeds = findViewById(R.id.fabSaveMyMeds);
         imageView = findViewById(R.id.imageView);
-        btnInteractions = findViewById(R.id.btnInteractions);
     }
 
-    private void displayMyMedInfoFragment(){
+    private void displayMyMedInfoFragment() {
         Bundle bundle = new Bundle();
+        bundle.putParcelable("myMed", myMed);
         bundle.putString("longName", longName);
         MyMedFragment fragment = new MyMedFragment();
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
-            .replace(R.id.fragment_container_my_med, fragment,"MyMedFrag").commit();
+                .replace(R.id.fragment_container_my_med, fragment, "MyMedFrag").commit();
+    }
+
+    private void displayRxInfoButtonFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container_my_med, new RxInfoButtonsFragment(), "RxInfoBtnsFrag").commit();
     }
 
     private void wireUpSaveToMyMedsButton() {
-        fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               dieAndStartAddMed();
-            }
-        });
+//        fabSaveMyMeds.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               dieAndStartAddMed();
+//            }
+//        });
     }
 
-    private void wireUpInteractionsButton(){
-        btnInteractions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startInteractions();
-            }
-        });
+    private void wireUpInteractionsButton() {
+//        btnInteractions.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startInteractions();
+//            }
+//        });
     }
 
-    private void wireUpImageClick(){
+    private void wireUpImageClick() {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,22 +125,21 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
         });
     }
 
-    private void displayName(){
+    private void displayName() {
         tvFullName.setText(longName);
     }
 
-    public void displayClassName(String className){
+    public void displayClassName(String className) {
         tvClassName.setText(className);
     }
 
-    public void displayImage(){
+    public void displayImage() {
         ImageDownloadTask task = new ImageDownloadTask();
         try {
             Bitmap myBitmap = task.execute(imageUrl).get();
-            if(myBitmap == null){
+            if (myBitmap == null) {
                 imageView.setImageResource(R.drawable.no_img_avail);
-            }
-            else{
+            } else {
                 imageView.setImageBitmap(myBitmap);
             }
         } catch (Exception e) {
@@ -141,12 +158,12 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
                 REQUEST_BASE.MAY_TREAT_PARMS;
     }
 
-    private String getClassNameRequest(){
+    private String getClassNameRequest() {
         return REQUEST_BASE.CLASS_BY_RXCUI + Integer.toString(rxcui) +
                 REQUEST_BASE.CLASS_BY_RXCUI_PARMS;
     }
 
-    private String getSimplePillNameRequest(){
+    private String getSimplePillNameRequest() {
         return REQUEST_BASE.SIMPLE_NAME_BY_RXCUI + Integer.toString(rxcui) +
                 REQUEST_BASE.SIMPLE_NAME_PARMS;
     }
@@ -155,19 +172,19 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
         tvMayTreat.setText(diseases);
     }
 
-    public void populateSimplePillName(String simpleNameFromApi){
+    public void populateSimplePillName(String simpleNameFromApi) {
         shortName = simpleNameFromApi;
         tvName.setText(simpleNameFromApi);
     }
 
-    private void startInteractions(){
+    public void startInteractions() {
         Intent intent = new Intent(context, InteractionsActivity.class);
         intent.putExtra("name", longName);
         intent.putExtra("rxcui", rxcui);
         startActivity(intent);
     }
 
-    private void dieAndStartAddMed(){
+    public void dieAndStartAddMed() {
         Intent intent = new Intent(context, AddOrEditMyMedActivity.class);
         intent.putExtra("rxcui", Integer.toString(rxcui));
         intent.putExtra("name", shortName);
@@ -176,7 +193,7 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
         finish();
     }
 
-    private void startImageView(){
+    private void startImageView() {
         Intent intent = new Intent(context, ViewImageActivity.class);
         intent.putExtra("imageUrl", imageUrl);
         startActivity(intent);

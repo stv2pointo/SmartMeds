@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:text="Drug Class: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -60,7 +60,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Class not found at source"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/tvClassLabel"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -71,14 +71,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="May Treat: "
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvClassLabel" />
 
     <ScrollView
         android:id="@+id/svMayTreat"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/border_style"
@@ -95,7 +95,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Searching..."
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </ScrollView>
 
@@ -105,22 +105,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/svMayTreat"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+    </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabSaveMyMeds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="12dp"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/color_mainGreen"
-        android:tint="@android:color/white"
-        app:elevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:pressedTranslationZ="12dp" />
+    <!--<FrameLayout-->
+        <!--android:id="@+id/fragment_container_buttons"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent">-->
+    <!--</FrameLayout>-->
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -136,17 +131,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3522505" />
 
-    <Button
-        android:id="@+id/btnInteractions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="12dp"
-        android:textAllCaps="false"
-        android:drawableEnd="@drawable/ic_warning"
-        android:paddingStart="12dp"
-        android:text="Check Interactions "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>
