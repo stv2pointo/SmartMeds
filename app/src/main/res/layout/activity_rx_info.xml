@@ -34,8 +34,8 @@
     <TextView
         android:id="@+id/tvFullName"
         android:layout_width="0dp"
-        android:textSize="16sp"
         android:layout_height="wrap_content"
+        style="@style/TvPillFields"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,21 +46,18 @@
         android:id="@+id/tvClassLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="14sp"
+        style="@style/TvPillLabels"
         android:text="Drug Class: "
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/one_fifth_over"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/tvClassName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Class not found at source"
-        android:textSize="14sp"
+        style="@style/TvPillFields"
+        android:text="Searching..."
         app:layout_constraintStart_toEndOf="@+id/tvClassLabel"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -68,54 +65,40 @@
         android:id="@+id/tvMayTreatLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        style="@style/TvPillLabels"
         android:text="May Treat: "
-        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/one_fifth_over"
         app:layout_constraintTop_toBottomOf="@+id/tvClassLabel" />
 
     <ScrollView
         android:id="@+id/svMayTreat"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/border_style"
         android:fadeScrollbars="false"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvMayTreatLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMayTreatLabel">
+        app:layout_constraintTop_toBottomOf="@+id/tvClassName">
 
         <TextView
             android:id="@+id/tvMayTreat"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Searching..."
-            android:textSize="14sp" />
-
+            style="@style/TvPillFields"
+            android:text="Searching..." />
     </ScrollView>
 
     <FrameLayout
         android:id="@+id/fragment_container_my_med"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintBottom_toBottomOf="parent">
     </FrameLayout>
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/fragment_container_buttons"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent">-->
-    <!--</FrameLayout>-->
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -131,6 +114,10 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3522505" />
 
-
-
+    <android.support.constraint.Guideline
+        android:id="@+id/one_fifth_over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
 </android.support.constraint.ConstraintLayout>

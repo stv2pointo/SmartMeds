@@ -12,17 +12,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/box2">
 
         <TextView
             android:id="@+id/tvDosageLabel"
-            style="@style/EditPillLabels"
+            style="@style/TvPillLabels"
             android:layout_weight="1"
             android:text="Dosage: " />
 
         <TextView
             android:id="@+id/tvDosage"
-            style="@style/EditPillFields"
+            style="@style/TvPillFields"
             android:layout_weight="3.5" />
     </LinearLayout>
 
@@ -32,17 +33,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/box1">
+        app:layout_constraintTop_toBottomOf="@+id/box1"
+        app:layout_constraintBottom_toTopOf="@id/box3">
 
         <TextView
             android:id="@+id/tvDirectionsLabel"
-            style="@style/EditPillLabels"
+            style="@style/TvPillLabels"
             android:layout_weight="1"
             android:text="Directions: " />
 
         <TextView
             android:id="@+id/tvDirections"
-            style="@style/EditPillFields"
+            style="@style/TvPillFields"
             android:layout_weight="3.5" />
     </LinearLayout>
 
@@ -52,17 +54,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/box2">
+        app:layout_constraintTop_toBottomOf="@+id/box2"
+        app:layout_constraintBottom_toTopOf="@id/box4">
 
         <TextView
             android:id="@+id/tvDoctorLabel"
-            style="@style/EditPillLabels"
+            style="@style/TvPillLabels"
             android:layout_weight="1"
             android:text="Doctor: " />
 
         <TextView
             android:id="@+id/tvDoctor"
-            style="@style/EditPillFields"
+            style="@style/TvPillFields"
             android:layout_weight="3.5" />
     </LinearLayout>
 
@@ -70,47 +73,47 @@
         android:id="@+id/box4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/box3">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/box3"
+        app:layout_constraintBottom_toTopOf="@+id/fabDelete">
 
         <TextView
             android:id="@+id/tvPharmacyLabel"
-            style="@style/EditPillLabels"
+            style="@style/TvPillLabels"
             android:layout_weight="1"
             android:text="Pharmacy: " />
 
         <TextView
             android:id="@+id/tvPharmacy"
-            style="@style/EditPillFields"
+            style="@style/TvPillFields"
             android:layout_weight="3.5" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabDelete"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="12dp"
         android:src="@android:drawable/ic_menu_delete"
         app:backgroundTint="@color/light_red_ochre"
         app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/box4"
         app:pressedTranslationZ="12dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabEdit"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_margin="12dp"
         android:src="@android:drawable/ic_menu_edit"
         app:backgroundTint="@color/jungle_green"
         app:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/box4"
         app:pressedTranslationZ="12dp" />
 
     <android.support.constraint.Guideline
