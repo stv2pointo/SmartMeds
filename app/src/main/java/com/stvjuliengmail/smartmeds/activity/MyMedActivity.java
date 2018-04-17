@@ -22,7 +22,7 @@ public class MyMedActivity extends AppCompatActivity {
 
     private TextView tvName, tvDosage, tvDoctor, tvDirections, tvPharmacy;
     private ImageView ivPillImage;
-    private FloatingActionButton fabEdit, fabDelete;
+
     private MyMed myMed;
     private Context context;
     private Bundle extras;
@@ -34,6 +34,7 @@ public class MyMedActivity extends AppCompatActivity {
         context = this;
         setMyMedFromIntent();
         initializeUiComponents();
+        wireUpClicks();
         setImage();
         setText();
     }
@@ -44,24 +45,20 @@ public class MyMedActivity extends AppCompatActivity {
     }
 
     private void initializeUiComponents(){
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvDosage = (TextView) findViewById(R.id.tvDosage);
-        tvDoctor = (TextView) findViewById(R.id.tvDoctor);
-        tvDirections = (TextView) findViewById(R.id.tvDirections);
-        tvPharmacy = (TextView) findViewById(R.id.tvPharmacy);
-        ivPillImage = (ImageView) findViewById(R.id.ivPillImage);
-        fabEdit = (FloatingActionButton) findViewById(R.id.fabEdit);
-        fabEdit.setOnClickListener(new View.OnClickListener() {
+        tvName =  findViewById(R.id.tvName);
+        tvDosage = findViewById(R.id.tvDosage);
+        tvDoctor = findViewById(R.id.tvDoctor);
+        tvDirections = findViewById(R.id.tvDirections);
+        tvPharmacy = findViewById(R.id.tvPharmacy);
+        ivPillImage = findViewById(R.id.ivPillImage);
+
+    }
+
+    private void wireUpClicks(){
+        ivPillImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                edit();
-            }
-        });
-        fabDelete = (FloatingActionButton) findViewById(R.id.fabDelete);
-        fabDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete();
+                startImageView();
             }
         });
     }
@@ -122,5 +119,12 @@ public class MyMedActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MyMedsActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void startImageView(){
+        String imageUrl = myMed.getImageUrl();
+        Intent intent = new Intent(context, ViewImageActivity.class);
+        intent.putExtra("imageUrl", imageUrl);
+        startActivity(intent);
     }
 }

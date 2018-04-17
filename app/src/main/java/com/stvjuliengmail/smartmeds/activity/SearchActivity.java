@@ -34,7 +34,7 @@ import java.util.Arrays;
 
 public class SearchActivity extends AppCompatActivity implements BottomNavigationViewEx.OnNavigationItemSelectedListener{
     private final String TAG = getClass().getSimpleName();
-    private ImageButton btnLoadList;
+    private Button btnLoadList;
     private Spinner colorSpinner, shapeSpinner;
     private AutoCompleteTextView autoName;
     private EditText etImprint;
@@ -66,9 +66,14 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
                 item.setChecked(true);
                 break;
             }
+            case R.id.bottom_nav_home:{
+                item.setChecked(true);
+                dieAndStartA(MenuActivity.class);
+                break;
+            }
             case R.id.bottom_nav_my_meds:{
                 item.setChecked(true);
-                dieAndStartMyMeds();
+                dieAndStartA(MyMedsActivity.class);
                 break;
             }
         }
@@ -76,17 +81,18 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     private void initializeUiComponents() {
-        recyclerView = (RecyclerView) findViewById(R.id.recVwResultList);
-        btnLoadList = (ImageButton) findViewById(R.id.btnLoadList);
-        etImprint = (EditText) findViewById(R.id.etImprint);
+        recyclerView = findViewById(R.id.recVwResultList);
+//        btnLoadList = findViewById(R.id.btnLoadList);
+        btnLoadList = findViewById(R.id.btnLoadList);
+        etImprint = findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        filtersView = (LinearLayout)findViewById(R.id.filters_view);
-        btnShowFilters = (Button) findViewById(R.id.btnShowFilters);
-        filtersWidget = (LinearLayout) findViewById(R.id.filters_widget);
-        autoName = (AutoCompleteTextView) findViewById(R.id.autoName);
+        filtersView = findViewById(R.id.filters_view);
+        btnShowFilters = findViewById(R.id.btnShowFilters);
+        filtersWidget = findViewById(R.id.filters_widget);
+        autoName = findViewById(R.id.autoName);
         autoCompletePillNameAdapter = new AutoCompletePillNameAdapter(this, android.R.layout.simple_list_item_1);
         autoName.setAdapter(autoCompletePillNameAdapter);
-        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_nav_view);
+        bottomNavigationViewEx = findViewById(R.id.bottom_nav_view);
         bottomNavigationViewEx.setOnNavigationItemSelectedListener(this);
 
         wireUpColorSpinner();
@@ -97,7 +103,7 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     private void wireUpColorSpinner() {
-        colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
+        colorSpinner = findViewById(R.id.colorSpinner);
         colorSpinner.setSelection(0);
         defaultColorValue = (String) colorSpinner.getItemAtPosition(0);
         // please keep the following temporarily
@@ -120,7 +126,7 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     private void wireUpShapeSpinner() {
-        shapeSpinner = (Spinner) findViewById(R.id.shapeSpinner);
+        shapeSpinner = findViewById(R.id.shapeSpinner);
         shapeSpinner.setSelection(0);
         defaultShapeValue = (String) shapeSpinner.getItemAtPosition(0);
         // please keep the following temporarily
@@ -193,12 +199,10 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
     private void hideFilters(){
         filtersView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0));
         recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,90));
-//        filtersWidget.setVisibility(View.VISIBLE);
         filtersWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,10));
     }
 
     private void showFilters(){
-//        filtersWidget.setVisibility(View.INVISIBLE);
         filtersWidget.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0));
         filtersView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,30));
         recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,70));
@@ -231,6 +235,7 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
             Toast.makeText(this, Integer.toString(rxImagesResult.getNlmRxImages().length) + " results were found.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "No results, try different input.", Toast.LENGTH_SHORT).show();
+            btnShowFilters.performClick();
         }
         adapter.notifyDataSetChanged();
     }
@@ -247,8 +252,8 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
         startActivity(intent);
     }
 
-    private void dieAndStartMyMeds(){
-        Intent intent = new Intent(this, MyMedsActivity.class);
+    private void dieAndStartA(Class c){
+        Intent intent = new Intent(this, c);
         startActivity(intent);
         finish();
     }

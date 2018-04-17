@@ -5,7 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.stvjuliengmail.smartmeds.activity.RxInfoActivity">
-
+    <TextView
+        android:id="@+id/tvName"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@color/gray_300"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -16,38 +29,35 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
 
     <TextView
-        android:id="@+id/tvName"
-        style="@style/HeaderStyle"
+        android:id="@+id/tvFullName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        style="@style/TvPillFields"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
 
     <TextView
         android:id="@+id/tvClassLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:textSize="16sp"
+        style="@style/TvPillLabels"
         android:text="Drug Class: "
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/one_fifth_over"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/tvClassName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Class not found at source"
-        android:textSize="16sp"
+        style="@style/TvPillFields"
+        android:text="Searching..."
         app:layout_constraintStart_toEndOf="@+id/tvClassLabel"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
@@ -55,50 +65,40 @@
         android:id="@+id/tvMayTreatLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        style="@style/TvPillLabels"
         android:text="May Treat: "
-        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/one_fifth_over"
         app:layout_constraintTop_toBottomOf="@+id/tvClassLabel" />
 
     <ScrollView
         android:id="@+id/svMayTreat"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="0dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="8dp"
         android:background="@drawable/border_style"
         android:fadeScrollbars="false"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvMayTreatLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMayTreatLabel">
+        app:layout_constraintTop_toBottomOf="@+id/tvClassName">
 
         <TextView
             android:id="@+id/tvMayTreat"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="Couldn't retrieve list from source "
-            android:textSize="16sp" />
-
+            style="@style/TvPillFields"
+            android:text="Searching..." />
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabSaveMyMeds"
-        android:layout_width="66dp"
-        android:layout_height="62dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="12dp"
-        android:src="@android:drawable/ic_menu_save"
-        app:backgroundTint="@color/jungle_green"
-        app:elevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <FrameLayout
+        android:id="@+id/fragment_container_my_med"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:pressedTranslationZ="12dp" />
+
+        app:layout_constraintBottom_toBottomOf="parent">
+    </FrameLayout>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -114,20 +114,10 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3522505" />
 
-    <Button
-        android:id="@+id/btnInteractions"
+    <android.support.constraint.Guideline
+        android:id="@+id/one_fifth_over"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/warn_yellow"
-        android:drawableEnd="@android:drawable/stat_sys_warning"
-        android:drawableTint="@color/black_70"
-        android:padding="7dp"
-        android:text="Interactions "
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
 </android.support.constraint.ConstraintLayout>

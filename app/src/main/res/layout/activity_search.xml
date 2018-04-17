@@ -19,10 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:drawableEnd="@drawable/ic_filter"
+            android:drawableEnd="@drawable/ic_search_meds"
             android:background="@android:color/transparent"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginEnd="16dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -36,12 +35,12 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingEnd="12dp"
             android:paddingStart="12dp"
-            android:weightSum="4">
+            android:weightSum="5">
 
             <AutoCompleteTextView
                 android:id="@+id/autoName"
@@ -98,16 +97,22 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center">
-
-            <ImageButton
+            <Button
                 android:id="@+id/btnLoadList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="5dp"
-                android:adjustViewBounds="true"
-                android:padding="5dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/search" />
+                android:drawableTop="@drawable/ic_search_meds"
+                android:background="@android:color/transparent"
+                android:paddingTop="10dp" />
+            <!--<ImageButton-->
+                <!--android:id="@+id/btnLoadList"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginHorizontal="5dp"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:padding="5dp"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@drawable/search" />-->
         </LinearLayout>
     </LinearLayout>
 

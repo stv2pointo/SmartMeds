@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,7 +47,13 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         context = this;
         initializeUiComponents();
         wireAdapterToRecyclerView();
+
+    }
+
+    @Override
+    protected void onResume(){
         new GetDBMedsTask(this).execute("");
+        super.onResume();
     }
 
     private void initializeUiComponents(){
@@ -57,9 +64,9 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
 //                startSearchAndDie();
 //            }
 //        });
-        recyclerView = (RecyclerView) findViewById(R.id.rvMyMeds);
+        recyclerView = findViewById(R.id.rvMyMeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        bottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_nav_view);
+        bottomNavigationViewEx = findViewById(R.id.bottom_nav_view);
         bottomNavigationViewEx.setOnNavigationItemSelectedListener(this);
         bottomNavigationViewEx.setSelectedItemId(R.id.bottom_nav_my_meds);
     }
@@ -69,7 +76,12 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         switch (item.getItemId()) {
             case R.id.bottom_nav_search: {
                 item.setChecked(true);
-                startSearchAndDie();
+                dieAndStartA(SearchActivity.class);
+                break;
+            }
+            case R.id.bottom_nav_home:{
+                item.setChecked(true);
+                dieAndStartA(MenuActivity.class);
                 break;
             }
             case R.id.bottom_nav_my_meds: {
@@ -87,16 +99,20 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         adapter.setOnItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(context, myMedsList.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, myMedsList.get(position).getName() + " selected", Toast.LENGTH_SHORT).show();
+//                MyMed myMed = myMedsList.get(position);
+//                Intent intent = new Intent(context, MyMedActivity.class);
+//                intent.putExtra("myMed", myMed);
+//                context.startActivity(intent);
                 MyMed myMed = myMedsList.get(position);
-                Intent intent = new Intent(context, MyMedActivity.class);
+                Intent intent = new Intent(context, RxInfoActivity.class);
                 intent.putExtra("myMed", myMed);
                 context.startActivity(intent);
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                // TODO: Is there a use case for this?
+                // TODO: Add delete functionality here
             }
         });
 
@@ -104,9 +120,29 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
     }
 
     public void setMyMeds(ArrayList<MyMed> myMedsFromDb) {
-        myMedsList.clear();
-        myMedsList.addAll(myMedsFromDb);
-        adapter.notifyDataSetChanged();
+        if(myMedsFromDb == null || myMedsFromDb.isEmpty()){
+            notifyNoRecords();
+        }
+        else{
+            myMedsList.clear();
+            myMedsList.addAll(myMedsFromDb);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    public class SnackBarListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            dieAndStartA(SearchActivity.class);
+        }
+    }
+
+    private void notifyNoRecords() {
+        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.my_meds_layout),
+                "You don't have any pills saved.", Snackbar.LENGTH_INDEFINITE);
+        mySnackbar.setAction("Search Pills", new SnackBarListener());
+        mySnackbar.show();
     }
 
     public void checkForInteractions() {
@@ -165,8 +201,8 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         startActivity(intent);
     }
 
-    private void startSearchAndDie() {
-        Intent intent = new Intent(this, SearchActivity.class);
+    private void dieAndStartA(Class c){
+        Intent intent = new Intent(this, c);
         startActivity(intent);
         finish();
     }
