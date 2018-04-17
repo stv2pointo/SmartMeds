@@ -112,7 +112,7 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
 
             @Override
             public void onItemLongClick(View view, int position) {
-                // TODO: Is there a use case for this?
+                // TODO: Add delete functionality here
             }
         });
 
