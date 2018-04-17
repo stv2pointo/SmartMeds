@@ -22,7 +22,7 @@ public class MyMedActivity extends AppCompatActivity {
 
     private TextView tvName, tvDosage, tvDoctor, tvDirections, tvPharmacy;
     private ImageView ivPillImage;
-    private FloatingActionButton fabEdit, fabDelete;
+
     private MyMed myMed;
     private Context context;
     private Bundle extras;
@@ -51,23 +51,10 @@ public class MyMedActivity extends AppCompatActivity {
         tvDirections = findViewById(R.id.tvDirections);
         tvPharmacy = findViewById(R.id.tvPharmacy);
         ivPillImage = findViewById(R.id.ivPillImage);
-        fabEdit = findViewById(R.id.fabEdit);
-        fabDelete = findViewById(R.id.fabDelete);
+
     }
 
     private void wireUpClicks(){
-        fabEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                edit();
-            }
-        });
-        fabDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete();
-            }
-        });
         ivPillImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,12 +1,14 @@
 package com.stvjuliengmail.smartmeds.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
@@ -21,6 +24,7 @@ import com.stvjuliengmail.smartmeds.api.REQUEST_BASE;
 import com.stvjuliengmail.smartmeds.api.RxInfoClassNameTask;
 import com.stvjuliengmail.smartmeds.api.RxInfoMayTreatsTask;
 import com.stvjuliengmail.smartmeds.api.SimpleNameTask;
+import com.stvjuliengmail.smartmeds.database.SmartMedsDbOpenHelper;
 import com.stvjuliengmail.smartmeds.fragment.MyMedFragment;
 import com.stvjuliengmail.smartmeds.fragment.RxInfoButtonsFragment;
 import com.stvjuliengmail.smartmeds.model.MyMed;
@@ -199,8 +203,31 @@ public class RxInfoActivity extends AppCompatActivity implements MyMedFragment.O
         startActivity(intent);
     }
 
+    public void deleteMed() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Are you sure?");
+        alertDialog.setMessage("This will permanently delete this medication.");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "CANCEL",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "DELETE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        SmartMedsDbOpenHelper dbOpenHelper = SmartMedsDbOpenHelper.getInstance(context);
+                        dbOpenHelper.deleteMyMed(myMed);
+                        Toast.makeText(context,"Medication Deleted Successfully.",Toast.LENGTH_SHORT).show();
+                       finish();
+                    }
+                });
+        alertDialog.show();
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        // this ugly piece of crap has to be here for a appcompat fragment to work
     }
 }

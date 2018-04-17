@@ -47,7 +47,13 @@ public class MyMedsActivity extends AppCompatActivity implements BottomNavigatio
         context = this;
         initializeUiComponents();
         wireAdapterToRecyclerView();
+
+    }
+
+    @Override
+    protected void onResume(){
         new GetDBMedsTask(this).execute("");
+        super.onResume();
     }
 
     private void initializeUiComponents(){
