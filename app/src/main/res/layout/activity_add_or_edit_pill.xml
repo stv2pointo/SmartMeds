@@ -49,6 +49,7 @@
             android:id="@+id/etDosage"
             style="@style/EditPillFields"
             android:layout_weight="3.5"
+            android:hint="ex: 100 Mg"
             />
     </LinearLayout>
 
