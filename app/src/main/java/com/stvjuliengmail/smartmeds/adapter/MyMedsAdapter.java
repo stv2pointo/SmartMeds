@@ -14,6 +14,8 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.model.MyMed;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 /**
@@ -41,6 +43,7 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
         LinearLayout resultsLayout;
         ImageView ivPillImage;
         TextView tvPillName;
+        TextView tvDirections;
         String rxcui;
         int position = 0;
 
@@ -62,6 +65,7 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
             resultsLayout = (LinearLayout) v.findViewById(R.id.my_meds_item_layout);
             ivPillImage = (ImageView) v.findViewById(R.id.ivPillImage);
             tvPillName = (TextView) v.findViewById(R.id.tvPillName);
+            tvDirections = (TextView) v.findViewById(R.id.tvDirections);
         }
     }
     public void setOnItemClickListener(RecyclerViewItemClickListener recyclerViewItemClickListener) {
@@ -90,6 +94,7 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
             e.printStackTrace();
         }
         holder.tvPillName.setText(results.get(position).getName());
+        holder.tvDirections.setText(results.get(position).getDirections());
         holder.rxcui = results.get(position).getRxcui();
         holder.position = position;
     }
