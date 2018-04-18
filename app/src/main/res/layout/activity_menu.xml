@@ -34,7 +34,7 @@
     <Button
         android:id="@+id/btnSearchActivity"
         style="@style/ClearButtons"
-        android:drawableTop="@drawable/ic_search_meds"
+        android:drawableTop="@drawable/ic_largesearch_meds"
         app:layout_constraintEnd_toStartOf="@id/vert1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header_line" />
@@ -50,7 +50,7 @@
     <Button
         android:id="@+id/btnMyMedsActivity"
         style="@style/ClearButtons"
-        android:drawableTop="@drawable/ic_my_med_cab"
+        android:drawableTop="@drawable/ic_large_my_med_cab"
         app:layout_constraintEnd_toStartOf="@+id/vert2"
         app:layout_constraintStart_toEndOf="@id/vert1"
         app:layout_constraintTop_toBottomOf="@+id/header_line" />
@@ -58,7 +58,7 @@
     <TextView
         android:id="@+id/labelMyMeds"
         style="@style/ButtonLabels"
-        android:text="My Meds"
+        android:text="My Cabinet"
         app:layout_constraintEnd_toStartOf="@id/vert2"
         app:layout_constraintStart_toEndOf="@id/vert1"
         app:layout_constraintTop_toBottomOf="@+id/btnMyMedsActivity" />
@@ -66,32 +66,35 @@
     <Button
         android:id="@+id/btnDisclaimer"
         style="@style/ClearButtons"
+        android:layout_marginTop="40dp"
         android:drawableTop="@drawable/ic_disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vert2"
-        app:layout_constraintTop_toBottomOf="@+id/header_line"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/labelSearch" />
 
     <TextView
         android:id="@+id/labelDisclaimer"
         style="@style/ButtonLabels"
+        android:layout_height="31dp"
+        android:textSize="11dp"
         android:text="Disclaimer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/vert2"
-        app:layout_constraintTop_toBottomOf="@+id/btnDisclaimer" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDisclaimer"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/vert1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_begin="183dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/vert2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="1.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/header_line"

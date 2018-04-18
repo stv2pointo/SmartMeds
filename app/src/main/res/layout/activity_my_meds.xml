@@ -19,7 +19,7 @@
         android:id="@+id/rvMyMeds"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/bottom_nav_view"
         android:layout_below="@+id/textView"
         android:background="@color/gray_300"
         android:padding="8dp"

@@ -49,7 +49,7 @@
             android:id="@+id/etDosage"
             style="@style/EditPillFields"
             android:layout_weight="3.5"
-            android:hint="ex: 100 Mg" />
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -64,11 +64,12 @@
             style="@style/EditPillLabels"
             android:layout_weight="1"
             android:text="Directions: "/>
+
         <EditText
             android:id="@+id/etDirections"
             style="@style/EditPillFields"
             android:layout_weight="3.5"
-            android:hint="ex: Take with food"/>
+            android:hint="ex: Take 2 per day with food" />
     </LinearLayout>
 
     <LinearLayout
