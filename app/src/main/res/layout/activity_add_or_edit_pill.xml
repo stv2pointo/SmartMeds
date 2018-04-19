@@ -44,12 +44,13 @@
             android:id="@+id/tvDosageLabel"
             style="@style/EditPillLabels"
             android:layout_weight="1"
-            android:text="Dosage: " />
+            android:text="Dosage: "/>
         <EditText
             android:id="@+id/etDosage"
             style="@style/EditPillFields"
             android:layout_weight="3.5"
-            android:hint="ex: 100 Mg" />
+            android:hint="ex: 100 Mg"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -63,12 +64,13 @@
             android:id="@+id/tvDirectionsLabel"
             style="@style/EditPillLabels"
             android:layout_weight="1"
-            android:text="Directions: " />
+            android:text="Directions: "/>
+
         <EditText
             android:id="@+id/etDirections"
             style="@style/EditPillFields"
             android:layout_weight="3.5"
-            android:hint="ex: Take with food" />
+            android:hint="ex: Take 2 per day with food" />
     </LinearLayout>
 
     <LinearLayout
@@ -82,7 +84,7 @@
             android:id="@+id/tvDoctorLabel"
             style="@style/EditPillLabels"
             android:layout_weight="1"
-            android:text="Doctor: " />
+            android:text="Doctor: "/>
         <EditText
             android:id="@+id/etDoctor"
             style="@style/EditPillFields"
@@ -101,12 +103,14 @@
             android:id="@+id/tvPharmacyLabel"
             style="@style/EditPillLabels"
             android:layout_weight="1"
-            android:text="Pharmacy: " />
+            android:layout_height="match_parent"
+            android:gravity="end|top"
+            android:text="Pharmacy: "/>
         <EditText
             android:id="@+id/etPharmacy"
             style="@style/EditPillFields"
             android:layout_weight="3.5"
-            android:hint="ex:\nWalgreens\n123 Main St.\nYourTown, USA" />
+            android:hint="ex: Walgreens\n123 Main St.\nYourTown, USA" />
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -82,7 +81,6 @@ public class SearchActivity extends AppCompatActivity implements BottomNavigatio
 
     private void initializeUiComponents() {
         recyclerView = findViewById(R.id.recVwResultList);
-//        btnLoadList = findViewById(R.id.btnLoadList);
         btnLoadList = findViewById(R.id.btnLoadList);
         etImprint = findViewById(R.id.etImprint);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

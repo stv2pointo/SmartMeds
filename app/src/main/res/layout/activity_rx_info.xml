@@ -5,37 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.stvjuliengmail.smartmeds.activity.RxInfoActivity">
+
     <TextView
         android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/gray_300"
+        android:gravity="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:background="@color/gray_300"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvName" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--app:layout_constraintEnd_toStartOf="@+id/guideline4"-->
     <TextView
         android:id="@+id/tvFullName"
+        style="@style/TvPillFields"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/TvPillFields"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,49 +44,53 @@
 
     <TextView
         android:id="@+id/tvClassLabel"
+        style="@style/TvPillLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TvPillLabels"
+        android:layout_marginStart="4dp"
         android:text="Drug Class: "
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/one_fifth_over"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/tvClassName"
+        style="@style/TvPillFields"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TvPillFields"
         android:text="Searching..."
         app:layout_constraintStart_toEndOf="@+id/tvClassLabel"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/tvMayTreatLabel"
+        style="@style/TvPillLabels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/TvPillLabels"
+        android:layout_marginStart="4dp"
         android:text="May Treat: "
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/one_fifth_over"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvClassLabel" />
 
     <ScrollView
         android:id="@+id/svMayTreat"
         android:layout_width="0dp"
         android:layout_height="125dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/border_style"
         android:fadeScrollbars="false"
-        app:layout_constraintStart_toEndOf="@+id/tvMayTreatLabel"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvMayTreatLabel"
         app:layout_constraintTop_toBottomOf="@+id/tvClassName">
 
         <TextView
             android:id="@+id/tvMayTreat"
+            style="@style/TvPillFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TvPillFields"
             android:text="Searching..." />
     </ScrollView>
 
@@ -94,25 +98,16 @@
         android:id="@+id/fragment_container_my_med"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintBottom_toBottomOf="parent">
-    </FrameLayout>
+        app:layout_constraintStart_toStartOf="parent"></FrameLayout>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3522505" />
+        app:layout_constraintGuide_percent="0.45" />
 
     <android.support.constraint.Guideline
         android:id="@+id/one_fifth_over"

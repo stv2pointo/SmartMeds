@@ -101,18 +101,9 @@
                 android:id="@+id/btnLoadList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/ic_search_meds"
+                android:drawableTop="@drawable/ic_search_lg"
                 android:background="@android:color/transparent"
                 android:paddingTop="10dp" />
-            <!--<ImageButton-->
-                <!--android:id="@+id/btnLoadList"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginHorizontal="5dp"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:padding="5dp"-->
-                <!--android:scaleType="fitCenter"-->
-                <!--android:src="@drawable/search" />-->
         </LinearLayout>
     </LinearLayout>
 
