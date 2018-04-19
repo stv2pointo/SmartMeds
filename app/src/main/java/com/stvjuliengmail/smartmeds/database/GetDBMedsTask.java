@@ -4,10 +4,13 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 import com.stvjuliengmail.smartmeds.activity.MyMedsActivity;
+import com.stvjuliengmail.smartmeds.api.MyInteractionsTask;
 import com.stvjuliengmail.smartmeds.model.MyMed;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Steven on 3/8/2018.
@@ -42,7 +45,11 @@ public class GetDBMedsTask extends AsyncTask <String, Integer, ArrayList<MyMed>>
         MyMedsActivity activity = weakActivity.get();
         if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
             activity.setMyMeds(myMeds);
-            activity.checkForInteractions();
+            ArrayList<String> rxcuiList = new ArrayList<String>();
+            for (MyMed myMed : myMeds) {
+                rxcuiList.add(myMed.getRxcui());
+            }
+            new MyInteractionsTask(activity, rxcuiList.toArray(new String[rxcuiList.size()])).execute("");
         }
 
     }
