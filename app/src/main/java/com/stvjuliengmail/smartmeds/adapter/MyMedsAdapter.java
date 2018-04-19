@@ -14,9 +14,9 @@ import com.stvjuliengmail.smartmeds.R;
 import com.stvjuliengmail.smartmeds.api.ImageDownloadTask;
 import com.stvjuliengmail.smartmeds.model.MyMed;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
+
+import static com.stvjuliengmail.smartmeds.R.id.my_meds_item_layout;
 
 /**
  * Created by Steven on 3/1/2018.
@@ -42,8 +42,7 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
     public class MyMedsViewHolder extends RecyclerView.ViewHolder {
         LinearLayout resultsLayout;
         ImageView ivPillImage;
-        TextView tvPillName;
-        TextView tvDirections;
+        TextView tvPillName, tvDirections, tvDose;
         String rxcui;
         int position = 0;
 
@@ -62,10 +61,11 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
                     return true;
                 }
             });
-            resultsLayout = (LinearLayout) v.findViewById(R.id.my_meds_item_layout);
-            ivPillImage = (ImageView) v.findViewById(R.id.ivPillImage);
-            tvPillName = (TextView) v.findViewById(R.id.tvPillName);
-            tvDirections = (TextView) v.findViewById(R.id.tvDirections);
+            resultsLayout = v.findViewById(my_meds_item_layout);
+            ivPillImage = v.findViewById(R.id.ivPillImage);
+            tvPillName = v.findViewById(R.id.tvPillName);
+            tvDirections = v.findViewById(R.id.tvDirections);
+            tvDose = v.findViewById(R.id.tvDose);
         }
     }
     public void setOnItemClickListener(RecyclerViewItemClickListener recyclerViewItemClickListener) {
@@ -93,9 +93,11 @@ public class MyMedsAdapter extends RecyclerView.Adapter<MyMedsAdapter.MyMedsView
         } catch (Exception e) {
             e.printStackTrace();
         }
-        holder.tvPillName.setText(results.get(position).getName());
-        holder.tvDirections.setText(results.get(position).getDirections());
-        holder.rxcui = results.get(position).getRxcui();
+        MyMed myMed = results.get(position);
+        holder.tvPillName.setText(myMed.getName());
+        holder.tvDirections.setText(myMed.getDirections());
+        holder.tvDose.setText(myMed.getDosage());
+        holder.rxcui = myMed.getRxcui();
         holder.position = position;
     }
 
