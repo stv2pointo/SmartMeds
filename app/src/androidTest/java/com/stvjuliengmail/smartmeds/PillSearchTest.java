@@ -3,9 +3,6 @@ package com.stvjuliengmail.smartmeds;
 /**
  * Created by Steven on 2/26/2018.
  */
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -15,12 +12,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
-import static android.support.test.espresso.Espresso.*;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static android.support.test.espresso.action.ViewActions.*;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -41,14 +37,14 @@ public class PillSearchTest {
 
     @Test
     public void searchOnExactNameTest() {
-        onView(withId(R.id.etName)).perform(typeText("Levoxyl"), closeSoftKeyboard());
+        onView(withId(R.id.autoName)).perform(typeText("Levoxyl"), closeSoftKeyboard());
         onView(withId(R.id.btnLoadList)).perform(click());
         onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(5));
     }
 
     @Test
     public void searchOnShortNameTest() {
-        onView(withId(R.id.etName)).perform(typeText("aa"), closeSoftKeyboard());
+        onView(withId(R.id.autoName)).perform(typeText("aa"), closeSoftKeyboard());
         onView(withId(R.id.btnLoadList)).perform(click());
         onView(withId(R.id.recVwResultList)).check(new RecyclerViewItemCountAssertion(0));
     }
